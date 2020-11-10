@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AccessController" representedClassName="AccessController" syncable="YES">
+        <attribute name="bottelsAvailable" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="currentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="premiumAccount" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="GotWater" representedClassName="GotWater" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isOzType" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="volumeGet" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="volumeTarget" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="gotWaters" inverseEntity="User"/>
+    </entity>
+    <entity name="NotificationsTime" representedClassName="NotificationsTime" syncable="YES">
+        <attribute name="notificationTime" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="notification" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notificaton" inverseName="notificationsTime" inverseEntity="Notificaton"/>
+    </entity>
+    <entity name="Notificaton" representedClassName="Notificaton" syncable="YES">
+        <attribute name="isActive" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isCommon" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="start" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="stop" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="times" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="notificationsTime" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="NotificationsTime" inverseName="notification" inverseEntity="NotificationsTime"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="notifications" inverseEntity="User"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="currentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currentUser" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="currentVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="currentVolumeInBottle" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="fullVolume" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="identifire" optional="YES" attributeType="String"/>
+        <attribute name="isAutoFillBottleType" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isEmptyBottle" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="middlePourWaterVolume" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="notificationIdentifire" optional="YES" attributeType="String"/>
+        <attribute name="volumeType" optional="YES" attributeType="String"/>
+        <relationship name="gotWaters" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GotWater" inverseName="user" inverseEntity="GotWater"/>
+        <relationship name="notifications" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Notificaton" inverseName="user" inverseEntity="Notificaton"/>
+    </entity>
+    <entity name="UserWaterGraph" representedClassName="UserWaterGraph" syncable="YES"/>
+    <elements>
+        <element name="AccessController" positionX="-54" positionY="81" width="128" height="88"/>
+        <element name="GotWater" positionX="-54" positionY="18" width="128" height="118"/>
+        <element name="NotificationsTime" positionX="-45" positionY="54" width="128" height="73"/>
+        <element name="Notificaton" positionX="-54" positionY="36" width="128" height="163"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="253"/>
+        <element name="UserWaterGraph" positionX="-36" positionY="54" width="128" height="43"/>
+    </elements>
+</model>
