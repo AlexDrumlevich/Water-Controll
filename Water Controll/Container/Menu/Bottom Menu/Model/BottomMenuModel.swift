@@ -10,7 +10,7 @@ import UIKit
 
 
 enum BottomMenuModelIdentifire: String {
-    case pourWaterIntoGlass, pourWaterIntoBottle, getOneMoreBottleInBottomMenu, notification, graph, settings, closeCustomAlerts
+    case pourWaterIntoGlass, pourWaterIntoBottle, getOneMoreBottleInBottomMenu, notification, graph, settings, closeCustomAlerts, adsSettings
 }
 
 
@@ -25,11 +25,17 @@ struct BottomMenuModel {
         let graphItem = BottomMenuModel(image: UIImage(named: BottomMenuModelIdentifire.graph.rawValue), identifire: .graph)
         let settingsItem = BottomMenuModel(image: UIImage(named: BottomMenuModelIdentifire.settings.rawValue), identifire: .settings)
         let getOneMoreBottle = BottomMenuModel(image: UIImage(named: BottomMenuModelIdentifire.getOneMoreBottleInBottomMenu.rawValue), identifire: .getOneMoreBottleInBottomMenu)
+        let adsSettings = BottomMenuModel(image: UIImage(named: BottomMenuModelIdentifire.adsSettings.rawValue), identifire: .adsSettings)
         
         var content = [pourWaterIntoGlassItem, pourWaterIntoBottleItem, notificationItem, graphItem, settingsItem]
         //if we dont`t have premium we add get one more bottle
         if !isPremiumAccount {
+            if content.count > 3 {
             content.insert(getOneMoreBottle, at: 2)
+            } else {
+                content.append(getOneMoreBottle)
+            }
+            content.append(adsSettings)
         }
         
         return content

@@ -19,8 +19,9 @@ extension User {
 
     @NSManaged public var currentDate: Date?
     @NSManaged public var currentUser: Bool
+    // volume was drank
     @NSManaged public var currentVolume: Float
-    //volume to get scale for render water level in bottle
+    //volume in bottle
     @NSManaged public var currentVolumeInBottle: Float
     @NSManaged public var fullVolume: Float
     @NSManaged public var identifire: String?

@@ -11,7 +11,8 @@ import GoogleMobileAds
 
 class MenuViewController: UIViewController {
     
-    
+    //product url
+    var productURLString = ""
     
     let constraintConstant: CGFloat = 5
     var gameSceneController: GameViewController?
@@ -20,7 +21,7 @@ class MenuViewController: UIViewController {
     var currentUser: User! {
         didSet {
             //set text in label
-            setupTextInPouredWaterLabel()
+            setupTextInPouredWaterLabel(isTheAimReached: false)
             gameSceneController?.currentUser = currentUser
             
             // auto fill system - if current user have auto fill, other user we will check when we change them in func change user
@@ -37,19 +38,28 @@ class MenuViewController: UIViewController {
    // acceess controller
     var accessController: AccessController?
     
-    
+    //get one more bottle
+    let maxAvailableBottles = 9
     
     //The rewarded video ad.
     var rewardedAd: GADRewardedAd?
     var needsTimesToLoadRewardedAd: Int = 0
+    //later
     let rewardedAdId = "ca-app-pub-3940256099942544/1712485313"
+    //flag to load new video after watching
     var adLoadCount = 1
+    //waiting time to watch new reward video
+    let minWaitingTimeSecondsBetweenShowingRewardVideo = 60
     
+    
+    
+    //activity indicator
+    var activityIndicatorInMenuViewController: UIActivityIndicatorView?
     
     //bottom menu
     var bottomMenuCollectionView = BottomMenuCollectionView()
     var countLabelAvailableBottlesInCell: UILabel?
-    
+    var isNeedToAnimateBottomMenu = true
     //graph view
     var graphView: UIView?
     var gotWatersDataLinkToDelete: NSMutableOrderedSet?
@@ -60,7 +70,7 @@ class MenuViewController: UIViewController {
     var countDaysHistoryToDelete: Int?
     var deleletLabel: UILabel?
     var countDeletDaysHistirySlider: UISlider?
-    
+    var blurViewForGraphView: UIVisualEffectView?
     
     
     
@@ -78,6 +88,7 @@ class MenuViewController: UIViewController {
     var pickerSpinTimes = 0
     var willPourWaterVolume: Int16!
     var pickers: [UIPickerView]!
+    var blurViewForPourWaterMenuIntoGlass: UIVisualEffectView!
     
     // create name label - user`s name
     let nameLabel: UILabel = {
@@ -156,6 +167,19 @@ class MenuViewController: UIViewController {
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if isNeedToAnimateBottomMenu {
+            //animate bottom menu collection view
+            let indexOfLastItemInBottomMenuCollectionView = bottomMenuCollectionView.numberOfItems(inSection: 0) - 1
+            
+            bottomMenuCollectionView.scrollToItem(at: IndexPath(item: indexOfLastItemInBottomMenuCollectionView, section: 0), at: .right, animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+                self.bottomMenuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                self.isNeedToAnimateBottomMenu = false
+            }
+        }
+    }
+    
     
     func addSubviews() {
         view.addSubview(bottomMenuCollectionView)
@@ -173,7 +197,8 @@ class MenuViewController: UIViewController {
         // constraints for bottomMenuCollectionView
         bottomMenuCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         bottomMenuCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        bottomMenuCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+
+        bottomMenuCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         bottomMenuCollectionView.heightAnchor.constraint(equalToConstant: view.bounds.width / 4).isActive = true
         //set content to bottom menu collection view
         var isPremium = false
@@ -188,32 +213,56 @@ class MenuViewController: UIViewController {
     
     //setupTextInPouredWaterLabel
     
-    func setupTextInPouredWaterLabel() {
+    func setupTextInPouredWaterLabel(isTheAimReached: Bool) {
         
-        guard  currentUser != nil else {
+        
+        guard  self.currentUser != nil else {
             return
         }
         
-        nameLabel.text = currentUser.name
-        let mlText = "ml"
         
-        let waterWasDrunk = currentUser.volumeType == "oz" ? String(Int(currentUser.currentVolume)) : currentUser.currentVolume >= 1.0 ? String(currentUser.currentVolume) : String(format: "%.0f", (currentUser.currentVolume) * 1000) + " " + mlText
         
-        let fullBottleVolume = currentUser.volumeType == "oz" ? String(format: "%.0f", currentUser.fullVolume) : currentUser.fullVolume >= 1.0 ? String(Float(round(currentUser.fullVolume * 100) / 100)) : String(format: "%.0f", currentUser.fullVolume * 1000)
+        self.nameLabel.text = self.currentUser.name
         
-        let type = currentUser.volumeType == "oz" ? currentUser.volumeType ?? "oz" : currentUser.fullVolume >= 1.0 ? currentUser.volumeType ?? "liter" : "ml"
         
-        let waterWasDrunkPercentsFloat = currentUser.currentVolume * 100 / currentUser.fullVolume
-        
-        let waterWasDrunkPercentsFloatRounded = roundf(waterWasDrunkPercentsFloat)
-        
-        let waterWasDrunkPercents = String(format: "%.0f", waterWasDrunkPercentsFloatRounded)
-        
-        let waterWasDrunkText = String("Progress")
-        
-        let textLabel = waterWasDrunkText + ": " + waterWasDrunk + " out of " + fullBottleVolume + " " + type + " ("  + waterWasDrunkPercents + " %)"
-        pouredWaterLabel.text = textLabel
+        if isTheAimReached {
+            self.pouredWaterLabel.text = "The aim reached !!!"
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+                self.calculateText()
+            }
+        } else {
+            
+            calculateText()
+        }
     }
+     
+        private func calculateText() {
+            
+                
+                let mlText = "ml"
+                
+                let waterWasDrunk = self.currentUser.volumeType == "oz" ? String(Int(self.currentUser.currentVolume)) : self.currentUser.currentVolume >= 1.0 ? String(self.currentUser.currentVolume) : String(format: "%.0f", (self.currentUser.currentVolume) * 1000) + " " + mlText
+                
+                let fullBottleVolume = self.currentUser.volumeType == "oz" ? String(format: "%.0f", self.currentUser.fullVolume) : self.currentUser.fullVolume >= 1.0 ? String(Float(round(self.currentUser.fullVolume * 100) / 100)) : String(format: "%.0f", self.currentUser.fullVolume * 1000)
+                
+                let type = self.currentUser.volumeType == "oz" ? self.currentUser.volumeType ?? "oz" : self.currentUser.fullVolume >= 1.0 ? self.currentUser.volumeType ?? "liter" : "ml"
+                
+                let waterWasDrunkPercentsFloat = self.currentUser.currentVolume * 100 / self.currentUser.fullVolume
+                
+                let waterWasDrunkPercentsFloatRounded = roundf(waterWasDrunkPercentsFloat)
+                
+                let waterWasDrunkPercents = String(format: "%.0f", waterWasDrunkPercentsFloatRounded)
+                
+                let waterWasDrunkText = String("Progress")
+                
+                let textLabel = waterWasDrunkText + ": " + waterWasDrunk + " out of " + fullBottleVolume + " " + type + " ("  + waterWasDrunkPercents + " %)"
+                self.pouredWaterLabel.text = textLabel
+            
+        }
+
+    
+    
+    
     
     
     //add PouredWaterLabel setup constraints for PouredWaterLabel

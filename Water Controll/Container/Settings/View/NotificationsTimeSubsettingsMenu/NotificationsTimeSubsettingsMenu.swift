@@ -14,14 +14,20 @@ extension SettingsViewController {
     //create NotificationsTimeSubsettingsMenu
     func createNotificationsTimeSubsettingsMenu() {
         
+        notificationSubsettingsMenu.isHidden = true
         notificationsTimeSubsettingsMenu = UITableView()
         notificationsTimeSubsettingsMenu.tag = 2
         notificationsTimeSubsettingsMenu.delegate = self
         notificationsTimeSubsettingsMenu.dataSource = self
         // lines between cells
         notificationsTimeSubsettingsMenu.separatorStyle = .singleLine
-        //background for tableView
-        notificationsTimeSubsettingsMenu.backgroundColor = .darkGray
+        notificationsTimeSubsettingsMenu.separatorColor = #colorLiteral(red: 0.1640408039, green: 0.2041007578, blue: 1, alpha: 1)
+        //background tableView
+        notificationsTimeSubsettingsMenu.backgroundColor = UIColor(displayP3Red: 248, green: 248, blue: 255, alpha: 0.4)
+        //corner radius
+        notificationsTimeSubsettingsMenu.layer.cornerRadius = 10
+        notificationsTimeSubsettingsMenu.clipsToBounds = true
+        
         //register cell
         notificationsTimeSubsettingsMenu.register(NotificationsTimeSubsettingsMenuCell.self, forCellReuseIdentifier: NotificationsTimeSubsettingsMenuCell.cellID)
         
@@ -35,6 +41,8 @@ extension SettingsViewController {
     
     //delete NotificationsTimeSubsettingsMenu
     func deleteNotificationsTimeSubsettingsMenu() {
+    
+        notificationSubsettingsMenu.isHidden = false
         notificationsTimeSubsettingsMenu.delegate = nil
         notificationsTimeSubsettingsMenu.dataSource = nil
         notificationsTimeSubsettingsMenu.removeFromSuperview()

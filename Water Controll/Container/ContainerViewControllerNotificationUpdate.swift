@@ -44,7 +44,6 @@ extension ContainerViewController {
         var notificationsDataArrayToSetNotificationCreating = [NotificationDataToNotificationsCreate]()
         
         let date = Date()
-        let georgianCalendar = Calendar.Identifier.gregorian
         let calendar = Calendar.current
         
         let day = calendar.component(.weekday, from: date)

@@ -13,18 +13,23 @@ import SceneKit
 
 //for send type of actions after animation
 enum TypeAnimationComplitionFromMenuViewController {
-    case openPourWaterIntoGlass, pourWaterIntoBottle
+    case openPourWaterIntoGlass, pourWaterIntoBottle, transferCurrentUserInMenuViewController
 }
 
 class GameViewController: UIViewController {
     
+    var isChangeWaterLevelFromPourWaterInBottle = false
     
     var currentWaterLevel: Float? = nil {
         didSet {
             guard currentWaterLevel != nil else {
                 return
             }
-            
+            if currentUser != nil {
+                let waterWasDrunkPercentsNewValue = currentUser!.currentVolume * 100 / currentUser!.fullVolume
+                let waterWasDrunkPercentsNewValueRounded = roundf(waterWasDrunkPercentsNewValue)
+                self.isGlassesPutOn = waterWasDrunkPercentsNewValueRounded >= 100
+            }
             setupWaterLevel(from: oldValue)
         }
     }
@@ -42,11 +47,48 @@ class GameViewController: UIViewController {
     var lightNode: SCNNode? = nil
     var ambientLightNode: SCNNode? = nil
     
-    var bottleEmptyNode: SCNNode? = nil
-    var waterNode: SCNNode? = nil
+    var bottleEmptyNode: SCNNode?
+    var waterNode: SCNNode?
+    var pupilsNode: SCNNode?
+    var emptyGlassesNode: SCNNode?
     var menuViewController: MenuViewController?
     
+    //bottle walking
+    var emptyBottleNodeFirstPosition: SCNVector3?
+    //left -right
+    let possibleDistanceRangeX = -3...3
+    //up - down
+    let possibleDistanceRangeY = -3...3
+    // ahead - back
+    let possibleDistanceRangeZ = -5...3
     
+    //bottle rotation
+    
+    let possibleAngleRange = -0.1 ... 0.1
+    
+    
+    //pupils movement
+    var pupilsNodeFirstPosition: SCNVector3?
+    //left -right
+    let possibleDistancePupilsMovementRangeX = -0.01 ... 0.01
+    //up - down
+    let possibleDistancePupilsMovementRangeY = -0.02 ... 0.02
+    // ahead - back
+    let possibleDistancePupilsMovementRangeZ = -0.01 ... 0.01
+    
+    // rain - pouer water is bottle
+    var rainNode: SCNNode?
+    var rainNodePosition: SCNVector3?
+    var finishRainNode: SCNNode?
+    var finishRainNodePosition: SCNVector3?
+    var countOfRainAction = 3
+    
+    // aim reched
+    var cupNode: SCNNode?
+    var needToAimReachAction = false
+    
+    //glasses put on / off
+    var isGlassesPutOn = false
     
     
     
@@ -66,9 +108,21 @@ class GameViewController: UIViewController {
         
         //create bottle and other parts
         bottleEmptyNode = scene.rootNode.childNode(withName: "bottleEmptyNode", recursively: true)!
+        pupilsNode = scene.rootNode.childNode(withName: "pupilsNode", recursively: true)!
         waterNode = scene.rootNode.childNode(withName: "water", recursively: true)!
+        cupNode = scene.rootNode.childNode(withName: "cupNode", recursively: true)
+        cupNode?.isHidden = true
+        // glasses
+        emptyGlassesNode = scene.rootNode.childNode(withName: "emptyGlassesNode", recursively: true)
+        emptyGlassesNode?.isHidden = true
         
-        
+        //pour water
+        rainNode = scene.rootNode.childNode(withName: "rain", recursively: true)
+        rainNode?.isHidden = true
+        rainNodePosition = rainNode?.position
+        finishRainNode = scene.rootNode.childNode(withName: "finishRainNode", recursively: true)
+        finishRainNodePosition = finishRainNode?.position
+    
         
         // animate the 3d object
         //  ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
@@ -89,8 +143,16 @@ class GameViewController: UIViewController {
         scnView.backgroundColor = UIColor.black
         
         // add a tap gesture recognizer
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-        scnView.addGestureRecognizer(tapGesture)
+        // let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        //scnView.addGestureRecognizer(tapGesture)
+        
+        // get first position on empty bottle node
+        emptyBottleNodeFirstPosition = bottleEmptyNode?.position
+        pupilsNodeFirstPosition = pupilsNode?.position
+        startBottleAction()
+        startPupilMovements()
+        //addRainParticleSystem()
+        
     }
     
     
@@ -108,6 +170,8 @@ class GameViewController: UIViewController {
         lightNode = SCNNode()
         lightNode?.light = SCNLight()
         lightNode?.light!.type = .omni
+        //lightNode?.light?.temperature = 9000
+        //  lightNode?.light?.intensity = 3000
         lightNode?.position = SCNVector3(x: 0, y: 0 , z: 10)
         guard lightNode != nil else {return SCNNode()}
         return lightNode!
@@ -122,6 +186,30 @@ class GameViewController: UIViewController {
         guard ambientLightNode != nil else {return SCNNode()}
         return ambientLightNode!
     }
+    
+    
+    //    //add particle systems for rain
+    //    func addRainParticleSystem() {
+    //        let rainNode = SCNNode()
+    //
+    //        bottleEmptyNode?.addChildNode(rainNode)
+    //
+    //        let rainParticleSysyem = SCNParticleSystem()
+    //        rainNode.position = SCNVector3(0, 4, 0)
+    //        rainParticleSysyem.particleImage = UIImage(named: "rain")
+    //        rainParticleSysyem.birthRate = 100
+    //        rainParticleSysyem.blendMode = .screen
+    //        rainParticleSysyem.particleColor = .blue
+    //        rainParticleSysyem.particleLifeSpan = 3
+    //        rainParticleSysyem.li
+    //        rainParticleSysyem.emittingDirection = SCNVector3(0, 1, 0)
+    //        rainParticleSysyem.particleSize = 1
+    //        rainParticleSysyem.warmupDuration = 10
+    //        rainNode.addParticleSystem(rainParticleSysyem)
+    //
+    //
+    //    }
+    
     
     
     //create bottle and othe bottle`s parts
@@ -141,53 +229,146 @@ class GameViewController: UIViewController {
     
     
     
+    
+    
     //set scale and visible for water nodes
     func setupWaterLevel(from oldValue: Float?) {
         
-        let waterLevel = currentWaterLevel ?? 1
-        let timeDurationAnimation = 1.0
-        //current scale
-        var startScaleY = waterNode?.scale.y ?? 0
-        if startScaleY.isNaN {
-            startScaleY = 0
-        }
-        //different between new and old scales on which we need to change scale
-        let differentScaleY = waterLevel - startScaleY
+        //  richedAimAction()
         
-        // create action (animation)
-        let scaleAnimation = SCNAction.customAction(duration: timeDurationAnimation) { (node, timeLeftFromBegin) in
-            //calculate scale in moments of animation
-            let currentScaleY = startScaleY + differentScaleY * (Float(timeLeftFromBegin) / Float(timeDurationAnimation))
+        //bottle go home
+        let timeDurationAnimation = 2.0
+        bottleGoHome {
             
-            //set z scale
-            var scaleZ: Float = 1.0
-            if currentScaleY <= 0.3 {
-                let scalePercent = currentScaleY / 0.3 * 0.12
-                scaleZ = scalePercent == 0 ? 0 : 0.88 + scalePercent
+            let waterLevel = self.currentWaterLevel ?? 1
+            
+            //current scale
+            var startScaleY = self.waterNode?.scale.y ?? 0
+            if startScaleY.isNaN {
+                startScaleY = 0
             }
-            node.scale = SCNVector3(x: 1, y: currentScaleY, z: scaleZ)
-            print("currentScaleY: \(currentScaleY), z: \(scaleZ)")
-        }
-        
-        //apply action
-        waterNode?.runAction(scaleAnimation, completionHandler: {
-            //complition block after animation (action)
-            print("Scale animation compleated")
-            if self.menuViewController != nil {
-                //open PourWaterMenu if menuViewController is not nil (we set menuViewController from MenuViewController when we pour water and user isn`t single
-                DispatchQueue.main.async {
-                    switch self.typeAnimationComplitionFromMenuViewController {
-                    case .openPourWaterIntoGlass:
-                        self.menuViewController?.showPourWaterMenu()
-                        
-                    case .pourWaterIntoBottle:
-                        self.menuViewController?.pourWaterIntoBottle(with: self.menuViewController?.accessController)
+            //different between new and old scales on which we need to change scale
+            let differentScaleY = waterLevel - startScaleY
+            
+            // create action (animation)
+            let scaleAnimation = SCNAction.customAction(duration: timeDurationAnimation) { (node, timeLeftFromBegin) in
+                //calculate scale in moments of animation
+                let currentScaleY = startScaleY + differentScaleY * (Float(timeLeftFromBegin) / Float(timeDurationAnimation))
+                
+                //set z scale
+                var scaleZ: Float = 1.0
+                if currentScaleY <= 0.3 {
+                    let scalePercent = currentScaleY / 0.3 * 0.12
+                    scaleZ = scalePercent == 0 ? 0 : 0.88 + scalePercent
+                }
+                node.scale = SCNVector3(x: 1, y: currentScaleY, z: scaleZ)
+                print("currentScaleY: \(currentScaleY), z: \(scaleZ)")
+            }
+            
+            if self.needToAimReachAction {
+                
+                self.richedAimAction {
+                    DispatchQueue.main.async {
+                        self.putOnGlasses()
+                        self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: false)
                     }
-                    self.menuViewController = nil
+                }
+            } else {
+                
+                // if we poure water in bottle
+                if self.isChangeWaterLevelFromPourWaterInBottle {
+                    self.isChangeWaterLevelFromPourWaterInBottle = false
+                    self.rainNode?.runAction(self.preparationToRainAction(withDuration:  timeDurationAnimation / 3), completionHandler: {
+                        DispatchQueue.main.async {
+                            self.rainNode?.isHidden = true
+                            if self.rainNodePosition != nil {
+                                self.rainNode?.position = self.rainNodePosition!
+                            }
+                            self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: true)
+                        }
+                    })
+                    
+                } else {
+                    if self.isGlassesPutOn {
+                        self.putOnGlasses()
+                    } else {
+                        self.putOffGlasses()
+                    }
+                    self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: false)
+                }
+            }
+        }
+    }
+    
+    
+    
+    private func waterChangeAction(scaleAnimation: SCNAction, timeDurtionAnimation: Double, needRainAction: Bool) {
+        
+        //apply change lewel water action
+        DispatchQueue.main.async {
+            //rain action
+            
+            if  needRainAction {
+                self.rainAction(withDuration: timeDurtionAnimation / 3)
+            }
+            //water action
+            self.waterNode?.runAction(scaleAnimation, completionHandler: {
+                
+                //complition block after animation (action)
+                //start walking
+                self.startBottleAction()
+                print("Scale animation compleated")
+                if self.menuViewController != nil {
+                    //open PourWaterMenu if menuViewController is not nil (we set menuViewController from MenuViewController when we pour water and user isn`t single
+                    DispatchQueue.main.async {
+                        
+                        switch self.typeAnimationComplitionFromMenuViewController {
+                        case .openPourWaterIntoGlass:
+                            self.menuViewController?.showPourWaterMenu()
+                            
+                        case .pourWaterIntoBottle:
+                            self.menuViewController?.pourWaterIntoBottle(with: self.menuViewController?.accessController)
+                        
+                        case .transferCurrentUserInMenuViewController:
+                            self.menuViewController?.currentUser = self.currentUser
+                        }
+                       
+                        self.menuViewController = nil
+                    }
+                }
+            })
+        }
+    }
+    
+    
+    
+    func rainAction(withDuration: Double) {
+        
+        rainNode?.runAction(preparationToRainAction(withDuration:  withDuration), completionHandler: {
+            DispatchQueue.main.async {
+                self.countOfRainAction -= 1
+                self.rainNode?.isHidden = true
+                if self.rainNodePosition != nil {
+                    self.rainNode?.position = self.rainNodePosition!
+                }
+                if self.countOfRainAction == 0 {
+                    self.countOfRainAction = 3
+                } else {
+                    self.rainAction(withDuration: withDuration)
                 }
             }
         })
     }
+    
+    private func preparationToRainAction(withDuration: Double) -> SCNAction {
+        guard finishRainNodePosition != nil && rainNodePosition != nil else {
+            rainNode?.isHidden = true
+            return SCNAction.fadeIn(duration: 0)
+        }
+        rainNode?.isHidden = false
+        return SCNAction.move(to: finishRainNodePosition!, duration: withDuration)
+    }
+    
     
     @objc
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {

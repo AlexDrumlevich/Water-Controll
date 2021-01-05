@@ -31,10 +31,10 @@ extension MenuViewController: UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         pickerSpinTimes += 1
-          //disable buttons
+        //disable buttons
         cancelButtonInPourWaterMenu.isEnabled = false
         pourWaterButton.isEnabled = false
-            
+        
         var pickerViewLabel = UILabel()
         if let currentLabel = view as? UILabel {
             pickerViewLabel = currentLabel
@@ -42,7 +42,7 @@ extension MenuViewController: UIPickerViewDelegate {
             pickerViewLabel = UILabel()
         }
         
-        pickerViewLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        pickerViewLabel.textColor = #colorLiteral(red: 0.2688689828, green: 0.27911973, blue: 0.9976477027, alpha: 1)
         pickerViewLabel.textAlignment = .center
         pickerViewLabel.font = UIFont(name: "AmericanTypewriter", size: pickerView.bounds.width * 0.5)
         pickerViewLabel.text = String(row)
@@ -70,7 +70,7 @@ extension MenuViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //save volume bottle in fullBottleVolume from SettingsViewController.swift
         
-       var underMimimumLevel = true
+        var underMimimumLevel = true
         for picker in pickers {
             if picker.selectedRow(inComponent: 0) > 0 {
                 underMimimumLevel = false
@@ -90,8 +90,6 @@ extension MenuViewController: UIPickerViewDelegate {
         for picker in pickers {
             willPourWaterVolume += Int16(picker.selectedRow(inComponent: 0)) * multiplicator
             multiplicator *= 10
-                 }
-            
-        print(willPourWaterVolume)
+        }
     }
 }

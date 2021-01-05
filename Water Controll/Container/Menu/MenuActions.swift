@@ -27,9 +27,15 @@ extension MenuViewController {
         
     }
     
-    func getPremiumAccount() {
+    func becomePremiumAccountFromMenuViewController() {
         
-        print("You get premium account")
+        if let containerVC = self.parent as? ContainerViewController {
+            containerVC.becamePremiumAccaunt()
+        } else {
+           // getOneMoreBottleAdCustomAlertController()
+            print("error")
+        }
+       // print("You get premium account")
              
     }
     

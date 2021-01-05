@@ -1,9 +1,8 @@
 //
 //  AccessController+CoreDataClass.swift
-//  Water Controll
+//  
 //
-//  Created by ALEXEY DRUMLEVICH on 09.08.2020.
-//  Copyright © 2020 ALEXEY DRUMLEVICH. All rights reserved.
+//  Created by ALEXEY DRUMLEVICH on 03.01.2021.
 //
 //
 

@@ -15,6 +15,12 @@ class SettingsViewController: UIViewController {
     var settingsMode: SettingsModes = .waitAction
     var isSinglUser = true // to now if the user is single in all application
     
+    //produck web address
+    var productURLString = ""
+    
+    // acceess controller
+     var accessController: AccessController?
+    
     //custom Alert
     var alertControllerCustom: AlertControllerCustom?
     
@@ -22,6 +28,21 @@ class SettingsViewController: UIViewController {
     //action complition for buttons
     //clouse settings view controller - resolve in container view controller
     var settingsViewControllerComplitionActions: ((ContainerViewComplitionActions) -> Void)!
+    
+    
+    //add new user available
+    var isPlusButtonAvailableToMaxUsers = true {
+        
+        willSet {
+            plusButton.isEnabled = newValue
+            if newValue {
+                plusButton.alpha = 1
+            } else {
+                plusButton.alpha = 0
+            }
+        }
+        
+    }
     
     
     
@@ -37,7 +58,7 @@ class SettingsViewController: UIViewController {
     let backButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "backArrow"), for: .normal)
+        button.setImage(UIImage(named: "cancelSmallBlue"), for: .normal)
         return button
     }()
     
@@ -45,7 +66,8 @@ class SettingsViewController: UIViewController {
     let plusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "plus"), for: .normal)
+        button.setTitle("Add user", for: .normal)
+        //button.setImage(UIImage(named: "plus"), for: .normal)
         return button
     }()
     
@@ -80,7 +102,7 @@ class SettingsViewController: UIViewController {
     var youNameLabelInCell: UILabel!
     var volumeLabel: UILabel!
     var volumeBottleImageView: UIImageView!
-    var isAutoFillBottleTypeImageView: UIImageView!
+    var isAutoFillBottleTypeLabel: UILabel!
     //flag -  is key board hidden
     var isKeyboardHidden = true
     
@@ -107,7 +129,7 @@ class SettingsViewController: UIViewController {
     //ok and cancel buttons bottom constraint (for change them when keyboard shown or hidden
     var bottomOkButtonConstraint: NSLayoutConstraint!
     var bottomCancelButtonConstraint: NSLayoutConstraint!
- 
+    
     
     //create delete button - delete user
     let deleteButton: UIButton = {
@@ -138,10 +160,14 @@ class SettingsViewController: UIViewController {
     var isSubMinimumVolume = false
     //save volume until user pressed ok button
     var temperaryVolumeType: String? = nil ?? ""
+    var temperaryCurrentVolumeGotWater: Float?
+    var temporaryCurrentVolumeInBottle: Float?
+    
     //buttons for subsettings menu
     var literButton: UIButton!
     var ozButton: UIButton!
     let constraintConstant: CGFloat = 5
+    var blurViewForBottleVolumeMenu: UIVisualEffectView!
     
     
     //notification subsettings menu`s properties
@@ -162,12 +188,16 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .clear
+       
+    }
+    
+    func activation() {
         //add views into blur view
         addViews()
         
-
+        
         // addAndConfigureTableView - from file ExtentionSettingsViewControllerTableview
-        addAndConfigureTableView()
+        addAndConfigureTableView(isHidden: settingsMode == .needToSetupNotificationSettingsOnly)
         
         //add blurView into view and set constraints from file ExtentionSettingsViewControllerSetupButtonsAndLabels.swift
         setupBlurView()
@@ -209,8 +239,23 @@ class SettingsViewController: UIViewController {
         //add keyboard observer
         addKeyboardObserver()
         
+        setSettingsForSettingsVC()
+    }
+    
+    func updateSettingsViewController() {
+        nameLabel.text = currentUser.name
+        
+        setSettingsForSettingsVC()
+        
+        if tableViewMainSettings != nil {
+            tableViewMainSettings.reloadData()
+        }
+    }
+    
+    private func setSettingsForSettingsVC() {
         //hide left , right butoons if the sinfl user
         hiddenButtons(buttons: [leftButton, rightButton], isHidden: isSinglUser)
+        
         
         //setup buttons and open Volume Subsettings Menu depend on settings mode
         switch settingsMode {
@@ -221,12 +266,14 @@ class SettingsViewController: UIViewController {
         case .needToSetupVolumeSettings:
             hiddenButtons(buttons: [plusButton, backButton, deleteButton, leftButton, rightButton], isHidden: true)
             showVolumeSubsettingsMenu()
+        case .needToSetupNotificationSettingsOnly:
+            hiddenButtons(buttons: [plusButton, backButton, deleteButton, leftButton, rightButton], isHidden: true)
+            showNotificationSubsettingsMenu()
+            print(settingsMode)
         default:
             print(settingsMode)
         }
     }
-    
-    
     
     override func viewWillLayoutSubviews() {
         
@@ -236,6 +283,6 @@ class SettingsViewController: UIViewController {
         print("SettingsViewController delited")
     }
     
-
-    }
+    
+}
 

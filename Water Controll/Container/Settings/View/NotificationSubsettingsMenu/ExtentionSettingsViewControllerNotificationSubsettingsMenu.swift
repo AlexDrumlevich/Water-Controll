@@ -106,6 +106,13 @@ extension SettingsViewController {
     func createTableViewNotificationSubsettingsMenu() {
         //create table view
         DispatchQueue.main.async {
+            //hidden buttons
+            self.hiddenButtons(buttons: [self.cancelButton], isHidden: self.settingsMode == .newUser || self.settingsMode == .firstUser)
+            self.hiddenButtons(buttons: [self.okButton], isHidden: false)
+            self.buttonsEnable(buttons: [self.cancelButton], isEnable: true)
+            self.hiddenButtons(buttons: [self.plusButton, self.backButton, self.deleteButton, self.leftButton, self.rightButton], isHidden: true)
+            
+            self.tableViewMainSettings.isHidden = true
             self.isBlinkings = Array(repeating: false, count: 8)
             self.notificationSubsettingsMenu = UITableView()
             self.notificationSubsettingsMenu.tag = 1
@@ -113,8 +120,16 @@ extension SettingsViewController {
             self.notificationSubsettingsMenu.dataSource = self
             // lines between cells
             self.notificationSubsettingsMenu.separatorStyle = .singleLine
+            self.notificationSubsettingsMenu.separatorColor = #colorLiteral(red: 0.1640408039, green: 0.2041007578, blue: 1, alpha: 1)
             //background for tableView
-            self.notificationSubsettingsMenu.backgroundColor = .darkGray
+            self.notificationSubsettingsMenu.backgroundColor = UIColor(displayP3Red: 248, green: 248, blue: 255, alpha: 0.4)
+            
+            self.notificationSubsettingsMenu.layer.cornerRadius = 10
+            self.notificationSubsettingsMenu.clipsToBounds = true
+            
+            //set header view
+            self.setHeaderView()
+            
             //register cell
             self.notificationSubsettingsMenu.register(NotificationSubsettingsMenuCell.self, forCellReuseIdentifier: NotificationSubsettingsMenuCell.cellID)
             // add table view into view
@@ -126,13 +141,46 @@ extension SettingsViewController {
                 self.isAmStartTime = [Bool]()
             }
             
-            self.hiddenButtons(buttons: [self.cancelButton], isHidden: self.settingsMode == .newUser || self.settingsMode == .firstUser)
-            self.hiddenButtons(buttons: [self.okButton], isHidden: false)
-            self.buttonsEnable(buttons: [self.cancelButton], isEnable: true)
-            self.hiddenButtons(buttons: [self.plusButton, self.backButton, self.deleteButton, self.leftButton, self.rightButton], isHidden: true)
+         
         }
         
     }
+    
+    private func setHeaderView() {
+        
+        let label = UILabel()
+        //set text settings
+        label.textAlignment = .center
+
+      label.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.height * 1 / 30 )
+        label.textColor = .black//#colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
+        label.text = "Notifications"
+        
+        notificationSubsettingsMenu.tableHeaderView = label
+        notificationSubsettingsMenu.tableHeaderView?.bounds.size.height = view.bounds.height * 1 / 20
+        notificationSubsettingsMenu.tableHeaderView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    }
+    
+        /*
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+                label.numberOfLines = 0
+                NSLayoutConstraint.activate([
+                    label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16.0),
+                    label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16.0),
+                    label.topAnchor.constraint(equalTo: topAnchor),
+                    label.bottomAnchor.constraint(equalTo: bottomAnchor),
+                    ])
+            }
+
+            func configure(text: String) {
+                label.text = text
+            }
+*/
+        
+    
     
     // when the user tapped ok button
     //we call these method in complition handler of method create shadule notification, when will create last notification
@@ -161,7 +209,10 @@ extension SettingsViewController {
     func deleteNotificationSubsettingsMenu() {
         
         guard notificationSubsettingsMenu != nil else {return}
-            
+       
+        DispatchQueue.main.async {
+            self.tableViewMainSettings.isHidden = false
+        }
            
             self.isAmStopTime = nil
             self.isAmStartTime = nil
@@ -187,6 +238,7 @@ extension SettingsViewController {
     
     //setup constraints
     private func setupNotificationSubsettingsMenuConstraints() {
+    
         notificationSubsettingsMenu.translatesAutoresizingMaskIntoConstraints = false
         notificationSubsettingsMenu.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20).isActive = true
         notificationSubsettingsMenu.bottomAnchor.constraint(equalTo: okButton.topAnchor, constant: -20).isActive = true
@@ -257,8 +309,17 @@ extension SettingsViewController {
         
         //limit notifications time in a day
         cell.lessTimesButton.isEnabled = notification.times! > 2
+        if  cell.lessTimesButton.isEnabled {
+            cell.lessTimesButton.alpha = 1
+        } else {
+            cell.lessTimesButton.alpha = 0.2
+        }
         cell.moreTimesButton.isEnabled = checkMaxTimesLimit(of: notification)
-        
+        if  cell.moreTimesButton.isEnabled {
+            cell.moreTimesButton.alpha = 1
+        } else {
+            cell.moreTimesButton.alpha = 0.2
+        }
         //font settings
         configurateFontForSegmentedControllers(for: cell.segmentedControllCommonSettings)
         configurateFontForSegmentedControllers(for: cell.segmentedControllAvailabilityNotification)
@@ -767,7 +828,18 @@ extension SettingsViewController {
         if let plusButton = (notificationSubsettingsMenu.cellForRow(at: IndexPath(row: 0, section: senderIndex)) as? NotificationSubsettingsMenuCell)?.moreTimesButton,  let minusButton = (notificationSubsettingsMenu.cellForRow(at: IndexPath(row: 0, section: senderIndex)) as? NotificationSubsettingsMenuCell)?.lessTimesButton, let timesLabel = (notificationSubsettingsMenu.cellForRow(at: IndexPath(row: 0, section: senderIndex)) as? NotificationSubsettingsMenuCell)?.timesRepeatCountLabel {
             //disable more button if needed
             plusButton.isEnabled = checkMaxTimesLimit(of: notificationsStracture[senderIndex])
+            if plusButton.isEnabled {
+                plusButton.alpha = 1
+            } else {
+                plusButton.alpha = 0.2
+            }
             minusButton.isEnabled = notificationsStracture[senderIndex].times > 2
+            if minusButton.isEnabled {
+                minusButton.alpha = 1
+            } else {
+                minusButton.alpha = 0.2
+            }
+            
             // setup max times a day if needed
             if notificationsStracture[senderIndex].times > setupMaxNotificationsTimesADay(of: notificationsStracture[senderIndex]) {
                 notificationsStracture[senderIndex].times =  setupMaxNotificationsTimesADay(of: notificationsStracture[senderIndex])

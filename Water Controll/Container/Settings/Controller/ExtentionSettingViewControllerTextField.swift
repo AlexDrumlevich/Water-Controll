@@ -123,7 +123,8 @@ extension SettingsViewController {
         //setup user name from text field
         currentUser.name = name
         //setup plaseholder text
-        nameTextField.placeholder = currentUser.name
+        nameTextField.text = ""
+        nameTextField.placeholder = "Change name"//currentUser.name
         nameLabel.text = currentUser.name
         //save context in local data base - send this cjmplition in container view controller
         settingsViewControllerComplitionActions(.saveContextInLocalDataBase)

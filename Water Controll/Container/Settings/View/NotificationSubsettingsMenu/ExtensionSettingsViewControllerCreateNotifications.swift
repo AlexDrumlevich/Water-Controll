@@ -35,11 +35,22 @@ extension SettingsViewController {
                     }
                 }
             case .denied:
+                var showAlertInMenuVC = false
                 if self.settingsMode == .firstUser || self.settingsMode == .newUser || self.settingsMode == .needToSetupNotificationSettingsOnly {
+                    showAlertInMenuVC = true
+                    self.settingsViewControllerComplitionActions(.showDeniedNotificationCustomAlert(showAlertInMenuVC))
                     self.settingsViewControllerComplitionActions(.closeSettingsViewContainer)
+                    break
                 }
+                self.settingsViewControllerComplitionActions(.showDeniedNotificationCustomAlert(showAlertInMenuVC))
+                
+                
+                
             case .provisional:
                 break
+            case .ephemeral:
+                //create table view
+                self.createTableViewNotificationSubsettingsMenu()
             @unknown default:
                 print("new cases are available in settings.authorizationStatus")
             }

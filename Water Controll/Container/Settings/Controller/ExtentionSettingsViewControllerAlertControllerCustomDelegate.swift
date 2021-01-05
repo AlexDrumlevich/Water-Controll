@@ -10,31 +10,45 @@ import UIKit
 
 extension SettingsViewController: AlertControllerCustomActions {
     
-    func buttonPressed(indexOfPressedPutton: Int, identifire: AlertIdentifiers) {
+    func buttonPressed(indexOfPressedButton: Int, identifire: AlertIdentifiers) {
         
         guard alertControllerCustom != nil else {
             return
         }
-        
-        switch indexOfPressedPutton {
+      
+        switch indexOfPressedButton {
             
             
         case 0:
             alertControllerCustom?.clouseAlert()
             
         case 1:
-            alertControllerCustom?.clouseAlert()
             
             switch identifire {
             case .deleteUser:
+                alertControllerCustom?.clouseAlert()
                 settingsViewControllerComplitionActions(.deleteUser)
                 
+            case .notificationDenied:
+                alertControllerCustom?.clouseAlert()
+                if let containerVC = self.parent as? ContainerViewController {
+                   let isPresentSettingsGoodResault = containerVC.openAppSettingsInsidePhoneSettings()
+                    if !isPresentSettingsGoodResault {
+                        notificationDeniedCustomAlertInSettingsViewController(isProblemsWithOpenSettings: true)
+                    }
+                } else {
+                    notificationDeniedCustomAlertInSettingsViewController(isProblemsWithOpenSettings: true)
+                }
+                break
+                
             default:
-                return
+                alertControllerCustom?.clouseAlert()
+                
             }
             
         default:
-            return
+            alertControllerCustom?.clouseAlert()
+            
         }
     }
     

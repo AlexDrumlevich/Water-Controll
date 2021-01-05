@@ -15,6 +15,16 @@ extension SettingsViewController: UITableViewDelegate {
         if tableView.tag == 0 {
             
             guard let settingsViewControllerTableViewCellType = SettingsViewControllerTableViewCellType(rawValue: indexPath.row) else {return 50}
+            // hide pour water in bottle fill type if now a ads version
+            //hide restore purchase if we in ads free version
+            if accessController != nil {
+                if !accessController!.premiumAccount == true && settingsViewControllerTableViewCellType == .isAutoFillWater {
+                    return 0
+                }
+                if accessController!.premiumAccount == true && settingsViewControllerTableViewCellType == .restorePurchases {
+                    return 0
+                }
+            }
             return settingsViewControllerTableViewCellType.cellHeightMultiplicator * view.bounds.height
              // notifications time a day
         } else if tableView.tag == 2 {
@@ -26,6 +36,8 @@ extension SettingsViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+     
         //tableViewMainSettings
         if tableView.tag == 0 {
             //if text fild is editing and we touch in cell in tabel view
@@ -57,7 +69,7 @@ extension SettingsViewController: UITableViewDelegate {
                 }
             
             case .isAutoFillWater:
-                //
+                
                 currentUser.isAutoFillBottleType = !currentUser.isAutoFillBottleType
                 settingsViewControllerComplitionActions(.saveContextInLocalDataBase)
                 tableView.reloadRows(at: [indexPath], with: .fade)
@@ -65,6 +77,8 @@ extension SettingsViewController: UITableViewDelegate {
             case .deleteUser:
                 deleteUserAlertController()
                
+            case .restorePurchases:
+                break
             }
         }
     }
@@ -99,15 +113,19 @@ extension SettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //notification subsettings menu
+        let notificationsText = " notifications"
         if tableView.tag == 1 {
-            return currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: section)?.sectionTitle
+            let titleADayPart = (currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: section)?.sectionTitle) ?? ""
+            return titleADayPart
                //notifications time a day menu
         } else if tableView.tag == 2 {
-            return setupSectionTitleInTableViewNotificationsTimeADay()
+            return setupSectionTitleInTableViewNotificationsTimeADay() + notificationsText
         } else {
             return ""
         }
     }
+    
+    
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -121,7 +139,7 @@ extension SettingsViewController: UITableViewDataSource {
             case .name:
                 //additional setup text fild and add actions
                 nameTextField = cell.textField
-                nameTextField.placeholder = currentUser.name ?? ""
+                nameTextField.placeholder = "Change name"//currentUser.name ?? ""
                 nameTextField.enablesReturnKeyAutomatically = true
                 nameTextField.autocorrectionType = .no
                 nameTextField.autocapitalizationType = .sentences
@@ -137,6 +155,9 @@ extension SettingsViewController: UITableViewDataSource {
                 //label "name" in text field
                 youNameLabelInCell = cell.youNameLabel
                 youNameLabelInCell.isHidden = !currentUser.name!.isEmpty
+                if currentUser.name!.isEmpty {
+                    nameTextField.placeholder = ""
+                }
                 
             case .bottleSettings:
                 volumeBottleImageView = cell.bottleImageView
@@ -145,7 +166,7 @@ extension SettingsViewController: UITableViewDataSource {
                 setupVolumeBottleCell()
             
             case .isAutoFillWater:
-                isAutoFillBottleTypeImageView = cell.isAutoFillBottleImageView
+                isAutoFillBottleTypeLabel = cell.isAutoFillBottleLabelView
                 setupIsAutoFillBottleCell()
                 
                 

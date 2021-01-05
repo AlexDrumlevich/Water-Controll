@@ -24,24 +24,41 @@ extension SettingsViewController {
         //setup full volume and volume type from data base
         fullBottleVolume = currentUser.fullVolume
         temperaryVolumeType = currentUser.volumeType
-        volumeSubsettingsMenu.backgroundColor = .green
+        volumeSubsettingsMenu.backgroundColor = .clear
+       
+        //corner radius
+        volumeSubsettingsMenu.layer.cornerRadius = 10
+        volumeSubsettingsMenu.clipsToBounds = true
+        
+        
+        //hide main settings view
+        tableViewMainSettings.isHidden = true
+  
         //add view in Settings View Controller
         self.view.addSubview(volumeSubsettingsMenu)
         setConstraintsForVolumeSubsettingsMenu()
-        
+        addBlurView()
         addButtons()
         addPicker()
+        setConstraintsForBlurView()
         setupButtonsImagesAndPickersVisible()
         
         hiddenButtons(buttons: [cancelButton], isHidden: settingsMode == .newUser || settingsMode == .firstUser || settingsMode == .needToSetupVolumeSettings)
         buttonsEnable(buttons: [cancelButton], isEnable: false)
         hiddenButtons(buttons: [plusButton, backButton, deleteButton, leftButton, rightButton], isHidden: true)
         
+        if settingsMode == .firstUser || settingsMode == .newUser || settingsMode == .needToSetupVolumeSettings {
+            chouseVolumeTypeCustomAlertInVolumeSubsettingsMenu(type: .selectVolumeType)
+        } else {
+            chouseVolumeTypeCustomAlertInVolumeSubsettingsMenu(type: .doctorConsultation)
+        }
+        
     }
     
     //delete and add VolumeSubsettingsMenu
     func deleteVolumeSubsettingsMenu() {
-        
+        //show main settings view
+        tableViewMainSettings.isHidden = false
         self.volumeSubsettingsMenu.removeFromSuperview()
         self.volumeSubsettingsMenu = nil
     }
@@ -50,9 +67,7 @@ extension SettingsViewController {
     
     //constraints
     
-    
-    
-    func setConstraintsForVolumeSubsettingsMenu() {
+   private func setConstraintsForVolumeSubsettingsMenu() {
         volumeSubsettingsMenu.translatesAutoresizingMaskIntoConstraints = false
         volumeSubsettingsMenu.topAnchor.constraint(equalTo: tableViewMainSettings.topAnchor).isActive = true
         volumeSubsettingsMenu.trailingAnchor.constraint(equalTo: tableViewMainSettings.trailingAnchor).isActive = true
@@ -64,10 +79,29 @@ extension SettingsViewController {
     }
     
     
+    private func addBlurView() {
+        //blur view
+        blurViewForBottleVolumeMenu = UIVisualEffectView()
+        let blurEffect = UIBlurEffect(style: .prominent)
+        blurViewForBottleVolumeMenu.effect = blurEffect
+        blurViewForBottleVolumeMenu.layer.cornerRadius = 10
+        blurViewForBottleVolumeMenu.clipsToBounds = true
+        volumeSubsettingsMenu.addSubview(blurViewForBottleVolumeMenu)
+    
+    }
+    
+    private func setConstraintsForBlurView() {
+        //constraints
+        blurViewForBottleVolumeMenu.translatesAutoresizingMaskIntoConstraints = false
+        blurViewForBottleVolumeMenu.leadingAnchor.constraint(equalTo: volumeSubsettingsMenu.leadingAnchor).isActive = true
+        blurViewForBottleVolumeMenu.topAnchor.constraint(equalTo: ozPicker.topAnchor).isActive = true
+        blurViewForBottleVolumeMenu.trailingAnchor.constraint(equalTo: volumeSubsettingsMenu.trailingAnchor).isActive = true
+        blurViewForBottleVolumeMenu.bottomAnchor.constraint(equalTo: ozPicker.bottomAnchor).isActive = true
+    }
     
     
     // add buttons in VolumeSubsettingsMenu
-    func addButtons() {
+    private func addButtons() {
         
         //litter button
         literButton = UIButton()
@@ -102,11 +136,11 @@ extension SettingsViewController {
     
     
     // add pickers in VolumeSubsettingsMenu
-    func addPicker() {
+    private func addPicker() {
         
         //picker for liter integer
         literIntegerPicker = UIPickerView()
-        literIntegerPicker.backgroundColor = .red
+        literIntegerPicker.backgroundColor = .clear
         
         literIntegerPicker.delegate = self
         literIntegerPicker.dataSource = self
@@ -123,7 +157,7 @@ extension SettingsViewController {
         //picker for liter tenth
         
         literTenthPicker = UIPickerView()
-        literTenthPicker.backgroundColor = .red
+        literTenthPicker.backgroundColor = .clear
         //     literTenthPicker.isHidden = true
         literTenthPicker.delegate = self
         literTenthPicker.dataSource = self
@@ -136,22 +170,35 @@ extension SettingsViewController {
         literTenthPicker.bottomAnchor.constraint(equalTo: volumeSubsettingsMenu.bottomAnchor, constant: 2 * -constraintConstant).isActive = true
         literTenthPicker.trailingAnchor.constraint(equalTo: volumeSubsettingsMenu.trailingAnchor, constant: -constraintConstant).isActive = true
         
+        
         // add dot  ot between literIntegerPicker and literTenthPicker
+        // ivisible view for set dot
+        let invisibleViewForSetDot = UIView()
+        invisibleViewForSetDot.backgroundColor = .clear
+        invisibleViewForSetDot.isHidden = true
+        volumeSubsettingsMenu.addSubview(invisibleViewForSetDot)
+        invisibleViewForSetDot.translatesAutoresizingMaskIntoConstraints = false
+        invisibleViewForSetDot.heightAnchor.constraint(equalTo: literIntegerPicker.heightAnchor, multiplier: 1/3).isActive = true
+        invisibleViewForSetDot.centerXAnchor.constraint(equalTo: volumeSubsettingsMenu.centerXAnchor).isActive = true
+        invisibleViewForSetDot.bottomAnchor.constraint(equalTo: literIntegerPicker.bottomAnchor).isActive = true
+        
+        
         dotBetweenliterIntegerPickerAndLiterTenthPicker = UIImageView()
         dotBetweenliterIntegerPickerAndLiterTenthPicker.image = UIImage(named: "dot")
         volumeSubsettingsMenu.addSubview(dotBetweenliterIntegerPickerAndLiterTenthPicker)
         //constraints
         dotBetweenliterIntegerPickerAndLiterTenthPicker.translatesAutoresizingMaskIntoConstraints = false
-        dotBetweenliterIntegerPickerAndLiterTenthPicker.bottomAnchor.constraint(equalTo: literIntegerPicker.bottomAnchor).isActive = true
+       dotBetweenliterIntegerPickerAndLiterTenthPicker.bottomAnchor.constraint(equalTo: invisibleViewForSetDot.topAnchor).isActive = true
+     
         dotBetweenliterIntegerPickerAndLiterTenthPicker.widthAnchor.constraint(equalTo: volumeSubsettingsMenu.widthAnchor, multiplier: 0.03).isActive = true
         dotBetweenliterIntegerPickerAndLiterTenthPicker.heightAnchor.constraint(equalTo: dotBetweenliterIntegerPickerAndLiterTenthPicker.widthAnchor).isActive = true
         dotBetweenliterIntegerPickerAndLiterTenthPicker.centerXAnchor.constraint(equalTo: volumeSubsettingsMenu.centerXAnchor).isActive = true
-        
+       
         
         //picker for oz
         
         ozPicker = UIPickerView()
-        ozPicker.backgroundColor = .red
+        ozPicker.backgroundColor = .clear
         ozPicker.isHidden = true
         ozPicker.delegate = self
         ozPicker.dataSource = self

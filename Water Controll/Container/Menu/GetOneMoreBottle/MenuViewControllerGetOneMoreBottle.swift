@@ -8,20 +8,163 @@
 
 import UIKit
 import GoogleMobileAds
+import Foundation
+
+enum IsOneMoreBottleAvailable {
+    case available, notTimeAvailable, notMoreBottlesAvailable
+}
+
 
 // get one more bottle
 extension MenuViewController: GADRewardedAdDelegate {
     
     
+//availablility of get one more bottle
+    func isGetOneMoreBottleAvailable() -> IsOneMoreBottleAvailable {
+        
+
+        if accessController != nil {
+            if accessController!.bottelsAvailable >= maxAvailableBottles {
+                return .notMoreBottlesAvailable
+            }
+        }
+        
+        
+        guard let lastAdsDate = accessController?.lastWatchingRewardAdsTime else {
+            return .available
+        }
+        // get current date
+        let currentDate = Date()
+        let calendar = Calendar.current
+        
+        
+        
+        //count diffetent between last and current date
+        guard let differentDatesInDays = calendar.dateComponents([.day], from: lastAdsDate, to: currentDate).day else {
+            return .available
+        }
+        if differentDatesInDays > 0 {
+            return .available
+        } else {
+            guard let differentDatesInSeconds = calendar.dateComponents([.second], from: lastAdsDate, to: currentDate).second  else {
+                return .available
+            }
+            if differentDatesInSeconds < minWaitingTimeSecondsBetweenShowingRewardVideo {
+                return .notTimeAvailable
+            } else {
+                return .available
+            }
+        }
+        
+    }
     
-    func getOneMoreBottleAdCustomAlertController() {
+    
+
+    
+    func getOneMoreBottleNotAvailable(_ notAvailableId: IsOneMoreBottleAvailable) {
+        
+        if alertControllerCustom != nil {
+            alertControllerCustom?.clouseAlert()
+        }
+        
+        alertControllerCustom = AlertControllerCustom()
+        let alertId = alertControllerCustom?.alertID
+        let name = currentUser.name
+        let firstGreetingWord = "Hi"
+        
+        let greetingText = firstGreetingWord + (name == nil ? "!" : ", " + name! + "!")
+        
+        var messageText = ""
+        
+        switch notAvailableId {
+        case .notMoreBottlesAvailable:
+            messageText = " You have maximum full bottles: \(maxAvailableBottles)!"
+            
+        case .notTimeAvailable:
+            messageText = " Ad to get one more bottle will be available in: "
+            
+        default:
+            messageText = " We are sorry, ADS to get one more bottle not available now please try later."
+            guard alertControllerCustom != nil else { return }
+        }
+        
+        guard alertControllerCustom != nil else { return }
+        alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getOneMoreBottleNotAvailable, view: view, text: greetingText + messageText, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "unlimitedBottels", thirdButtonText: nil, imageInButtons: true)
+        if notAvailableId == .notTimeAvailable {
+            changeSecondsInAlertToAvailableOneMoreBottle(alertId: alertId!, text: greetingText + messageText)
+        }
+    
+    }
+    
+    
+    //count different in seconds
+    //return seconds if it is more than 0, else return nil
+    private func calculateSecondsToAdsAvailable() -> Int? {
+        guard let lastAdsDate = accessController?.lastWatchingRewardAdsTime else {
+            return nil
+        }
+        let currentDate = Date()
+        let calendar = Calendar.current
+        guard let differentDatesInSeconds = calendar.dateComponents([.second], from: lastAdsDate, to: currentDate).second else {
+            return nil
+        }
+        if differentDatesInSeconds < minWaitingTimeSecondsBetweenShowingRewardVideo {
+            return minWaitingTimeSecondsBetweenShowingRewardVideo - differentDatesInSeconds
+        } else {
+            return nil
+        }
+    }
+    
+    private func changeSecondsInAlertToAvailableOneMoreBottle(alertId: String, text: String) {
+        
+        guard alertControllerCustom != nil else {
+            return
+        }
+        guard alertControllerCustom?.alertID == alertId else {
+            return
+        }
+        guard let secondsToAdsAvalible = calculateSecondsToAdsAvailable() else {
+            getOneMoreBottleAdCustomAlertController(needToCheckAvalible: false)
+            return
+        }
+        alertControllerCustom?.label?.text = text + String(secondsToAdsAvalible)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            self.changeSecondsInAlertToAvailableOneMoreBottle(alertId: alertId, text: text)
+        }
+
+    }
+    
+    
+    
+    
+    func getOneMoreBottleAdCustomAlertController(text: String? = nil, needToCheckAvalible: Bool = true) {
+        
+        if needToCheckAvalible {
+            switch isGetOneMoreBottleAvailable() {
+            
+            case .available:
+                break
+            case .notTimeAvailable:
+                defer {
+                    getOneMoreBottleNotAvailable(.notTimeAvailable)
+                }
+                return
+            case .notMoreBottlesAvailable:
+                defer {
+                    getOneMoreBottleNotAvailable(.notMoreBottlesAvailable)
+                }
+                return
+            }
+        }
+        
         
         if rewardedAd == nil {
-            createAndLoadRewardAd(callFromAlert: true)
+            createAndLoadRewardAd()
         } else {
             if !rewardedAd!.isReady {
                 rewardedAd = nil
-                createAndLoadRewardAd(callFromAlert: true)
+                createAndLoadRewardAd()
             }
         }
         
@@ -31,67 +174,59 @@ extension MenuViewController: GADRewardedAdDelegate {
         }
         
         alertControllerCustom = AlertControllerCustom()
+        var alertText = text
+        if alertText == nil {
         let name = currentUser.name ?? ""
         let textGetOneMoreBottleOrGetPremium = "Hi," + name + "! To get one more bottle You should watch Rewarded Ads or buy a premium account to get unlimited water!"
-        guard alertControllerCustom != nil else { return }
-        alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getOneMoreBottle, view: view, text: textGetOneMoreBottleOrGetPremium, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "watchAd", thirdButtonText: "unlimitedBottels", imageInButtons: true, isActivityIndicatorButtonSecond: true)
-    }
-//        var isReady = false
-//
-//        if rewardedAd != nil {
-//            print("STOP ELSE0")
-//            isReady = rewardedAd!.isReady
-//            print("STOP ELSE1")
-//            if isReady {
-//                alertControllerCustom?.stopAnimating(secondButton: true)
-//            } else {
-//                print("STOP ELSE2")
-//                    repeat {
-//
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-//                            print("STOP ELSE4")
-//
-//                            if self.rewardedAd?.isReady == true {
-//                                isReady = true
-//                                DispatchQueue.main.async {
-//                                    if self.alertControllerCustom == nil {
-//                                        print("Alert is nil")
-//                                    } else {
-//                                        print("Alert is not nil")
-//                                    }
-//                                    self.alertControllerCustom?.stopAnimating(secondButton: true)
-//                                }
-//                            }
-//                        }
-//                            if self.rewardedAd == nil {
-//                                let textLoadError = "Ad loading error! You can try one more time or buy a premium account to get unlimited water!"
-//                                DispatchQueue.main.async {
-//                                    self.tryAgainAdLoadCustomAlert(text: textLoadError)
-//                                }
-//                                break
-//                            }
-//
-//                    } while isReady != true
-//
-//            }
-//
-//        }
-//    }
-    
-    
-    
-    //alert when ad falled
-    func tryAgainAdLoadCustomAlert(text: String) {
-        
-        if alertControllerCustom != nil {
-            alertControllerCustom?.clouseAlert()
+            alertText = textGetOneMoreBottleOrGetPremium
         }
-        
-        alertControllerCustom = AlertControllerCustom()
-        let textTryAgain = text
         guard alertControllerCustom != nil else { return }
-        alertControllerCustom!.createAlert(observer: self, alertIdentifire: .tryAgainLoadAd, view: view, text: textTryAgain, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "repeat", thirdButtonText: "unlimitedBottels", imageInButtons: true)
+        alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getOneMoreBottle, view: view, text: alertText ?? "", imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "watchAd", thirdButtonText: "unlimitedBottels", imageInButtons: true)
+    
     }
+    
+    
+    //push wath ad button action to present
+    func watchAdButtonAction(alertCustom: AlertControllerCustom?) {
+        guard alertCustom != nil else {
+            return
+        }
+        alertCustom?.startAnimating(secondButton: true)
+        
+        if rewardedAd == nil {
+            createAndLoadRewardAd(callFromAlert: true)
+        } else {
+            if !rewardedAd!.isReady {
+                rewardedAd = nil
+                createAndLoadRewardAd(callFromAlert: true)
+            }
+        }
+    
+        
+            runIsAdReadyController()
+        
+    }
+    
+    
+    // repeating check is ad ready controller function
+    private func runIsAdReadyController() {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
+            guard self.rewardedAd != nil else {
+                let textLoadError = "Ad loading error! You can try one more time or buy a premium account to get unlimited water!"
+                self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
+                return
+            }
+            if self.rewardedAd?.isReady == true {
+                self.alertControllerCustom?.stopAnimating(secondButton: true)
+                self.presentRewardedAdToGetOneMoreBottle()
+                self.alertControllerCustom?.clouseAlert()
+            } else {
+                self.runIsAdReadyController()
+            }
+        }
+    }
+    
     
     
     
@@ -127,7 +262,7 @@ extension MenuViewController: GADRewardedAdDelegate {
                     if callFromAlert {
                         let textLoadError = "Ad loading error! You can try one more time or buy a premium account to get unlimited water!"
                         DispatchQueue.main.async {
-                            self.tryAgainAdLoadCustomAlert(text: textLoadError)
+                            self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
                         }
                     }
                 }
@@ -143,13 +278,13 @@ extension MenuViewController: GADRewardedAdDelegate {
         if rewardedAd?.isReady == true {
             rewardedAd?.present(fromRootViewController: self, delegate:self)
         }
-        
     }
     
     //delegate methods
     
     // Tells the delegate that the user earned a reward.
     func rewardedAd(_ rewardedAd: GADRewardedAd, userDidEarn reward: GADAdReward) {
+      //get container VC
         guard let containerVC = self.parent as? ContainerViewController else {
             currentUser.currentVolumeInBottle = 1
             return
@@ -160,9 +295,11 @@ extension MenuViewController: GADRewardedAdDelegate {
         createAndLoadRewardAdIfNeeded()
         //change and save count of available bottles
         containerVC.accessController?.bottelsAvailable += 1
+        containerVC.accessController?.lastWatchingRewardAdsTime = Date()
         containerVC.saveContextInLocalDataBase()
         bottomMenuCollectionView.reloadData()
     }
+    
     // Tells the delegate that the rewarded ad was presented.
     func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {
         print("Rewarded ad presented.")
@@ -172,6 +309,9 @@ extension MenuViewController: GADRewardedAdDelegate {
         //if user dissmissed we load new Ad
         self.rewardedAd = nil
         createAndLoadRewardAd()
+        let textLoadError = "Ad was dismissed! You can try one more time or buy a premium account to get unlimited water!"
+        self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
+        
         //show alert user dissmissed Ad so try again
     }
     // Tells the delegate that the rewarded ad failed to present.
@@ -179,6 +319,9 @@ extension MenuViewController: GADRewardedAdDelegate {
         //if Ad failed to present we load new Ad
         self.rewardedAd = nil
         createAndLoadRewardAd()
+        let textLoadError = "Ad loading error! You can try one more time or buy a premium account to get unlimited water!"
+        self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
+        
         // show alert with try again, take credit
     }
 }

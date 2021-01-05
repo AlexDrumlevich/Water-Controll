@@ -11,8 +11,9 @@ import CoreData
 extension ContainerViewController {
     
     //MARK: Local Data Base
-    //get current user from local database and if no one user - create new user
-    func getCurrentUsersAndAccessControllerFromLocalDataBase() {
+    
+    //get access controller from local database and if no one user - create new user
+    func getAccesControllerFromLocalDataBase() {
         
         // get access controller
         let fetchRequestAccessController: NSFetchRequest<AccessController> = AccessController.fetchRequest()
@@ -24,16 +25,35 @@ extension ContainerViewController {
                 access.currentDate = Date()
                 access.premiumAccount = false
                 access.bottelsAvailable = 1
+                access.needTimesPourWaterToCallRateTheApp = needTimesPourWaterToCallRateMenu
+                access.boundelAppRated = getCurrentAppVersion()
                 accessController = access
             } else {
                 accessController = accessControllers.first
+                // change call rate the app conditions
+                if accessController != nil {
+                    if accessController?.boundelAppRated != "" && getCurrentAppVersion() != accessController?.boundelAppRated && getCurrentAppVersion() != "" {
+                        accessController?.needTimesPourWaterToCallRateTheApp = needTimesPourWaterToCallRateMenu
+                        accessController?.boundelAppRated = getCurrentAppVersion()
+                        saveContextInLocalDataBase()
+                    }
+                }
             }
             
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        
-        
+    }
+    
+    private func getCurrentAppVersion () -> String {
+        let bundle = Bundle.main
+        let bundleVersionKey = kCFBundleVersionKey as String
+        return bundle.object(forInfoDictionaryKey: bundleVersionKey) as? String ?? ""
+    }
+    
+    
+    //get current user from local database and if no one user - create new user
+    func getCurrentUsersFromLocalDataBase() {
         
         let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
         
@@ -102,11 +122,17 @@ extension ContainerViewController {
         currentUser = user
         setupNotificationOfNewUser(user: currentUser)
         users.append(currentUser)
-        settingsViewController.currentUser = currentUser
+        
+       // clouseSettingsViewController()
+        presentSettingsViewController(with: users.count == 1 ? .firstUser : .newUser)
+        //settingsViewController.currentUser = currentUser
+        //settingsViewController.isSinglUser = users.count < 2
+        
         //if we create new user and we don`t have any anouter user, we send fist user to hide cancel button
-        settingsViewController.settingsMode = users.count == 1 ? .firstUser : .newUser
-        settingsViewController.isSinglUser = users.count < 2
-        settingsViewController.viewDidLoad()
+      //  settingsViewController.settingsMode = users.count == 1 ? .firstUser : .newUser
+        //settingsViewController.isSinglUser = users.count < 2
+        
+        //settingsViewController.updateSettingsViewController()
     }
     
     // setup notifications data
@@ -189,6 +215,7 @@ extension ContainerViewController {
                     contextDataBase.delete(user)
                     //save context with out deleted user
                     saveContextInLocalDataBase()
+                    clouseSettingsViewController()
                     createNewUser()
                 } else {
                     
@@ -200,12 +227,13 @@ extension ContainerViewController {
                     contextDataBase.delete(user)
                     //save context with out deleted user
                     saveContextInLocalDataBase()
-                    settingsViewController.currentUser = currentUser
-                    settingsViewController.settingsMode = .waitAction
-                    if users.count < 2 {
-                        settingsViewController.isSinglUser = true
-                    }
-                    settingsViewController.viewDidLoad()
+                    presentSettingsViewController(with: .waitAction)
+//                    settingsViewController.currentUser = currentUser
+  //                  settingsViewController.settingsMode = .waitAction
+//                    if users.count < 2 {
+//                        settingsViewController.isSinglUser = true
+//                    }
+//                    settingsViewController.updateSettingsViewController()
                 }
                 
                 return
@@ -218,7 +246,7 @@ extension ContainerViewController {
         //close custom alerts if they are
         menuViewController.alertControllerCustom?.clouseAlert()
         
-    
+        
         guard users.count > 1 else { return }
         for (itemNumber, user) in users.enumerated() {
             if user.identifire == currentUser.identifire {
@@ -238,8 +266,10 @@ extension ContainerViewController {
                 saveContextInLocalDataBase()
                 currentUser = newCurrentUser
                 if settingsViewController != nil {
+                   
                     settingsViewController.currentUser = currentUser
-                    settingsViewController.viewDidLoad()
+                    settingsViewController.updateSettingsViewController()
+                    
                 }
                 //change graph view
                 if menuViewController.graphView != nil {
@@ -283,15 +313,23 @@ extension ContainerViewController {
             
             
             if lastDay == currentDay && lastMonth == currentMonth {
-                gotWaterLastInDataBase.volumeGet += volume
+                
+                var tempararyGetVolume = gotWaterLastInDataBase.volumeGet + volume
+                
+                if !gotWaterLastInDataBase.isOzType {
+                    tempararyGetVolume = round(1000 * tempararyGetVolume) / 1000
+                    
+                }
+                gotWaterLastInDataBase.volumeGet = tempararyGetVolume
+                
                 gotWaterLastInDataBase.volumeTarget = user.fullVolume
                 
                 //if user change volume type
                 if let currentVolumeType = user.volumeType {
                     let currentIsOz = currentVolumeType == "oz" ? true : false
-                
+                    
                     if gotWaterLastInDataBase.isOzType != currentIsOz {
-                          //change volume type
+                        //change volume type
                         gotWaterLastInDataBase.isOzType = currentIsOz
                         //translate got water volume if user change volume type
                         
@@ -321,7 +359,7 @@ extension ContainerViewController {
                     }
                 }
                 saveContextInLocalDataBase()
-            
+                
             } else {
                 addNewElementInGotWaters(volume: volume, date: date, user: user)
             }
@@ -377,5 +415,13 @@ extension ContainerViewController {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    //add ad consent with out save
+    func addAdConsentToDataBase(date: Date, text: String) {
+        
+        let adConsent = AdConsents(context: contextDataBase)
+        adConsent.date = date
+        adConsent.textOfConsent = text
     }
 }

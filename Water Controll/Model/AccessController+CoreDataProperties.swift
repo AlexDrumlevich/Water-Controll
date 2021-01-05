@@ -1,9 +1,8 @@
 //
 //  AccessController+CoreDataProperties.swift
-//  Water Controll
+//  
 //
-//  Created by ALEXEY DRUMLEVICH on 09.08.2020.
-//  Copyright © 2020 ALEXEY DRUMLEVICH. All rights reserved.
+//  Created by ALEXEY DRUMLEVICH on 03.01.2021.
 //
 //
 
@@ -17,8 +16,12 @@ extension AccessController {
         return NSFetchRequest<AccessController>(entityName: "AccessController")
     }
 
-    @NSManaged public var premiumAccount: Bool
     @NSManaged public var bottelsAvailable: Int16
     @NSManaged public var currentDate: Date?
+    @NSManaged public var isGotConsent: Bool
+    @NSManaged public var premiumAccount: Bool
+    @NSManaged public var lastWatchingRewardAdsTime: Date?
+    @NSManaged public var needTimesPourWaterToCallRateTheApp: Int16
+    @NSManaged public var boundelAppRated: String?
 
 }

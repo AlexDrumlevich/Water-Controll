@@ -116,20 +116,23 @@ class GraphCollectionViewCell: UICollectionViewCell {
         
         volumeView.backgroundColor = {
             if volumeOfView >= 0.8 {
-                return .green
+                //green
+                return UIColor(red: 0, green: 128, blue: 0, alpha: 0.5)
             } else if volumeOfView < 0.8 && volumeOfView >= 0.5 {
-                return .yellow
+                //yellow
+                return UIColor(red: 255, green: 255, blue: 0, alpha: 0.5)
             } else {
-                return .red
+                //red
+                return UIColor(red: 255, green: 0, blue: 0, alpha: 0.5)
             }
         }()
         volumeView.backgroundColor?.withAlphaComponent(0.1)
         volumeMaxSizeView.backgroundColor = .clear
         
-        
+     
         // volume label
     
-        volumeLabel.backgroundColor = .green
+        volumeLabel.backgroundColor = .clear
         volumeLabel.heightAnchor.constraint(equalTo: widthAnchor, multiplier:  1/3).isActive = true
         //volumeLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         volumeLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true

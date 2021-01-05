@@ -26,4 +26,6 @@ enum ContainerViewComplitionActions {
     
     case updateMenuViewController
     
+    case showDeniedNotificationCustomAlert(Bool)
+    
 }

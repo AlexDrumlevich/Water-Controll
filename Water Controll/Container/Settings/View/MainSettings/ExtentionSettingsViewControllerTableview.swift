@@ -12,9 +12,10 @@ import UIKit
 extension SettingsViewController {
     
     
-    func addAndConfigureTableView() {
+    func addAndConfigureTableView(isHidden: Bool = false) {
         
         tableViewMainSettings = UITableView()
+        tableViewMainSettings.isHidden = isHidden
         tableViewMainSettings.tag = 0
         tableViewMainSettings.delegate = self
         tableViewMainSettings.dataSource = self
@@ -25,9 +26,12 @@ extension SettingsViewController {
         
     
         //with out lines betveen cells
-        tableViewMainSettings.separatorStyle = .none
+        tableViewMainSettings.separatorStyle = .singleLine
+        tableViewMainSettings.separatorColor = #colorLiteral(red: 0.1640408039, green: 0.2041007578, blue: 1, alpha: 1)
         //фон для tableView
-        tableViewMainSettings.backgroundColor = .darkGray
+        tableViewMainSettings.backgroundColor = UIColor(displayP3Red: 248, green: 248, blue: 255, alpha: 0.4)
+        tableViewMainSettings.layer.cornerRadius = 10
+        tableViewMainSettings.clipsToBounds = true
     }
     
     func setupConstraintsForTableViewMainSettings() {
@@ -54,9 +58,9 @@ extension SettingsViewController {
     }
     
     func setupIsAutoFillBottleCell() {
-        guard isAutoFillBottleTypeImageView != nil else { return }
-             isAutoFillBottleTypeImageView.image = currentUser.isAutoFillBottleType ? UIImage(named: "autoFillBottle") : UIImage(named: "manualFillBottle")
-             
+        guard isAutoFillBottleTypeLabel != nil else { return }
+             isAutoFillBottleTypeLabel.text = currentUser.isAutoFillBottleType ? "auto" : "manually"
+            
      }
 }
 

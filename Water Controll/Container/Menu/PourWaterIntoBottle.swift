@@ -34,7 +34,8 @@ extension MenuViewController {
             if self.accessController!.premiumAccount || self.accessController!.bottelsAvailable > 0  {
                 self.currentUser.isEmptyBottle = false
                 self.currentUser.currentVolumeInBottle = self.currentUser.fullVolume
-                gameSceneController!.currentWaterLevel = 1
+                gameSceneController?.isChangeWaterLevelFromPourWaterInBottle = true
+                gameSceneController?.currentWaterLevel = 1
                 if !self.accessController!.premiumAccount {
                     self.accessController!.bottelsAvailable -= 1
                     if countLabelAvailableBottlesInCell != nil {
@@ -54,6 +55,7 @@ extension MenuViewController {
         } else {
             self.currentUser.isEmptyBottle = false
             self.currentUser.currentVolumeInBottle = self.currentUser.fullVolume
+            gameSceneController?.isChangeWaterLevelFromPourWaterInBottle = true
             gameSceneController!.currentWaterLevel = 1
         }
         print(self.accessController!.bottelsAvailable, self.accessController!.premiumAccount)
@@ -76,7 +78,7 @@ extension MenuViewController {
     //we call this method from ContainerViewControllerEmptyBottleInDayBeginning and when users change - did set method in menu view controller 
     func fillBottleAutoFillUserType() {
         guard currentUser != nil else { return }
-        if currentUser.isAutoFillBottleType {
+        if currentUser.isAutoFillBottleType && currentUser.isEmptyBottle {
             pourWaterIntoBottle(with: accessController)
         }
     }

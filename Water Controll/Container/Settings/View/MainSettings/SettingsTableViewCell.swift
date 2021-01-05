@@ -20,7 +20,7 @@ class SettingsTableViewCell: UITableViewCell {
     
     var volumeLabel: UILabel!
     var bottleImageView: UIImageView!
-    var isAutoFillBottleImageView: UIImageView!
+    var isAutoFillBottleLabelView: UILabel!
     
     
     //setup cells depending of type (SettingsViewControllerTableViewCellType) of cell
@@ -45,6 +45,12 @@ class SettingsTableViewCell: UITableViewCell {
         case .deleteUser:
             setupDeleteUserCell()
          
+        case .restorePurchases:
+            setupLabelOnlyCells(labelText: "Restore purchases")
+        case .rateTheApp:
+            setupLabelOnlyCells(labelText: "Rate the app")
+        case .shareTheApp:
+            setupLabelOnlyCells(labelText: "Share the app")
         }
     }
     
@@ -54,22 +60,23 @@ class SettingsTableViewCell: UITableViewCell {
     private func setupNameCell () {
          textField = UITextField()
         let textFildHeight = bounds.height - (constraintConstant * 2)
-        
-        
         //text settings
        
         textField.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         textField.textAlignment = .center
-        textField.backgroundColor = .white
+        textField.backgroundColor = .clear
         textField.font = UIFont(name: "AmericanTypewriter", size:  textFildHeight)
-        textField.minimumFontSize = 0.5
+        textField.minimumFontSize = 0.3
+        textField.adjustsFontForContentSizeCategory = true
         textField.returnKeyType = UIReturnKeyType.done
         //add text field into cell
         addSubview(textField)
         //setup constraints
         setupConstraints(subView: textField)
         //corner radius
-        textField.layer.cornerRadius = textFildHeight /  2
+        textField.layer.cornerRadius = textFildHeight
+        textField.layer.borderWidth = 3
+        textField.layer.borderColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         textField.clipsToBounds = true
         
         youNameLabel = UILabel()
@@ -86,29 +93,21 @@ class SettingsTableViewCell: UITableViewCell {
         
     }
     
+    private func setupLabelOnlyCells(labelText: String) {
+       
+        setFirstTypeLabels(labelText: labelText)
+        
+    }
+    
     // setup image for bottleVolume question
-    private func setupBottleSettingsCell () {
+    private func setupBottleSettingsCell() {
         bottleImageView = UIImageView()
         bottleImageView.image = UIImage(named: "bottleVolume")
         addSubview(bottleImageView)
         setupConstraints(subView: bottleImageView)
         
-        
         volumeLabel = UILabel()
-       
-        volumeLabel.text = ""
-        volumeLabel.textAlignment = .left
-        volumeLabel.backgroundColor = .clear
-        volumeLabel.font = UIFont(name: "AmericanTypewriter", size:  150)
-        volumeLabel.adjustsFontSizeToFitWidth = true
-        volumeLabel.minimumScaleFactor = 0.2
-        volumeLabel.sizeToFit()
-        volumeLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-        addSubview(volumeLabel)
-        setupConstraintsForTheRightPart(subView: volumeLabel, leftPartView: bottleImageView)
-        
-
-        
+        setLabel(label: volumeLabel, leftPartView: bottleImageView)
     }
     
     
@@ -118,6 +117,9 @@ class SettingsTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "notification")
         addSubview(imageView)
         setupConstraints(subView: imageView)
+        
+        let label = UILabel()
+        setLabel(label: label, text: "notifications", leftPartView: imageView)
     }
     
     
@@ -132,10 +134,9 @@ class SettingsTableViewCell: UITableViewCell {
         setupConstraints(subView: puerWaterIntoBottleImageView)
         
         
-        isAutoFillBottleImageView = UIImageView()
-        isAutoFillBottleImageView.contentMode = .scaleAspectFit
-        addSubview(isAutoFillBottleImageView)
-        setupConstraintsForTheRightPart(subView: isAutoFillBottleImageView, leftPartView: puerWaterIntoBottleImageView)
+        isAutoFillBottleLabelView = UILabel()
+        
+        setLabel(label: isAutoFillBottleLabelView, leftPartView: puerWaterIntoBottleImageView)
        
     }
     
@@ -147,8 +148,50 @@ class SettingsTableViewCell: UITableViewCell {
         imageView.image = UIImage(named: "delete")
         addSubview(imageView)
         setupConstraints(subView: imageView)
+        
+        let label = UILabel()
+        setLabel(label: label, text: "delete user", leftPartView: imageView, textColor: .red)
+        
     }
     
+    private func setFirstTypeLabels(labelText: String) {
+        let label = UILabel()
+        let lableHeight = bounds.height - (constraintConstant * 2)
+       //text settings
+        label.text = labelText
+        label.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        label.textAlignment = .center
+        label.backgroundColor = .clear
+        label.font = UIFont(name: "AmericanTypewriter", size:  lableHeight)
+        label.minimumScaleFactor = 0.3
+        label.adjustsFontForContentSizeCategory = true
+
+       //add text field into cell
+       addSubview(label)
+       //setup constraints
+       setupConstraints(subView: label)
+       //corner radius
+       label.layer.cornerRadius = lableHeight
+       label.layer.borderWidth = 3
+       label.layer.borderColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+       label.clipsToBounds = true
+        
+    }
+    
+    private func setLabel(label: UILabel, text: String = "", leftPartView: UIView, textColor: UIColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)) {
+        
+        label.text = text
+        label.textAlignment = .center
+        label.backgroundColor = .clear
+        label.font = UIFont(name: "AmericanTypewriter", size:  150)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
+        label.sizeToFit()
+        label.textColor = textColor
+        addSubview(label)
+        setupConstraintsForTheRightPart(subView: label, leftPartView: leftPartView)
+        
+    }
     
     private func setupConstraints(subView: UIView) {
         subView.translatesAutoresizingMaskIntoConstraints = false
@@ -158,8 +201,8 @@ class SettingsTableViewCell: UITableViewCell {
         subView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -constraintConstant).isActive = true
         
         if subView is UITextField || subView is UILabel {
-            subView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-            subView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+            subView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
+            subView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constraintConstant).isActive = true
         } else {
             //one object like a cube in the middle of cell
             subView.leadingAnchor.constraint(equalTo: leadingAnchor, constant:  constraintConstant).isActive = true

@@ -47,7 +47,9 @@ extension SettingsViewController: UIPickerViewDelegate {
         
         pickerViewLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         pickerViewLabel.textAlignment = .center
-        pickerViewLabel.font = UIFont(name: "AmericanTypewriter", size: pickerView.bounds.width * 0.3)
+        pickerViewLabel.font = UIFont(name: "AmericanTypewriter", size: pickerView.bounds.height * 0.29)
+        pickerViewLabel.adjustsFontForContentSizeCategory = true
+        pickerViewLabel.minimumScaleFactor = 0.3
         pickerViewLabel.text = String(row)
         defer {
             //enable buttons
@@ -67,7 +69,7 @@ extension SettingsViewController: UIPickerViewDelegate {
     
     
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-        return pickerView.bounds.width * 0.3
+        return pickerView.bounds.height * 0.3
     }
     
     

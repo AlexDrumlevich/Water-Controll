@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AlertControllerCustomActions {
-    func buttonPressed(indexOfPressedPutton: Int, identifire: AlertIdentifiers)
+    func buttonPressed(indexOfPressedButton: Int, identifire: AlertIdentifiers)
 }
 
 
@@ -26,6 +26,19 @@ class AlertControllerCustom: UIView {
     var activityIndicatorFirst: UIActivityIndicatorView?
     var activityIndicatorSecond: UIActivityIndicatorView?
     var activityIndicatorThird: UIActivityIndicatorView?
+    let heightMultiplier: CGFloat = 2 / 3
+    let widthMultiplier: CGFloat = 4 / 5
+    
+    //alert id
+    let alertID = UUID().uuidString
+    
+    // create UIVisualEffectView for blur effect
+    let blurView: UIVisualEffectView = {
+        let view = UIVisualEffectView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
 //    override init(frame: CGRect) {
 //        super.init(frame: frame)
@@ -37,38 +50,49 @@ class AlertControllerCustom: UIView {
     
     
     
-    func createAlert(observer: AlertControllerCustomActions, alertIdentifire: AlertIdentifiers, view: UIView, text: String, imageName: String?, firstButtonText: String, secondButtonText: String?, thirdButtonText: String?, imageInButtons: Bool = false, isActivityIndicatorButtonFirst: Bool = false, isActivityIndicatorButtonSecond: Bool = false, isActivityIndicatorButtonThird: Bool = false) {
+    func createAlert(observer: AlertControllerCustomActions, alertIdentifire: AlertIdentifiers, view: UIView, text: String, imageName: String?, firstButtonText: String?, secondButtonText: String?, thirdButtonText: String?, imageInButtons: Bool = false, isActivityIndicatorButtonFirst: Bool = false, isActivityIndicatorButtonSecond: Bool = false, isActivityIndicatorButtonThird: Bool = false) {
         
         self.observer = observer
         self.alertIdentifire = alertIdentifire
+      
+        
+        
         view.addSubview(self)
-        self.backgroundColor = .black
+        self.backgroundColor = .clear
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2).isActive = true
-        self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 4/5).isActive = true
+        self.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: heightMultiplier).isActive = true
+        self.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: widthMultiplier).isActive = true
         self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        //set blur view
+        self.addSubview(blurView)
+        setupBlurView(view: view)
         
        label = createLabel(in: self, with: text)
         if imageName != nil {
            imageView = createImageView(in: self, with: imageName!)
         }
         
-        // create activity indicators
-        createActivityIndicators(isActivityIndicatorButtonFirst, isActivityIndicatorButtonSecond, isActivityIndicatorButtonThird)
+       
         
         //create buttons
-        createButton(in: self, with: firstButtonText, isPicture: imageInButtons, activityIndicator: activityIndicatorFirst)
+        if firstButtonText != nil {
+        createButton(in: self, with: firstButtonText!, isPicture: imageInButtons, activityIndicator: &activityIndicatorFirst)
+        }
+        
         if secondButtonText != nil {
-            createButton(in: self, with: secondButtonText!, isPicture: imageInButtons, activityIndicator: activityIndicatorSecond)
+            createButton(in: self, with: secondButtonText!, isPicture: imageInButtons, activityIndicator: &activityIndicatorSecond)
         }
         if thirdButtonText != nil {
-            createButton(in: self, with: thirdButtonText!, isPicture: imageInButtons, activityIndicator: activityIndicatorThird)
+            createButton(in: self, with: thirdButtonText!, isPicture: imageInButtons, activityIndicator: &activityIndicatorThird)
         }
         addButtonActions()
         
         setConstraints(label: label!, imageView: imageView)
+        
+        
+   //     setSizeButtonTitle()
         
     }
     
@@ -79,21 +103,56 @@ class AlertControllerCustom: UIView {
         }
     }
     
+    
+    //add blurView setup constraints and effects for blurView
+    private func setupBlurView(view: UIView) {
+     
+        blurView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        let blurEffect = UIBlurEffect(style: .regular)
+        blurView.effect = blurEffect
+        
+    }
+    
+    
+    
+    func startAnimating(firstButton: Bool = false, secondButton: Bool = false, thirdButton: Bool = false) {
+      
+        
+        if firstButton && activityIndicatorFirst != nil && buttons.count >= 1 {
+            activityIndicatorFirst?.isHidden = false
+            activityIndicatorFirst?.startAnimating()
+            buttons[0].isEnabled = false
+        }
+        if secondButton && activityIndicatorSecond != nil && buttons.count >= 2 {
+            activityIndicatorSecond?.isHidden = false
+            activityIndicatorSecond?.startAnimating()
+            buttons[1].isEnabled = false
+        }
+        if thirdButton && activityIndicatorThird != nil && buttons.count >= 3 {
+            activityIndicatorThird?.isHidden = false
+            activityIndicatorThird?.startAnimating()
+            buttons[2].isEnabled = false
+        }
+    }
+    
     func stopAnimating(firstButton: Bool = false, secondButton: Bool = false, thirdButton: Bool = false) {
       
         if firstButton && activityIndicatorFirst != nil && buttons.count >= 1 {
             activityIndicatorFirst?.stopAnimating()
-            activityIndicatorFirst?.removeFromSuperview()
+            activityIndicatorFirst?.isHidden = true
             buttons[0].isEnabled = true
         }
         if secondButton && activityIndicatorSecond != nil && buttons.count >= 2 {
             activityIndicatorSecond?.stopAnimating()
-            activityIndicatorSecond?.removeFromSuperview()
+            activityIndicatorSecond?.isHidden = true
             buttons[1].isEnabled = true
         }
         if thirdButton && activityIndicatorThird != nil && buttons.count >= 3 {
             activityIndicatorThird?.stopAnimating()
-            activityIndicatorThird?.removeFromSuperview()
+            activityIndicatorThird?.isHidden = true
             buttons[2].isEnabled = true
         }
     }
@@ -104,11 +163,14 @@ class AlertControllerCustom: UIView {
         label.text = text
         label.backgroundColor = .clear
         label.textAlignment = .center
-        let fontSize = view.superview!.frame.height * 1/15
+        var fontSize = view.superview!.frame.height * 1/15
+        if fontSize == 0 {
+            fontSize = UIScreen.main.bounds.height * 1/15
+        }
         print(fontSize)
         label.adjustsFontSizeToFitWidth = true
         label.font = UIFont(name: "AmericanTypewriter", size:  fontSize)
-        label.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.2688689828, green: 0.27911973, blue: 0.9976477027, alpha: 1)
         label.minimumScaleFactor = 0.1
         label.numberOfLines = 0
         return label
@@ -124,25 +186,13 @@ class AlertControllerCustom: UIView {
     }
     
     
-    private func createActivityIndicators(_ isFirstActivityIndicator: Bool, _ isSecondActivityIndicator: Bool, _ isThirdActivityIndicator: Bool) {
-        if isFirstActivityIndicator {
-            activityIndicatorFirst = UIActivityIndicatorView()
-        }
-        if isSecondActivityIndicator {
-            activityIndicatorSecond = UIActivityIndicatorView()
-        }
-        if isThirdActivityIndicator {
-            activityIndicatorThird = UIActivityIndicatorView()
-        }
-
-    }
     
-    
-    private func createButton(in view: UIView, with text: String, isPicture: Bool = false, activityIndicator: UIActivityIndicatorView? = nil) {
+    private func createButton(in view: UIView, with text: String, isPicture: Bool = false, activityIndicator: inout UIActivityIndicatorView?) {
         
         
         let button = UIButton()
         button.backgroundColor = .clear
+        button.isEnabled = true
         
         if isPicture {
             button.setImage(UIImage(named: text), for: .normal)
@@ -150,37 +200,123 @@ class AlertControllerCustom: UIView {
            
         } else {
             button.setTitle(text, for: .normal)
+            var fontSize = view.superview!.frame.height * 1/35
+            if fontSize == 0 {
+               fontSize = UIScreen.main.bounds.height * 1/35
+            }
+
+            var font = UIFont(name: "AmericanTypewriter", size: fontSize)
+            
+            if font == nil {
+                font = UIFont.systemFont(ofSize: fontSize)
+            }
+            
+            
+            
+            button.titleLabel?.adjustsFontSizeToFitWidth = true
+            button.titleLabel?.minimumScaleFactor = 0.1
+            
+            let titleAttributesNormalState: [NSAttributedString.Key : Any] = [
+                NSAttributedString.Key.font: font!, NSAttributedString.Key.foregroundColor: UIColor.purple
+            ]
+            let titleAttributesAssignState: [NSAttributedString.Key : Any] = [
+                NSAttributedString.Key.font: font!, NSAttributedString.Key.foregroundColor: UIColor.blue
+            ]
+            
+            let attributedStringNormal = NSMutableAttributedString(string: text, attributes: titleAttributesNormalState)
+            let attributedStringAssigne = NSMutableAttributedString(string: text, attributes: titleAttributesAssignState)
+            button.setAttributedTitle(attributedStringNormal, for: .normal)
+            button.setAttributedTitle(attributedStringAssigne, for: .highlighted)
         }
         
-        if activityIndicator != nil {
+        // insert activity indicator
+            activityIndicator = UIActivityIndicatorView()
             button.addSubview(activityIndicator!)
-            activityIndicator?.startAnimating()
-            button.isEnabled = false
+            activityIndicator?.isHidden = true
+            
             activityIndicator?.translatesAutoresizingMaskIntoConstraints = false
             activityIndicator?.centerYAnchor.constraint(equalTo: button.centerYAnchor).isActive = true
             activityIndicator?.centerXAnchor.constraint(equalTo: button.centerXAnchor).isActive = true
             
-        }
+        
         
         if stackView == nil {
             stackView = UIStackView()
             view.addSubview(stackView!)
             stackView?.alignment = .center
             stackView?.distribution = .equalCentering
-            stackView?.spacing = 15
-            stackView?.backgroundColor = .red
+            stackView?.spacing = 20
+            stackView?.backgroundColor = .clear
             //stackView!.isLayoutMarginsRelativeArrangement = false
         }
         stackView?.addArrangedSubview(button)
         
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalTo: stackView!.heightAnchor, multiplier: 8/10).isActive = true
-        button.widthAnchor.constraint(equalTo: button.heightAnchor).isActive = true
+        
+        button.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3, constant: -10).isActive = true
+        
+        button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true
+
       
         buttons.append(button)
     }
+   
+    /*
+    private func setSizeButtonTitle() {
+        var size: CGFloat?
+        for button in buttons {
+            
+            let fontSize = button.titleLabel?.font.xHeight
+           // let scaleText = label?.scale
+            print("scale: \(fontSize)")
+            if size == nil {
+                size = fontSize
+                guard  size != nil else {
+                    return
+                }
+            } else {
+                guard fontSize != nil else {
+                    return
+                }
+                size = size! <= fontSize! ? size : fontSize
+            }
+         
+        }
+      //  guard scale != nil, let sizeText = label?.font.pointSize else {
+        //    return
+        //}
     
-    
+        //let size = sizeText * scale!
+        
+        var font = UIFont(name: "AmericanTypewriter", size: size! * 1.5)
+        
+        if font == nil {
+            font = UIFont.systemFont(ofSize: size!)
+        }
+
+        let titleAttributesNormalState: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.font: font!, NSAttributedString.Key.foregroundColor: UIColor.white
+        ]
+        let titleAttributesAssignState: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.font: font!, NSAttributedString.Key.foregroundColor: UIColor.red
+        ]
+        
+        
+        
+        for button in buttons {
+            
+            let text = button.titleLabel?.text
+            guard  text != nil else {
+                return
+            }
+            let attributedStringNormal = NSMutableAttributedString(string: text!, attributes: titleAttributesNormalState)
+            let attributedStringAssigne = NSMutableAttributedString(string: text!, attributes: titleAttributesAssignState)
+            button.setAttributedTitle(attributedStringNormal, for: .normal)
+            button.setAttributedTitle(attributedStringAssigne, for: .highlighted)
+        }
+        
+    }
+*/
     
     private func setConstraints(label: UILabel, imageView: UIImageView?) {
         
@@ -203,13 +339,18 @@ class AlertControllerCustom: UIView {
             imageView?.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1/3).isActive = true
         }
         
+        guard stackView != nil else {
+            return
+        }
         stackView!.translatesAutoresizingMaskIntoConstraints = false
         stackView!.topAnchor.constraint(equalTo: imageView == nil ? label.bottomAnchor : imageView!.bottomAnchor, constant:  constantConstraint).isActive = true
         stackView!.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         stackView?.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
-  
+    
     }
+    
+    
+
     
     private func addButtonActions() {
         
@@ -229,15 +370,15 @@ class AlertControllerCustom: UIView {
     }
     
     @objc func actionButtonFirst() {
-        observer.buttonPressed(indexOfPressedPutton: 0, identifire: alertIdentifire)
+        observer.buttonPressed(indexOfPressedButton: 0, identifire: alertIdentifire)
     }
     
     @objc func actionButtonSecond() {
-        observer.buttonPressed(indexOfPressedPutton: 1, identifire: alertIdentifire)
+        observer.buttonPressed(indexOfPressedButton: 1, identifire: alertIdentifire)
     }
     
     @objc func actionButtonThird() {
-        observer.buttonPressed(indexOfPressedPutton: 2, identifire: alertIdentifire)
+        observer.buttonPressed(indexOfPressedButton: 2, identifire: alertIdentifire)
     }
     
 }

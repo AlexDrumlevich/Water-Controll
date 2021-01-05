@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "pourWaterFromGlass.png",
+      "filename" : "pourWaterFromGlass2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "pourWaterFromGlass-1.png",
+      "filename" : "pourWaterFromGlass2-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "pourWaterFromGlass-2.png",
+      "filename" : "pourWaterFromGlass2-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -117,7 +117,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         
         extentionSetupNotificationTimesADayButton = UIButton()
         extentionSetupNotificationTimesADayButton.backgroundColor = .clear
-        extentionSetupNotificationTimesADayButton.setImage(UIImage(named: "rightArrowBlueFull"), for: .normal)
+        extentionSetupNotificationTimesADayButton.setImage(UIImage(named: "rightArrowBlue"), for: .normal)
         //extentionSetupNotificationTimesADayButton.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         extentionSetupNotificationTimesADayButton.tag = tag
         addSubview(extentionSetupNotificationTimesADayButton)
@@ -137,7 +137,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startTimeLabel.adjustsFontSizeToFitWidth = true
         startTimeLabel.minimumScaleFactor = 0.2
         startTimeLabel.textAlignment = .center
-        startTimeLabel.backgroundColor = .red
+        startTimeLabel.backgroundColor = .clear
         addSubview(startTimeLabel)
         
         startAmPmLabel = UILabel()
@@ -167,7 +167,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopTimeLabel = UILabel()
         stopTimeLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.6)
         stopTimeLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-        stopTimeLabel.backgroundColor = .red
+        stopTimeLabel.backgroundColor = .clear
         stopTimeLabel.adjustsFontSizeToFitWidth = true
         stopTimeLabel.minimumScaleFactor = 0.2
         stopTimeLabel.textAlignment = .center

@@ -10,56 +10,85 @@ import Foundation
 //Alert Custom extension
 
 extension MenuViewController: AlertControllerCustomActions {
-    func buttonPressed(indexOfPressedPutton: Int, identifire: AlertIdentifiers) {
+    func buttonPressed(indexOfPressedButton: Int, identifire: AlertIdentifiers) {
+      
         
-        switch indexOfPressedPutton {
+        switch indexOfPressedButton {
         case 0:
             alertControllerCustom?.clouseAlert()
+            break
         case 1:
-           alertControllerCustom?.clouseAlert()
             
             switch identifire {
             case .noWaterInBottle:
+                alertControllerCustom?.clouseAlert()
                 pourWaterIntoBottle(with: accessController)
+                
             case .fillTheIsNotEmptyBottle:
+                alertControllerCustom?.clouseAlert()
                 pourWaterIntoBottle(with: accessController)
+                
             case .deleteGotWaterData:
+                alertControllerCustom?.clouseAlert()
                 deleteGotWaterData()
+                
             case .noBottlesWithWater:
+                alertControllerCustom?.clouseAlert()
                 //get one more bottle or premium
-                getOneMoreBottleAdCustomAlertController()
+                if let containerVC = self.parent as? ContainerViewController {
+                    containerVC.getOneMoreBottleInBottomMenu()
+                } else {
+                    getOneMoreBottleAdCustomAlertController()
+                }
             case .getOneMoreBottle:
                 //watch ads
-                presentRewardedAdToGetOneMoreBottle()
+                //alert controller will close automatically
+                watchAdButtonAction(alertCustom: alertControllerCustom)
+                
+            case .getOneMoreBottleNotAvailable:
+                //get premium
+                becomePremiumAccountFromMenuViewController()
+                alertControllerCustom?.clouseAlert()
+                
+                break
+                
             case .tryAgainLoadAd:
-                 //get one more bottle or premium
+                //get one more bottle or premium
+                alertControllerCustom?.clouseAlert()
                 getOneMoreBottleAdCustomAlertController()
-                return
+                break
+                
+            case .notificationDenied:
+                DispatchQueue.main.async {
+                self.alertControllerCustom?.clouseAlert()
+                if let containerVC = self.parent as? ContainerViewController {
+                        let isPresentSettingsGoodResault = containerVC.openAppSettingsInsidePhoneSettings()
+                        if !isPresentSettingsGoodResault {
+                            self.notificationDeniedCustomAlertInMenuViewController(isProblemsWithOpenSettings: true)
+                        }
+                    } else {
+                        self.notificationDeniedCustomAlertInMenuViewController(isProblemsWithOpenSettings: true)
+                    }
+                }
+                
             default:
-                return
+                break
             }
             
         case 2:
             alertControllerCustom?.clouseAlert()
             
             switch identifire {
-            case .getOneMoreBottle:
-                // get premium
-                return
-            case .noBottlesWithWater:
-                // get premium
-                return
-            case .tryAgainLoadAd:
-                 //get premium
-                return
+            case .getOneMoreBottle, .noBottlesWithWater, .tryAgainLoadAd:
+                becomePremiumAccountFromMenuViewController()
+                //get premium
+                break
             default:
-                return
+                break
             }
             
         default:
             return
         }
     }
-    
-    
 }

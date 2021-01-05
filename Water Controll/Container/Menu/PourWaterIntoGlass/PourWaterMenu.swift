@@ -37,6 +37,8 @@ extension MenuViewController {
         //add view in Settings View Controller
        view.addSubview(pourWaterMenu)
         setConstraintsForPourWaterMenu()
+        pourWaterMenu.layer.cornerRadius = 10
+        pourWaterMenu.clipsToBounds = true
         addSubviewsIntoPourWaterMenu()
         setConstraintsAndOtherSetupsForSubviewsIntoPourWaterMenu()
         
@@ -65,6 +67,12 @@ extension MenuViewController {
     
     // add buttons in VolumeSubsettingsMenu
     func addSubviewsIntoPourWaterMenu() {
+        
+        //blur view
+        blurViewForPourWaterMenuIntoGlass = UIVisualEffectView()
+        let blurEffect = UIBlurEffect(style: .prominent)
+        blurViewForPourWaterMenuIntoGlass.effect = blurEffect
+        pourWaterMenu.addSubview(blurViewForPourWaterMenuIntoGlass)
         
         //cancel button add
         cancelButtonInPourWaterMenu = UIButton()
@@ -95,9 +103,9 @@ extension MenuViewController {
         } else {
             thousandPicker = nil
     }
-        unitPicker.backgroundColor = .black
-        tenthPicker.backgroundColor = .black
-        hundredPicker.backgroundColor = .black
+        unitPicker.backgroundColor = .clear
+        tenthPicker.backgroundColor = .clear
+        hundredPicker.backgroundColor = .clear
     }
     //constraints PourWaterMenu
     func setConstraintsForPourWaterMenu() {
@@ -110,6 +118,14 @@ extension MenuViewController {
     
     //subview`s constraints
     func setConstraintsAndOtherSetupsForSubviewsIntoPourWaterMenu() {
+        //blur view
+        blurViewForPourWaterMenuIntoGlass.translatesAutoresizingMaskIntoConstraints = false
+        blurViewForPourWaterMenuIntoGlass.leadingAnchor.constraint(equalTo: pourWaterMenu.leadingAnchor).isActive = true
+        blurViewForPourWaterMenuIntoGlass.topAnchor.constraint(equalTo: pourWaterMenu.topAnchor).isActive = true
+        blurViewForPourWaterMenuIntoGlass.trailingAnchor.constraint(equalTo: pourWaterMenu.trailingAnchor).isActive = true
+        blurViewForPourWaterMenuIntoGlass.bottomAnchor.constraint(equalTo: pourWaterMenu.bottomAnchor).isActive = true
+        
+        
         //cancel button
         cancelButtonInPourWaterMenu.translatesAutoresizingMaskIntoConstraints = false
         cancelButtonInPourWaterMenu.leadingAnchor.constraint(equalTo: pourWaterMenu.leadingAnchor, constant: constraintConstant).isActive = true
@@ -117,7 +133,7 @@ extension MenuViewController {
         cancelButtonInPourWaterMenu.widthAnchor.constraint(equalTo: pourWaterMenu.widthAnchor, multiplier: 0.15).isActive = true
         cancelButtonInPourWaterMenu.heightAnchor.constraint(equalTo: cancelButtonInPourWaterMenu.widthAnchor).isActive = true
         
-        cancelButtonInPourWaterMenu.setImage(UIImage(named: "cancelButtonInBlueRing"), for: .normal)
+        cancelButtonInPourWaterMenu.setImage(UIImage(named: "cancelSmallBlue"), for: .normal)
         //pourWaterButton
         pourWaterButton.translatesAutoresizingMaskIntoConstraints = false
         pourWaterButton.trailingAnchor.constraint(equalTo: pourWaterMenu.trailingAnchor, constant: -constraintConstant).isActive = true
@@ -136,7 +152,7 @@ extension MenuViewController {
         // text settings volumeTypeLabelForPourWaterMenu
         volumeTypeLabelForPourWaterMenu.textAlignment = .center
         volumeTypeLabelForPourWaterMenu.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.width * 12 / 100 )
-        volumeTypeLabelForPourWaterMenu.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        volumeTypeLabelForPourWaterMenu.textColor = #colorLiteral(red: 0.1640408039, green: 0.2041007578, blue: 1, alpha: 1)
         volumeTypeLabelForPourWaterMenu.adjustsFontSizeToFitWidth = true
         volumeTypeLabelForPourWaterMenu.minimumScaleFactor = 0.2
         volumeTypeLabelForPourWaterMenu.text = volumeTypeForPourWaterMenu
@@ -225,6 +241,10 @@ extension MenuViewController {
         //save middlePourWaterVolume and current volume
     
         
+        // rate the app
+        requestCallRateTheApp()
+        
+        //pour water action
         
         let drankWaterVolume = currentUser.volumeType == "oz" ? Float(willPourWaterVolume) : Float(round(100 * (Float(willPourWaterVolume) / 1000)) / 100)
         print("\(drankWaterVolume)")
@@ -232,6 +252,12 @@ extension MenuViewController {
         //change middle pour in 1 time volume
         currentUser.middlePourWaterVolume = willPourWaterVolume
         //change current volume (current voleme + drank water
+    
+        
+        // old value in percent
+        let oldPercentValue = currentUser.currentVolume * 100 / currentUser.fullVolume
+        let oldRoundedPercentValue = roundf(oldPercentValue)
+        
         
         //currentUser.currentVolume = currentUser.fullVolume - currentUser.currentVolume >= drankWaterVolume ? Float(roundf((currentUser.currentVolume + drankWaterVolume) * 100) / 100) : currentUser.fullVolume
     
@@ -245,13 +271,33 @@ extension MenuViewController {
         }
         
         //change text in label
-       setupTextInPouredWaterLabel()
+        setupTextInPouredWaterLabel(isTheAimReached: false)
+        
+        let waterWasDrunkPercentsNewValue = currentUser.currentVolume * 100 / currentUser.fullVolume
+        let waterWasDrunkPercentsNewValueRounded = roundf(waterWasDrunkPercentsNewValue)
+        //change text in label
+       setupTextInPouredWaterLabel(isTheAimReached: oldRoundedPercentValue < 100 && waterWasDrunkPercentsNewValueRounded >= 100)
+        gameSceneController?.needToAimReachAction = oldRoundedPercentValue < 100 && waterWasDrunkPercentsNewValueRounded >= 100
+        
         
         //save context
         guard let containerViewController = self.parent as? ContainerViewController  else {
             print("can`t get ContainerViewController in  pourWaterButtonAction")
             return
         }
+        
+        
+        var afterPourWaterNeedsTimesToRewardsAd = 0
+        if accessController != nil {
+            if !accessController!.premiumAccount {
+                let volumeInBottle = currentUser.volumeType == "oz" ? currentUser.currentVolumeInBottle : currentUser.currentVolumeInBottle * 1000
+                if  volumeInBottle - Float(currentUser.middlePourWaterVolume) <= 0 {
+                    afterPourWaterNeedsTimesToRewardsAd += 1
+                }
+            }
+        }
+        needsTimesToLoadRewardedAd += afterPourWaterNeedsTimesToRewardsAd
+        
         
         containerViewController.saveContextInLocalDataBase()
         //save got waters for current user for graph, current data check automaticly
@@ -273,6 +319,7 @@ extension MenuViewController {
         }
         
              //send currentWaterLevel as decimal in gameSceneController
+            
             gameSceneController?.currentWaterLevel = calculateCurrentVolumeInDecimal()
      
     }

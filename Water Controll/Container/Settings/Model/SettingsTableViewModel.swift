@@ -9,11 +9,11 @@
 import UIKit
 
 enum SettingsViewControllerTableViewCellType: Int, CaseIterable {
-    case name = 0, bottleSettings, notification, isAutoFillWater, deleteUser
+    case name = 0, restorePurchases, rateTheApp, shareTheApp, bottleSettings, notification, isAutoFillWater, deleteUser
     
     var cellHeightMultiplicator: CGFloat {
         switch self {
-        case .name:
+        case .name, .restorePurchases, .rateTheApp, .shareTheApp:
             return 0.12
         case .bottleSettings:
             return 0.2

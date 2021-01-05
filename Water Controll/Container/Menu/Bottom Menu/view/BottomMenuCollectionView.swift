@@ -64,7 +64,9 @@ extension BottomMenuCollectionView: UICollectionViewDelegate {
         case  .getOneMoreBottleInBottomMenu:
             complitionBottomMenuActions(.getOneMoreBottleInBottomMenu)
         case .closeCustomAlerts:
-            return
+            break
+        case .adsSettings:
+            complitionBottomMenuActions(.adsSettings)
         }
         
     }

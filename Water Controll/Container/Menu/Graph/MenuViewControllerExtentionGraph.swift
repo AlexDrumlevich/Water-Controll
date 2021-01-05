@@ -24,8 +24,10 @@ extension MenuViewController {
         }
         
         graphView = UIView()
-        graphView?.backgroundColor = .black
+        graphView?.backgroundColor = .clear
         guard graphView != nil else { return }
+        graphView!.layer.cornerRadius = 10
+        graphView!.clipsToBounds = true
         // add bottomMenuCollectionView to MenuViewController
         view.addSubview(graphView!)
         // constraints for graphCollectionView
@@ -66,6 +68,14 @@ extension MenuViewController {
         case .success(let gotWatersData):
             countDaysHistory = gotWatersData.count
             gotWatersDataLinkToDelete = gotWatersData
+            
+            //blur view
+            blurViewForGraphView = UIVisualEffectView()
+            let blurEffect = UIBlurEffect(style: .prominent)
+            blurViewForGraphView!.effect = blurEffect
+            graphView?.addSubview(blurViewForGraphView!)
+            
+            //collection view
             graphCollectionView = GraphCollectionView(data: gotWatersData, isFirstDayDateType: currentUser.volumeType != "oz")
             //add graph as subview
             graphView?.addSubview(graphCollectionView!)
@@ -152,19 +162,29 @@ extension MenuViewController {
             alertControllerCustom?.clouseAlert()
         }
         
+        
+        let countDaysSring: String = String(countOfDaysToDelete > 1 ? " \(countOfDaysToDelete) days" : " \(countOfDaysToDelete) day")
         alertControllerCustom = AlertControllerCustom()
-        let textConfirmDeleteGotWaterData = "Do you really want to delete the fist \(countOfDaysToDelete) of water consumption?"
+        let textConfirmDeleteGotWaterData = "Do you really want to delete the first" + countDaysSring + " of water consumption?"
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .deleteGotWaterData, view: view, text: textConfirmDeleteGotWaterData, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "deleteCommon", thirdButtonText: nil, imageInButtons: true)
     }
     
     //constraints
     private func setupConstraintsOfSubviewIntoGraphView() {
-        //graph collection view constraints
-        guard let superViewOfGraphCollectionView = graphCollectionView?.superview, graphCollectionView != nil, cancelGraphViewButton != nil else {
+       
+        guard let superViewOfGraphCollectionView = graphCollectionView?.superview, graphCollectionView != nil, cancelGraphViewButton != nil, blurViewForGraphView != nil else {
             deleteGraphView()
             return
         }
+        
+        //blur view
+        blurViewForGraphView!.translatesAutoresizingMaskIntoConstraints = false
+        blurViewForGraphView!.leadingAnchor.constraint(equalTo: graphView!.leadingAnchor).isActive = true
+        blurViewForGraphView!.topAnchor.constraint(equalTo: graphView!.topAnchor).isActive = true
+        blurViewForGraphView!.trailingAnchor.constraint(equalTo: graphView!.trailingAnchor).isActive = true
+        blurViewForGraphView!.bottomAnchor.constraint(equalTo: graphView!.bottomAnchor).isActive = true
+        
         
         //cancel button constraints
         cancelGraphViewButton?.translatesAutoresizingMaskIntoConstraints = false
@@ -185,7 +205,7 @@ extension MenuViewController {
         }
         //graph collection view constraints
         
-        graphCollectionView!.leadingAnchor.constraint(equalTo: superViewOfGraphCollectionView.leadingAnchor).isActive = true
+        graphCollectionView!.leadingAnchor.constraint(equalTo: superViewOfGraphCollectionView.leadingAnchor, constant: constraintConstant).isActive = true
         graphCollectionView!.trailingAnchor.constraint(equalTo: cancelGraphViewButton!.leadingAnchor, constant: -5).isActive = true
         graphCollectionView!.bottomAnchor.constraint(equalTo: superViewOfGraphCollectionView.bottomAnchor).isActive = true
         graphCollectionView!.topAnchor.constraint(equalTo: superViewOfGraphCollectionView.topAnchor).isActive = true

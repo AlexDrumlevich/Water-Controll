@@ -14,14 +14,14 @@ extension SettingsViewController {
     
     func addViews() {
          view.addSubview(blurView)
-        blurView.contentView.addSubview(backButton)
-           blurView.contentView.addSubview(plusButton)
+         blurView.contentView.addSubview(backButton)
+         blurView.contentView.addSubview(plusButton)
          blurView.contentView.addSubview(rightButton)
-            blurView.contentView.addSubview(leftButton)
+         blurView.contentView.addSubview(leftButton)
          blurView.contentView.addSubview(nameLabel)
-              blurView.contentView.addSubview(cancelButton)
-           blurView.contentView.addSubview(okButton)
-          blurView.contentView.addSubview(deleteButton)
+         blurView.contentView.addSubview(cancelButton)
+         blurView.contentView.addSubview(okButton)
+         blurView.contentView.addSubview(deleteButton)
         
     }
     
@@ -40,7 +40,7 @@ extension SettingsViewController {
     
     //add backButton setup constraints for backButton
     func setupBackButton()  {
-        
+       
         backButton.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 10).isActive = true
         backButton.topAnchor.constraint(equalTo: blurView.topAnchor, constant:  30).isActive = true
         
@@ -50,11 +50,39 @@ extension SettingsViewController {
     
     //add plusButton setup constraints for plusButton
     func setupPlusButton()  {
-     
+        
+        //font
+        
+        var fontSize = view.frame.height * 1/35
+        if fontSize == 0 {
+           fontSize = UIScreen.main.bounds.height * 1/35
+        }
+        var font = UIFont(name: "AmericanTypewriter", size: fontSize)
+        if font == nil {
+            font = UIFont.systemFont(ofSize: fontSize)
+        }
+    
+        plusButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        plusButton.titleLabel?.minimumScaleFactor = 0.1
+        
+        let titleAttributesNormalState: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.font: font!, NSAttributedString.Key.foregroundColor: UIColor.blue
+        ]
+        let titleAttributesAssignState: [NSAttributedString.Key : Any] = [
+            NSAttributedString.Key.font: font!, NSAttributedString.Key.foregroundColor: UIColor.purple
+        ]
+        
+        let text = "Add user"
+        let attributedStringNormal = NSMutableAttributedString(string: text, attributes: titleAttributesNormalState)
+        let attributedStringAssigne = NSMutableAttributedString(string: text, attributes: titleAttributesAssignState)
+        plusButton.setAttributedTitle(attributedStringNormal, for: .normal)
+        plusButton.setAttributedTitle(attributedStringAssigne, for: .highlighted)
+    
+       //constraints
         plusButton.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -10).isActive = true
         plusButton.topAnchor.constraint(equalTo: blurView.topAnchor, constant:  30).isActive = true
-        plusButton.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
-        plusButton.heightAnchor.constraint(equalTo: plusButton.widthAnchor).isActive = true
+        plusButton.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.3).isActive = true
+        plusButton.heightAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
     }
      
     //setup constraints for nameLabel
@@ -80,7 +108,7 @@ extension SettingsViewController {
     
     //add right button into blurView and set constraints
     func setupRightButton() {
- 
+
         //set constraints
         rightButton.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -constraintConstant).isActive = true
         rightButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 1 / 10).isActive = true
@@ -91,7 +119,7 @@ extension SettingsViewController {
     
     //add left button into blurView and set constraints
     func setupLeftButton() {
-    
+
         //set constraints
         leftButton.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: constraintConstant).isActive = true
         leftButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 1 / 10).isActive = true

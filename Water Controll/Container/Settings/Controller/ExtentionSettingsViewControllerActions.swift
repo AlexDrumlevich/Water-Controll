@@ -51,9 +51,35 @@ extension SettingsViewController {
         
         //if we are in volume settings
         if self.volumeSubsettingsMenu != nil {
+            
+            //set to not increese upper then full bottle
+            var volumeInBottle = currentUser.currentVolumeInBottle
+            currentUser.currentVolumeInBottle = 0
+            
+            //volume type
             currentUser.volumeType = temperaryVolumeType
+            
+            // got water
+            if temperaryCurrentVolumeGotWater != nil {
+            currentUser.currentVolume = temperaryCurrentVolumeGotWater!
+            }
+         
+            //full bottle volume
             currentUser.fullVolume = fullBottleVolume != 0 ? fullBottleVolume : currentUser.fullVolume != 0 ? currentUser.fullVolume : currentUser.volumeType == "oz" ? 1 : 0.1
             currentUser.middlePourWaterVolume = currentUser.volumeType == "oz" ? 9 : 250
+            
+            //volume in bottle
+            if temporaryCurrentVolumeInBottle != nil {
+                volumeInBottle = temporaryCurrentVolumeInBottle!
+            }
+            if volumeInBottle <= currentUser.fullVolume {
+                currentUser.currentVolumeInBottle = volumeInBottle
+            } else {
+                currentUser.currentVolumeInBottle = currentUser.fullVolume
+            }
+           
+            
+           
             
             // add first got water data with zero volume and curren data
             if let containerViewController = self.parent as? ContainerViewController {
@@ -157,7 +183,7 @@ extension SettingsViewController {
             settingsViewControllerComplitionActions(.deleteUser)
         } else {
             nameTextField.text = ""
-            nameTextField.placeholder = currentUser.name
+            nameTextField.placeholder = "Change name"// currentUser.name
             nameLabel.text = currentUser.name
             // hiddenButtons(buttons: [deleteButton], isHidden: false)
             hiddenButtons(buttons: [plusButton, backButton], isHidden: false)

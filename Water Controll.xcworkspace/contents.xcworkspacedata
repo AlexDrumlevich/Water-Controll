@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:Water Controll.xcodeproj">
    </FileRef>
    <FileRef
