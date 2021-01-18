@@ -32,7 +32,7 @@ extension MenuViewController {
         //setup full volume and volume type from data base
         
         isOzType = currentUser.volumeType == "oz"
-        volumeTypeForPourWaterMenu = isOzType ? currentUser.volumeType : "ml"
+        volumeTypeForPourWaterMenu = isOzType ? currentUser.volumeType : AppTexts.mlAppTexts
         
         //add view in Settings View Controller
        view.addSubview(pourWaterMenu)
@@ -234,7 +234,7 @@ extension MenuViewController {
     @objc func cancelActionInPourWaterMenu() {
         deletePourWaterMenu()
         //send currentWaterLevel as decimal in gameSceneController
-         gameSceneController?.currentWaterLevel = calculateCurrentVolumeInDecimal()
+     //    gameSceneController?.currentWaterLevel = calculateCurrentVolumeInDecimal()
     }
     
     @objc func  pourWaterButtonAction() {
@@ -245,6 +245,8 @@ extension MenuViewController {
         requestCallRateTheApp()
         
         //pour water action
+        
+        
         
         let drankWaterVolume = currentUser.volumeType == "oz" ? Float(willPourWaterVolume) : Float(round(100 * (Float(willPourWaterVolume) / 1000)) / 100)
         print("\(drankWaterVolume)")
@@ -319,7 +321,7 @@ extension MenuViewController {
         }
         
              //send currentWaterLevel as decimal in gameSceneController
-            
+            gameSceneController?.needToVibrateInThisAction = true
             gameSceneController?.currentWaterLevel = calculateCurrentVolumeInDecimal()
      
     }
@@ -331,7 +333,7 @@ extension MenuViewController {
         }
         
         alertControllerCustom = AlertControllerCustom()
-        let textNoWaterInTheBottle = "There is no water in the bottle. You should fill the bottle!"
+        let textNoWaterInTheBottle = AppTexts.textNoWaterInTheBottleAppTexts
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .noWaterInBottle, view: view, text: textNoWaterInTheBottle, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "pourWaterIntoBottle", thirdButtonText: nil, imageInButtons: true)
         print("No water in bottle")

@@ -21,7 +21,7 @@ class ContainerViewController: UIViewController {
     //rate app
     let needTimesPourWaterToCallRateMenu: Int16 = 15
 //    later
-    let productURLString = ""
+    let productURLString = "https://apps.apple.com/ru/app/%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81-%D0%BD%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%BE%D1%80-gps-%D0%BF%D1%80%D0%BE%D0%B1%D0%BA%D0%B8/id474500851"
     
     
     //max 5 users
@@ -82,6 +82,8 @@ class ContainerViewController: UIViewController {
     var callSaveFunctionFromGetOneMoreBottle = false
     var needToSaveConsentInDataBase = false
     
+    
+    //lacalize greeting
     
     
     
@@ -166,6 +168,10 @@ class ContainerViewController: UIViewController {
     
     func viewDidLoadContinueLoading() {
         
+       
+        
+      
+        
         //add banner
         if isAdsConsent {
             createBanner()
@@ -178,6 +184,7 @@ class ContainerViewController: UIViewController {
         // fill all misses got water dates
         gotWaterFill()
         
+       
       
         //create, add and present GameViewController
         presentGameViewController()

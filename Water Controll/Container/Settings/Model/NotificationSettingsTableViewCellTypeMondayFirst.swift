@@ -14,24 +14,44 @@ enum NotificationSettingsTableViewCellTypeMondayFirst: Int, CaseIterable {
     var sectionTitle: String {
         switch self {
         case .generalSettings:
-            return "Common"
+            return AppTexts.commonAppTexts
         case .monday:
-            return "Monday"
+            return AppTexts.mondayAppTexts
         case .tuesday:
-            return "Tuesday"
+            return AppTexts.tuesdayAppTexts
         case .wednesday:
-            return "Wednesday"
+            return AppTexts.wednesdayAppTexts
         case .thursday:
-            return "Thursday"
+            return AppTexts.thursdayAppTexts
         case .friday:
-            return "Friday"
+            return AppTexts.fridayAppTexts
         case .saturday:
-            return "Saturday"
+            return AppTexts.saturdayAppTexts
         case .sunday:
-            return "Sunday"
+            return AppTexts.sundayAppTexts
         }
-        
     }
+    var notificationName: String {
+        switch self {
+        case .generalSettings:
+            return "general"
+        case .monday:
+            return "monday"
+        case .tuesday:
+            return "tuesday"
+        case .wednesday:
+            return "wednesday"
+        case .thursday:
+            return "thursday"
+        case .friday:
+            return "friday"
+        case .saturday:
+            return "saturday"
+        case .sunday:
+            return "sunday"
+        }
+    }
+    
 }
 
 
@@ -41,21 +61,42 @@ enum NotificationSettingsTableViewCellTypeSundayFirst: Int, CaseIterable {
     var sectionTitle: String {
         switch self {
         case .generalSettings:
-            return "Common"
+            return AppTexts.commonAppTexts
         case .monday:
-            return "Monday"
+            return AppTexts.mondayAppTexts
         case .tuesday:
-            return "Tuesday"
+            return AppTexts.tuesdayAppTexts
         case .wednesday:
-            return "Wednesday"
+            return AppTexts.wednesdayAppTexts
         case .thursday:
-            return "Thursday"
+            return AppTexts.thursdayAppTexts
         case .friday:
-            return "Friday"
+            return AppTexts.fridayAppTexts
         case .saturday:
-            return "Saturday"
+            return AppTexts.saturdayAppTexts
         case .sunday:
-            return "Sunday"
+            return AppTexts.sundayAppTexts
+        }
+    }
+    
+    var notificationName: String {
+        switch self {
+        case .generalSettings:
+            return "general"
+        case .monday:
+            return "monday"
+        case .tuesday:
+            return "tuesday"
+        case .wednesday:
+            return "wednesday"
+        case .thursday:
+            return "thursday"
+        case .friday:
+            return "friday"
+        case .saturday:
+            return "saturday"
+        case .sunday:
+            return "sunday"
         }
     }
 }

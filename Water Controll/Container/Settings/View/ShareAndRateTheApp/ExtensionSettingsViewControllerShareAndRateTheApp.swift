@@ -19,11 +19,6 @@ extension SettingsViewController {
     // rate if user wish it
     func rateAppByUserWish() {
         
-        if !isInternetConnectionAvailable() {
-            errorWithShareOrRateTheAppCustomAlert(isInternetConnectionAvalable: false)
-            return
-        }
-        
         guard let productURL = shareAndRateAvailable() else {
             errorWithShareOrRateTheAppCustomAlert()
             return
@@ -47,11 +42,7 @@ extension SettingsViewController {
     //share app
     func shareAppWithFriends() {
         
-        if !isInternetConnectionAvailable() {
-            errorWithShareOrRateTheAppCustomAlert(isInternetConnectionAvalable: false)
-            return
-        }
-        
+    
         guard let productURL = shareAndRateAvailable() else {
             errorWithShareOrRateTheAppCustomAlert()
             return
@@ -68,21 +59,10 @@ extension SettingsViewController {
     }
     
     
-    //check internet connection
-    private func isInternetConnectionAvailable() -> Bool {
-        
-        let monitor = NWPathMonitor()
-        
-        switch monitor.currentPath.status {
-        case .satisfied:
-            return true
-        default:
-            return false
-        }
-    }
+   
     
     //alert controller custom
-    private func errorWithShareOrRateTheAppCustomAlert(isInternetConnectionAvalable: Bool = true) {
+    private func errorWithShareOrRateTheAppCustomAlert() {
         
         if alertControllerCustom != nil {
             alertControllerCustom?.clouseAlert()
@@ -91,14 +71,12 @@ extension SettingsViewController {
         alertControllerCustom = AlertControllerCustom()
         // let alertId = alertControllerCustom?.alertID
         let name = currentUser.name
-        let firstGreetingWord = "Hi"
+        let firstGreetingWord = AppTexts.firstGreetingWord
         
         let greetingText = firstGreetingWord + (name == nil ? "!" : ", " + name! + "!")
         
-        var messageText = " We are sorry, this function unavailable."
-        if !isInternetConnectionAvailable() {
-            messageText = " No Internet connection!"
-        }
+        let messageText = AppTexts.functionUnavailableAppTexts
+        
         
         guard alertControllerCustom != nil else { return }
         

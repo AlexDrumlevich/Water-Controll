@@ -21,8 +21,10 @@ extension ContainerViewController {
     
     // call from getCurrentUsersAndAccessControllerFromLocalDataBase and when we change notifications
     func updateNotifications() {
-        
+    
         let notificationCenter = Notifications()
+        
+      
         
         notificationCenter.getNotificationSettings { (status) in
             switch status {
@@ -73,7 +75,7 @@ extension ContainerViewController {
                 let dayToSetNotification = user.volumeType == "oz" ? dayInDatabase : dayInDatabase + 1 == 8 ? 1 : dayInDatabase + 1
                 
                 guard let notification = notifications[dayInDatabase] as?
-                    Notificaton else { return }
+                        Notificaton else { return }
                 //continue if is not active
                 if !notification.isActive {
                     dayInDatabase = dayInDatabase + 1 == 8 ? 1 : dayInDatabase + 1
@@ -128,10 +130,10 @@ extension ContainerViewController {
                         for (index, notificationData) in notificationsDataArrayToSetNotificationCreating.enumerated() {
                             if time > currentTime {
                                 
-                                    
-                                    if notificationData.day == day && time <= (notificationData.hour * 60) + notificationData.minute && (notificationData.hour * 60) + notificationData.minute > currentTime || notificationData.day != day ||
-                                        notificationData.day == day && (notificationData.hour * 60) + notificationData.minute <= currentTime {
                                 
+                                if notificationData.day == day && time <= (notificationData.hour * 60) + notificationData.minute && (notificationData.hour * 60) + notificationData.minute > currentTime || notificationData.day != day ||
+                                    notificationData.day == day && (notificationData.hour * 60) + notificationData.minute <= currentTime {
+                                    
                                     notificationsDataArrayToSetNotificationCreating.insert(NotificationDataToNotificationsCreate(name: user.name ?? "", day: dayToSetNotification, hour: hourNotifiction, minute: minuteNotification, notificationIdentifire: user.notificationIdentifire!), at: index)
                                     wasAdded = true
                                     break
@@ -187,7 +189,7 @@ extension ContainerViewController {
     
     //create and add notifications
     
-    func createScheduleNotifications(notificationCenter: Notifications, notificationsData: [NotificationDataToNotificationsCreate]) {
+    private func createScheduleNotifications(notificationCenter: Notifications, notificationsData: [NotificationDataToNotificationsCreate]) {
         //    DispatchQueue.main.async {
         
         //create actions categories
@@ -195,17 +197,44 @@ extension ContainerViewController {
         
         notificationCenter.notificationCenter.removeAllPendingNotificationRequests()
         
-        notificationCenter.testNotification(timeInterval: 5)
+      //  notificationCenter.testNotification(timeInterval: 5)
+        
+        
         
         for (index, notification) in notificationsData.enumerated() {
             
-            notificationCenter.createScheduleNotification(title: "Hi! " + (notification.name), body: "It`s time to drink pure water!", categoryIdentifier: notification.notificationIdentifire, threadIdentifier: notification.notificationIdentifire, weekDay: notification.day, hour: notification.hour, minute: notification.minute, isLast: index == notificationsData.count - 1) {
+            notificationCenter.createScheduleNotification(title: AppTexts.firstGreetingWord + "! " + (notification.name), body: getNotificationBodyText(), categoryIdentifier: notification.notificationIdentifire, threadIdentifier: notification.notificationIdentifire, weekDay: notification.day, hour: notification.hour, minute: notification.minute, isLast: index == notificationsData.count - 1) {
                 
-                print("Set notification compliated")
             }
             // if we create last notification time in last day we call okActionNotificationSubsettingsMenu, wich clouses setinngs menu or only notification subsettings menu
             
         }
     }
+    
+     private func getNotificationBodyText() -> String {
+        
+        enum NotificationBodyTextType: Int, CaseIterable {
+            case firstText, secondText, thirdText
+        }
+        
+        let firstTypeText = AppTexts.firstTypeTextNotificationBody
+        let secondTypeText = AppTexts.secondTypeTextNotificationBody
+        let thirdTypeText = AppTexts.thirdTypeTextNotificationBody
+        
+        let randomValue = Int.random(in: 0 ..< NotificationBodyTextType.allCases.count)
+        guard let randomTextType = NotificationBodyTextType.init(rawValue: randomValue) else {
+            return firstTypeText
+        }
+        
+        switch randomTextType {
+        case .firstText:
+            return firstTypeText
+        case .secondText:
+            return secondTypeText
+        case .thirdText:
+            return thirdTypeText
+        }
+    }
+    
 }
 

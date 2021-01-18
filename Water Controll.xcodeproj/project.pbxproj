@@ -85,12 +85,17 @@
 		80AAFE0F2478D84E003DD185 /* BottomMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AAFE0E2478D84E003DD185 /* BottomMenuModel.swift */; };
 		80AAFE11247996BF003DD185 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 80AAFE10247996BF003DD185 /* Assets.xcassets */; };
 		80AAFE14247A916E003DD185 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AAFE13247A916E003DD185 /* SettingsViewController.swift */; };
+		80AB165925A57C1300896B6F /* GameViewControllerBublesAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB165825A57C1300896B6F /* GameViewControllerBublesAnimation.swift */; };
+		80AB165F25A8106100896B6F /* ExtensionCheckNewAppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB165E25A8106100896B6F /* ExtensionCheckNewAppVersion.swift */; };
+		80AB167825A8CBFB00896B6F /* AccessController+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB167725A8CBFB00896B6F /* AccessController+CoreDataProperties.swift */; };
+		80AB167D25A8CC0500896B6F /* AccessController+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB167C25A8CC0500896B6F /* AccessController+CoreDataClass.swift */; };
+		80AB168925A95F5300896B6F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80AB168B25A95F5300896B6F /* Localizable.strings */; };
+		80AB169525A9968300896B6F /* AppTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB169425A9968300896B6F /* AppTexts.swift */; };
+		80AB16A525B3F1CB00896B6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80AB16A725B3F1CB00896B6F /* InfoPlist.strings */; };
 		80DBD0DB258A2AFA002CFC73 /* SceneKit Scene.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 80DBD0DA258A2AFA002CFC73 /* SceneKit Scene.scnp */; };
 		80ED10AB258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10AA258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift */; };
 		80ED10BA259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10B9259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift */; };
 		80ED10BF25A2323300B3F915 /* ExtensionCallRateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10BE25A2323300B3F915 /* ExtensionCallRateApp.swift */; };
-		80ED10CB25A2345300B3F915 /* AccessController+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10C925A2345300B3F915 /* AccessController+CoreDataProperties.swift */; };
-		80ED10CC25A2345300B3F915 /* AccessController+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10CA25A2345300B3F915 /* AccessController+CoreDataClass.swift */; };
 		80ED10E325A48B0000B3F915 /* ExtensionSettingsViewControllerShareAndRateTheApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10E225A48B0000B3F915 /* ExtensionSettingsViewControllerShareAndRateTheApp.swift */; };
 		80FA83A3255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA83A2255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift */; };
 		80FC8A1224821BFC00F72AA1 /* ExtentionSettingsViewControllerVolumeSubsettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FC8A1124821BFC00F72AA1 /* ExtentionSettingsViewControllerVolumeSubsettingsMenu.swift */; };
@@ -200,12 +205,21 @@
 		80AAFE0E2478D84E003DD185 /* BottomMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuModel.swift; sourceTree = "<group>"; };
 		80AAFE10247996BF003DD185 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		80AAFE13247A916E003DD185 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		80AB165825A57C1300896B6F /* GameViewControllerBublesAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerBublesAnimation.swift; sourceTree = "<group>"; };
+		80AB165E25A8106100896B6F /* ExtensionCheckNewAppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCheckNewAppVersion.swift; sourceTree = "<group>"; };
+		80AB167725A8CBFB00896B6F /* AccessController+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataProperties.swift"; path = "/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		80AB167C25A8CC0500896B6F /* AccessController+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataClass.swift"; path = "/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		80AB168A25A95F5300896B6F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80AB168F25A95F5500896B6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		80AB169425A9968300896B6F /* AppTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTexts.swift; sourceTree = "<group>"; };
+		80AB169C25AB740F00896B6F /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		80AB16A625B3F1CB00896B6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		80AB16AB25B3F1D200896B6F /* fr-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "fr-CA"; path = "fr-CA.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		80AB16AC25B3F1D300896B6F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		80DBD0DA258A2AFA002CFC73 /* SceneKit Scene.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = "SceneKit Scene.scnp"; sourceTree = "<group>"; };
 		80ED10AA258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControolerRichedAimAnimation.swift; sourceTree = "<group>"; };
 		80ED10B9259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerBecamePremiumAccaunt.swift; sourceTree = "<group>"; };
 		80ED10BE25A2323300B3F915 /* ExtensionCallRateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCallRateApp.swift; sourceTree = "<group>"; };
-		80ED10C925A2345300B3F915 /* AccessController+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataProperties.swift"; path = "/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		80ED10CA25A2345300B3F915 /* AccessController+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataClass.swift"; path = "/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		80ED10E225A48B0000B3F915 /* ExtensionSettingsViewControllerShareAndRateTheApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionSettingsViewControllerShareAndRateTheApp.swift; sourceTree = "<group>"; };
 		80FA83A2255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerGetAdConsent.swift; sourceTree = "<group>"; };
 		80FC8A1124821BFC00F72AA1 /* ExtentionSettingsViewControllerVolumeSubsettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionSettingsViewControllerVolumeSubsettingsMenu.swift; sourceTree = "<group>"; };
@@ -394,8 +408,7 @@
 				80A7B6EA24B19A0B00649034 /* NotificationStructure.swift */,
 				80489D6B25657B9600CE26AA /* AdConsents+CoreDataClass.swift */,
 				80489D6C25657B9700CE26AA /* AdConsents+CoreDataProperties.swift */,
-				80ED10CA25A2345300B3F915 /* AccessController+CoreDataClass.swift */,
-				80ED10C925A2345300B3F915 /* AccessController+CoreDataProperties.swift */,
+				80AB167C25A8CC0500896B6F /* AccessController+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -431,6 +444,9 @@
 		806268612476386A0056BA8F = {
 			isa = PBXGroup;
 			children = (
+				80AB16A725B3F1CB00896B6F /* InfoPlist.strings */,
+				80AB169425A9968300896B6F /* AppTexts.swift */,
+				80AB168B25A95F5300896B6F /* Localizable.strings */,
 				805376A5249F8362007136F6 /* Notifications */,
 				8062686C2476386A0056BA8F /* Water Controll */,
 				806268832476386B0056BA8F /* Water ControllTests */,
@@ -505,6 +521,7 @@
 				8041AD812588767A007EB9AC /* GameViewControllerWalkAnimation.swift */,
 				80ED10AA258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift */,
 				8041AD862588B647007EB9AC /* GameViewControllerPupilsMovementAnimation.swift */,
+				80AB165825A57C1300896B6F /* GameViewControllerBublesAnimation.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -567,6 +584,7 @@
 				8051F00425088EBE00E0EBFC /* PourWaterIntoGlass */,
 				8051F00525088ED900E0EBFC /* PourWaterIntoBottle */,
 				80AAFE0D2478D7D8003DD185 /* Bottom Menu */,
+				80AB165E25A8106100896B6F /* ExtensionCheckNewAppVersion.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -580,6 +598,7 @@
 				8054EE8B2557050400BDCFA5 /* ContainerViewController GADBannerViewDelegate.swift */,
 				8055912524C883000053B892 /* ContainerViewControllerCoreData.swift */,
 				805514D32488ACBE008B9731 /* ContainerViewComplitionActions.swift */,
+				80AB167725A8CBFB00896B6F /* AccessController+CoreDataProperties.swift */,
 				80534A1A24FA0A500066D853 /* ContainerViewControllerNotificationUpdate.swift */,
 				803F64AE250F0DCE001DEE90 /* ContainerViewControllerEmptyBottleInDayBeginning.swift */,
 				808343BE25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift */,
@@ -722,7 +741,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 				Base,
+				"fr-CA",
 			);
 			mainGroup = 806268612476386A0056BA8F;
 			productRefGroup = 8062686B2476386A0056BA8F /* Products */;
@@ -742,6 +763,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				806268702476386A0056BA8F /* art.scnassets in Resources */,
+				80AB16A525B3F1CB00896B6F /* InfoPlist.strings in Resources */,
+				80AB168925A95F5300896B6F /* Localizable.strings in Resources */,
 				80AAFE072478C6F2003DD185 /* LaunchScreen.storyboard in Resources */,
 				80AAFE11247996BF003DD185 /* Assets.xcassets in Resources */,
 				80DBD0DB258A2AFA002CFC73 /* SceneKit Scene.scnp in Resources */,
@@ -882,6 +905,7 @@
 				805514D22488A8B0008B9731 /* ExtentionSettingsViewControllerActions.swift in Sources */,
 				80FC8A1224821BFC00F72AA1 /* ExtentionSettingsViewControllerVolumeSubsettingsMenu.swift in Sources */,
 				8041AD822588767A007EB9AC /* GameViewControllerWalkAnimation.swift in Sources */,
+				80AB165F25A8106100896B6F /* ExtensionCheckNewAppVersion.swift in Sources */,
 				80ED10AB258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift in Sources */,
 				808343C225434C3500858FEC /* GotWater+CoreDataClass.swift in Sources */,
 				803E6F9C247C45F500C19DF9 /* ExtentionSettingsViewControllerTableview.swift in Sources */,
@@ -895,7 +919,6 @@
 				804EBD5F24AED945007D480C /* NotificationsTimeSubsettingsMenu.swift in Sources */,
 				803F64AF250F0DCE001DEE90 /* ContainerViewControllerEmptyBottleInDayBeginning.swift in Sources */,
 				805498A6248DEC6E0043DC2B /* ExtentionVolumeSubsettingsButtonActions.swift in Sources */,
-				80ED10CB25A2345300B3F915 /* AccessController+CoreDataProperties.swift in Sources */,
 				803E6F9A247C43C900C19DF9 /* ExtentionSettingsViewControllerSetupButtonsAndLabels.swift in Sources */,
 				80602817252F73650065FDD5 /* User+CoreDataProperties.swift in Sources */,
 				80489DA625735D2B00CE26AA /* ContainerViewControllerOpenAppSettings.swift in Sources */,
@@ -922,6 +945,8 @@
 				8050D94C251C4A26005C143A /* MenuViewControllerExtentionGraph.swift in Sources */,
 				80489D6E25657B9700CE26AA /* AdConsents+CoreDataClass.swift in Sources */,
 				805033EE250B16EB002BA456 /* AlertIdentifires.swift in Sources */,
+				80AB167825A8CBFB00896B6F /* AccessController+CoreDataProperties.swift in Sources */,
+				80AB169525A9968300896B6F /* AppTexts.swift in Sources */,
 				8051F007250890F600E0EBFC /* MenuActions.swift in Sources */,
 				8052826B24A859A8000A8F11 /* NotificationsTime+CoreDataClass.swift in Sources */,
 				80489D992571817300CE26AA /* ExtensionSettingsViewControllerNotificationDeniedAlert.swift in Sources */,
@@ -929,6 +954,7 @@
 				8053FD382483B30400A4418A /* Water Controll.xcdatamodeld in Sources */,
 				805498A4248DEBDA0043DC2B /* ExtentionSettingsViewControllerTableviewDelegates.swift in Sources */,
 				8050A11E2495158B003F852F /* NotificationSettingsTableViewCellTypeMondayFirst.swift in Sources */,
+				80AB165925A57C1300896B6F /* GameViewControllerBublesAnimation.swift in Sources */,
 				80AAFE032478BD4C003DD185 /* BottomMenuCollectionView.swift in Sources */,
 				805498A8248DED100043DC2B /* ExtentionVolumeSubsettingsPickerDelegates.swift in Sources */,
 				805376A7249FA897007136F6 /* NotificationViewController.swift in Sources */,
@@ -944,10 +970,10 @@
 				80489DAB257BB81500CE26AA /* ContainerViewControllerActivityIndicator.swift in Sources */,
 				80AAFE14247A916E003DD185 /* SettingsViewController.swift in Sources */,
 				8041AD872588B647007EB9AC /* GameViewControllerPupilsMovementAnimation.swift in Sources */,
+				80AB167D25A8CC0500896B6F /* AccessController+CoreDataClass.swift in Sources */,
 				80ED10BF25A2323300B3F915 /* ExtensionCallRateApp.swift in Sources */,
 				805498AA248E505A0043DC2B /* ExtentionSettingViewControllerTextField.swift in Sources */,
 				807208B624CA928D00EEB68B /* PourWaterMenu.swift in Sources */,
-				80ED10CC25A2345300B3F915 /* AccessController+CoreDataClass.swift in Sources */,
 				80FA83A3255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift in Sources */,
 				8050A1182495013B003F852F /* ExtentionSettingsViewControllerNotificationSubsettingsMenu.swift in Sources */,
 			);
@@ -983,6 +1009,29 @@
 			targetProxy = 8062688C2476386B0056BA8F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		80AB168B25A95F5300896B6F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80AB168A25A95F5300896B6F /* ru */,
+				80AB168F25A95F5500896B6F /* en */,
+				80AB169C25AB740F00896B6F /* fr-CA */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		80AB16A725B3F1CB00896B6F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				80AB16A625B3F1CB00896B6F /* en */,
+				80AB16AB25B3F1D200896B6F /* fr-CA */,
+				80AB16AC25B3F1D300896B6F /* ru */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		806268922476386B0056BA8F /* Debug */ = {

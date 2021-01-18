@@ -163,9 +163,9 @@ extension MenuViewController {
         }
         
         
-        let countDaysSring: String = String(countOfDaysToDelete > 1 ? " \(countOfDaysToDelete) days" : " \(countOfDaysToDelete) day")
+        let countDaysSring: String = (countOfDaysToDelete > 1 ? String(countOfDaysToDelete) + AppTexts.daysAppTexts : String(countOfDaysToDelete) + AppTexts.dayAppTexts)
         alertControllerCustom = AlertControllerCustom()
-        let textConfirmDeleteGotWaterData = "Do you really want to delete the first" + countDaysSring + " of water consumption?"
+        let textConfirmDeleteGotWaterData = AppTexts.doYouReallyWantToDeleteTheFirstAppTexts + String(countDaysSring) + AppTexts.ofWaterConsumptionAppTexts
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .deleteGotWaterData, view: view, text: textConfirmDeleteGotWaterData, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "deleteCommon", thirdButtonText: nil, imageInButtons: true)
     }

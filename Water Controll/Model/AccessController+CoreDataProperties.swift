@@ -2,7 +2,7 @@
 //  AccessController+CoreDataProperties.swift
 //  
 //
-//  Created by ALEXEY DRUMLEVICH on 03.01.2021.
+//  Created by ALEXEY DRUMLEVICH on 08.01.2021.
 //
 //
 
@@ -17,11 +17,12 @@ extension AccessController {
     }
 
     @NSManaged public var bottelsAvailable: Int16
+    @NSManaged public var boundelAppRated: String?
     @NSManaged public var currentDate: Date?
     @NSManaged public var isGotConsent: Bool
-    @NSManaged public var premiumAccount: Bool
     @NSManaged public var lastWatchingRewardAdsTime: Date?
     @NSManaged public var needTimesPourWaterToCallRateTheApp: Int16
-    @NSManaged public var boundelAppRated: String?
+    @NSManaged public var premiumAccount: Bool
+    @NSManaged public var userWasNotifiedAboutNewAppVersion: Bool
 
 }

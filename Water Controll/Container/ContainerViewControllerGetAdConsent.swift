@@ -116,7 +116,6 @@ extension ContainerViewController {
                 }
                 
                 
-                
             } else {
                 // Fallback on earlier versions
                 self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
@@ -209,6 +208,7 @@ extension ContainerViewController {
                     case .nonPersonalized, .personalized:
                         
                         if changeAdConsent {
+                            
                             self.createGetConsentForm(callFromGetOneMoreBottle: callFromGetOneMoreBottle)
                         } else {
                             //save properties for save consent
@@ -220,9 +220,20 @@ extension ContainerViewController {
                         }
                         
                     case .unknown:
-                        
-                        //create get consent form
-                        self.createGetConsentForm(callFromGetOneMoreBottle: callFromGetOneMoreBottle)
+                        if let isAdConsentWasGotten = self.accessController?.isGotConsent {
+                            if !isAdConsentWasGotten {
+                                DispatchQueue.main.async {
+                                    self .getBeforeAdsConsentForEuropeanZoneAlertController(callFromGetOneMoreBottle: callFromGetOneMoreBottle)
+                                }
+                            } else {
+                                //create get consent form
+                                self.createGetConsentForm(callFromGetOneMoreBottle: callFromGetOneMoreBottle)
+                                
+                            }
+                        } else {
+                            //create get consent form
+                            self.createGetConsentForm(callFromGetOneMoreBottle: callFromGetOneMoreBottle)
+                        }
                         
                     default:
                         
@@ -335,37 +346,56 @@ extension ContainerViewController {
     
     // get conset alert controller not for European zone
     func getAdsConsentForNotEuropeanZoneAlertController(callFromGetOneMoreBottle: Bool, changeConsent: Bool = false) {
-        DispatchQueue.main.async { [self] in
+        DispatchQueue.main.async {
             if self.alertControllerCustom != nil {
                 self.alertControllerCustom?.clouseAlert()
             }
             
             self.alertControllerCustom = AlertControllerCustom()
-            let alertGetAdsConsentForNotEuropeanZoneText = """
             
-            Welcome! We keep this app free by showing ads. We care about your privasy and data security.
-            "Ads" - your agree to our partners will collect data and use a unique identifire on your devise to show you ads.
-            "Ad-free" - ad-free version.
-            "Cancel" - app will continue downloading, but you won`t be able to get more bottles with water.
-            """
-            
-            let changeConsentText = """
-            We keep this app free by showing ads. We care about your privasy and data security.
-            "Ads" - your agree to our partners will collect data and use a unique identifire on your devise to show you ads.
-            "Ad-free" - ad-free version.
-            """
+           
+            let alertGetAdsConsentForNotEuropeanZoneText = AppTexts.alertGetAdsConsentForNotEuropeanZoneTextAppTexts
+                
+            let changeConsentText =  AppTexts.changeConsentTextAppTexts
+                
+                
             
             self.saveText = "consent was gotten to use data and device identifire to show ads"
             self.callSaveFunctionFromGetOneMoreBottle = callFromGetOneMoreBottle
             self.needToSaveConsentInDataBase = true
             
             guard self.alertControllerCustom != nil else { return }
-            alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getAdConsentNotForEEA, view: createViewBehindAlertAnderBanner(), text: changeConsent ? changeConsentText : alertGetAdsConsentForNotEuropeanZoneText, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Ads", thirdButtonText: "Ad-free", imageInButtons: false)
+            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getAdConsentNotForEEA, view: self.createViewBehindAlertAnderBanner(), text: changeConsent ? changeConsentText : alertGetAdsConsentForNotEuropeanZoneText, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Ads", thirdButtonText: "Ad-free", imageInButtons: false)
             
         }
         
         
     }
+    
+    // get conset alert controller not for European zone
+    func getBeforeAdsConsentForEuropeanZoneAlertController(callFromGetOneMoreBottle: Bool) {
+        DispatchQueue.main.async {
+            if self.alertControllerCustom != nil {
+                self.alertControllerCustom?.clouseAlert()
+            }
+            
+            self.alertControllerCustom = AlertControllerCustom()
+            
+           
+            let alertText = AppTexts.alertBeforeGetAdsConsentForEuropeanZoneTextAppTexts
+            
+            self.saveText = "user was notificated about no age restrictions in Ads"
+            self.callSaveFunctionFromGetOneMoreBottle = callFromGetOneMoreBottle
+            self.needToSaveConsentInDataBase = true
+            
+            guard self.alertControllerCustom != nil else { return }
+            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getAdFirstConsentForEEA, view: self.createViewBehindAlertAnderBanner(), text: alertText, imageName: nil, firstButtonText: "Ad-free", secondButtonText: "Ads", thirdButtonText: nil, imageInButtons: false)
+            
+        }
+        
+        
+    }
+    
     //    We keep this app free by showing ads.Tap 'Allow tracking' on the next screen to give permission to show ads that are more relevant to you.
     //
     
@@ -378,11 +408,9 @@ extension ContainerViewController {
             
             self.alertControllerCustom = AlertControllerCustom()
             
-            let alertRequestIDFAWillShow = """
             
-            We keep this app free by showing ads. Tap 'Allow tracking' on the next screen to give permission to use your devise identifiers, such as the device’s advertising identifier, to displaying ads in the app. You can also pay for ad-free version.
-
-            """
+          
+            let alertRequestIDFAWillShow = AppTexts.alertRequestIDFAWillShowAppTexts
             
             guard self.alertControllerCustom != nil else { return }
             alertControllerCustom!.createAlert(observer: self, alertIdentifire: .requestIDFAWillShow, view: createViewBehindAlertAnderBanner(), text: alertRequestIDFAWillShow, imageName: nil, firstButtonText: "Ok", secondButtonText: "Ad-free", thirdButtonText: nil, imageInButtons: false)
@@ -400,17 +428,11 @@ extension ContainerViewController {
             
             self.alertControllerCustom = AlertControllerCustom()
             
-            let alertRequestIDFAWasDenied = """
             
-            We keep this app free by showing ads. We use your devise identifiers, such as the device’s advertising identifier, to displaying ads in the app. You denied these data to the app. You can 'Allow tracking' in phone`s settings or pay for ad-free version.
-
-            """
+            let alertRequestIDFAWasDenied = AppTexts.alertRequestIDFAWasDeniedAppTexts
             
-            let alertTextIDFADeniedProblemsWithOpenSettings = """
             
-            Sorry! We have problems with openning app notification settings. You can try to do this manually in your phone settings.
-
-            """
+            let alertTextIDFADeniedProblemsWithOpenSettings = AppTexts.alertProblemsWithOpenSettingsAppTexts
             
             guard self.alertControllerCustom != nil else { return }
             alertControllerCustom!.createAlert(observer: self, alertIdentifire: .requestIDFAWasDenied, view: createViewBehindAlertAnderBanner(), text: isProblemsWithOpenningPhoneSettings ? alertTextIDFADeniedProblemsWithOpenSettings : alertRequestIDFAWasDenied, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Settings", thirdButtonText: isProblemsWithOpenningPhoneSettings ? nil : "Ad-free", imageInButtons: false)
@@ -429,12 +451,8 @@ extension ContainerViewController {
             }
             
             self.alertControllerCustom = AlertControllerCustom()
-            let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText = """
-                We are sorry, but we have problem with download app to use it free by showing ads. It can be problems with Interet connection.
-                "Cancel" - app will continue downloading, but you won`t be able to get more bottles with water.
-                "Try again" - try to load app to use it free by showing ads.
-                "Ad-free" - you can paid for ad-free version.
-            """
+  
+            let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText = AppTexts.alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerTextAppTexts
             
             guard self.alertControllerCustom != nil else { return }
             alertControllerCustom!.createAlert(observer: self, alertIdentifire: .tryGetAdConsentOneMoreTime, view: createViewBehindAlertAnderBanner(), text: alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Try again", thirdButtonText: "Ad-free", imageInButtons: false)
@@ -450,11 +468,8 @@ extension ContainerViewController {
             }
             
             self.alertControllerCustom = AlertControllerCustom()
-            let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText = """
-                We are sorry, but we have problem with download app to use it free by showing ads.
-                "Cancel" - app will continue downloading, but you won`t be able to get more bottles with water.
-                "Ad-free" - you can paid for ad-free version.
-            """
+         
+            let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText = AppTexts.alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerCantLoadAdTextAppTexts
             
             guard self.alertControllerCustom != nil else { return }
             alertControllerCustom!.createAlert(observer: self, alertIdentifire: .incorrectURL, view: createViewBehindAlertAnderBanner(), text: alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Ad-free", thirdButtonText: nil, imageInButtons: false)

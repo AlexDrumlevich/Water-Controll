@@ -117,7 +117,7 @@ extension SettingsViewController {
         return currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: currentNotificationsTimeDaySender)?.sectionTitle ?? "" :  NotificationSettingsTableViewCellTypeMondayFirst(rawValue: currentNotificationsTimeDaySender)?.sectionTitle ?? ""
     }
     
-    //cell hait
+    //cell height
     func setupCellHideInTableViewNotificationsTimeADay() -> CGFloat {
         return CGFloat((view.bounds.width - 50) / 3)
     }

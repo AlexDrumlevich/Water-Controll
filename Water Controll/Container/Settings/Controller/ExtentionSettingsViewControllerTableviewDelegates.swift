@@ -24,6 +24,9 @@ extension SettingsViewController: UITableViewDelegate {
                 if accessController!.premiumAccount == true && settingsViewControllerTableViewCellType == .restorePurchases {
                     return 0
                 }
+                if (settingsViewControllerTableViewCellType == .rateTheApp || settingsViewControllerTableViewCellType == .shareTheApp) && shareAndRateAvailable() == nil {
+                    return 0
+                }
             }
             return settingsViewControllerTableViewCellType.cellHeightMultiplicator * view.bounds.height
              // notifications time a day
@@ -78,7 +81,14 @@ extension SettingsViewController: UITableViewDelegate {
                 deleteUserAlertController()
                
             case .restorePurchases:
+                //later
                 break
+                
+            case .rateTheApp:
+                rateAppByUserWish()
+                
+            case .shareTheApp:
+                shareAppWithFriends()
             }
         }
     }
@@ -113,7 +123,7 @@ extension SettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //notification subsettings menu
-        let notificationsText = " notifications"
+        let notificationsText = " " + AppTexts.notificationsAppTexts
         if tableView.tag == 1 {
             let titleADayPart = (currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: section)?.sectionTitle) ?? ""
             return titleADayPart
@@ -139,7 +149,7 @@ extension SettingsViewController: UITableViewDataSource {
             case .name:
                 //additional setup text fild and add actions
                 nameTextField = cell.textField
-                nameTextField.placeholder = "Change name"//currentUser.name ?? ""
+                nameTextField.placeholder = AppTexts.changeNameAppTexts//currentUser.name ?? ""
                 nameTextField.enablesReturnKeyAutomatically = true
                 nameTextField.autocorrectionType = .no
                 nameTextField.autocapitalizationType = .sentences

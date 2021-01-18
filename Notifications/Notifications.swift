@@ -92,11 +92,11 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
             if isLast {
                 //we call this complition in func  when we add last notification
                 self.notificationCenter.getPendingNotificationRequests { (requests) in
-                    for request in requests {
-                        guard let trigger = request.trigger as? UNCalendarNotificationTrigger else { continue}
-                        print ("mounth: \(trigger.dateComponents.month), day: \(trigger.dateComponents.weekday), hour: \(trigger.dateComponents.hour), minute: \(trigger.dateComponents.minute)")
-                        
-                    }
+//                    for request in requests {
+//                        guard let trigger = request.trigger as? UNCalendarNotificationTrigger else { continue}
+//                        print ("mounth: \(trigger.dateComponents.month), day: \(trigger.dateComponents.weekday), hour: \(trigger.dateComponents.hour), minute: \(trigger.dateComponents.minute)")
+//
+//                    }
                 }
                 complitionAction()
             }
@@ -108,7 +108,7 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
     }
     
     
-    
+    /*
     //test notification
     func testNotification(timeInterval: Double) {
         
@@ -136,7 +136,7 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
             }
         }
     }
-    
+    */
     
     //reminder notification
     func reminder(timeInterval: Double, textBody: String) {

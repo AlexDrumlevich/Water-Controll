@@ -17,7 +17,7 @@ extension MenuViewController {
         }
         
         alertControllerCustom = AlertControllerCustom()
-        let textFillTheIsNotEmptyBottle = "Your bottle is not empty. Do you still watn to fill it?"
+        let textFillTheIsNotEmptyBottle = AppTexts.textFillTheIsNotEmptyBottle
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .fillTheIsNotEmptyBottle, view: view, text: textFillTheIsNotEmptyBottle, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "pourWaterIntoBottle", thirdButtonText: nil, imageInButtons: true)
         
@@ -68,11 +68,10 @@ extension MenuViewController {
         }
         
         alertControllerCustom = AlertControllerCustom()
-        let textNoAvailableBottlesWithWater = "No available bottles with water"
+        let textNoAvailableBottlesWithWater = AppTexts.textNoAvailableBottlesWithWater
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .noBottlesWithWater, view: view, text: textNoAvailableBottlesWithWater, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "getOneMoreBottle", thirdButtonText: "unlimitedBottels", imageInButtons: true)
-  
-        print("No available bottles with water")
+
     }
     // auto fill system
     //we call this method from ContainerViewControllerEmptyBottleInDayBeginning and when users change - did set method in menu view controller 

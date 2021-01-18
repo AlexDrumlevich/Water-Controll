@@ -13,6 +13,10 @@ class MenuViewController: UIViewController {
     
     //product url
     var productURLString = ""
+    //URL to get information in app store
+    //later
+    let appURLInAppStoreToGetVersion = "http://itunes.apple.com/jp/lookup/?id=474500851"
+    
     
     let constraintConstant: CGFloat = 5
     var gameSceneController: GameViewController?
@@ -50,7 +54,11 @@ class MenuViewController: UIViewController {
     var adLoadCount = 1
     //waiting time to watch new reward video
     let minWaitingTimeSecondsBetweenShowingRewardVideo = 60
+    //error text
+    let adErrorText = AppTexts.adErrorTextAppTexts
     
+    //ads
+    var isGetConsentFormCallFromGetOneMoreBottle = false
     
     
     //activity indicator
@@ -162,6 +170,8 @@ class MenuViewController: UIViewController {
         rightButton.isHidden = isSinglUser
         leftButton.isHidden = isSinglUser
         
+        //check new app version
+        checkNewAppVersionAndNotifyUserAboutNewVersion()
         //
         
         
@@ -239,13 +249,15 @@ class MenuViewController: UIViewController {
         private func calculateText() {
             
                 
-                let mlText = "ml"
-                
+            let mlText = AppTexts.mlAppTexts
+            let literText = AppTexts.literAppTexts
+            let litersText = AppTexts.litersAppTexts
+            
                 let waterWasDrunk = self.currentUser.volumeType == "oz" ? String(Int(self.currentUser.currentVolume)) : self.currentUser.currentVolume >= 1.0 ? String(self.currentUser.currentVolume) : String(format: "%.0f", (self.currentUser.currentVolume) * 1000) + " " + mlText
                 
                 let fullBottleVolume = self.currentUser.volumeType == "oz" ? String(format: "%.0f", self.currentUser.fullVolume) : self.currentUser.fullVolume >= 1.0 ? String(Float(round(self.currentUser.fullVolume * 100) / 100)) : String(format: "%.0f", self.currentUser.fullVolume * 1000)
                 
-                let type = self.currentUser.volumeType == "oz" ? self.currentUser.volumeType ?? "oz" : self.currentUser.fullVolume >= 1.0 ? self.currentUser.volumeType ?? "liter" : "ml"
+            let type = self.currentUser.volumeType == "oz" ? self.currentUser.volumeType ?? "oz" : self.currentUser.fullVolume >= 1.0 ? self.currentUser.fullVolume >= 2.0 ? litersText : literText : (" " + mlText)
                 
                 let waterWasDrunkPercentsFloat = self.currentUser.currentVolume * 100 / self.currentUser.fullVolume
                 
@@ -253,9 +265,9 @@ class MenuViewController: UIViewController {
                 
                 let waterWasDrunkPercents = String(format: "%.0f", waterWasDrunkPercentsFloatRounded)
                 
-                let waterWasDrunkText = String("Progress")
+            let waterWasDrunkText = AppTexts.progressAppTexts
                 
-                let textLabel = waterWasDrunkText + ": " + waterWasDrunk + " out of " + fullBottleVolume + " " + type + " ("  + waterWasDrunkPercents + " %)"
+            let textLabel = waterWasDrunkText + ": " + waterWasDrunk + " " + AppTexts.outOffAppTexts + " " + fullBottleVolume + " " + type + " ("  + waterWasDrunkPercents + " %)"
                 self.pouredWaterLabel.text = textLabel
             
         }

@@ -18,17 +18,11 @@ extension MenuViewController {
             }
             
             alertControllerCustom = AlertControllerCustom()
-            let alertTextNotificationDenied = """
+          
+            let alertTextNotificationDenied = AppTexts.alertTextNotificationDeniedAppTexts
             
-            We use notifications to remind you to drink water. But you refused to notify the app. You can enable notifications in your phone settings.
-
-            """
+            let alertTextNotificationDeniedProblemsWithOpenSettings = AppTexts.alertProblemsWithOpenSettingsAppTexts
             
-            let alertTextNotificationDeniedProblemsWithOpenSettings = """
-            
-            Sorry! We have problems with openning app notification settings. You can try to do this manually in your phone settings.
-
-            """
             
             guard alertControllerCustom != nil else { return }
             alertControllerCustom!.createAlert(observer: self, alertIdentifire: .notificationDenied, view: view, text: isProblemsWithOpenSettings ? alertTextNotificationDeniedProblemsWithOpenSettings : alertTextNotificationDenied, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: isProblemsWithOpenSettings ? nil : "settings", thirdButtonText: nil, imageInButtons: true)

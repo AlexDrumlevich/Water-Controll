@@ -17,8 +17,9 @@ extension SettingsViewController {
         }
         
         alertControllerCustom = AlertControllerCustom()
-        let name = currentUser.name ?? "me"
-        let textDoYouReallyWantToDeleteMe = "Do you really want to delete " + name + "?"
+        let name = currentUser.name ?? AppTexts.meAppTexts
+        
+        let textDoYouReallyWantToDeleteMe = AppTexts.doYouReallyWantToDeleteMeAppTexts + name + "?"
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .deleteUser, view: view, text: textDoYouReallyWantToDeleteMe, imageName: "cryingBottle", firstButtonText: "cancelSmallBlue", secondButtonText: "delete", thirdButtonText: nil, imageInButtons: true)
      

@@ -16,6 +16,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
     var textField: UITextField!
     var youNameLabel: UILabel!
     
+    var isGeneralCell = false
+    
     var volumeLabel: UILabel!
     var bottleImageView: UIImageView!
     
@@ -44,6 +46,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
    // func setupCell(withFirstTypeMondy typeMonday: NotificationSettingsTableViewCellTypeMondayFirst, withFirstTypeSunday typeSunday: NotificationSettingsTableViewCellTypeSundayFirst, currentTypeMonday: Bool, itemWidth: CGFloat)
     func setupCell(withTag tag: Int, isGeneral: Bool, itemWidth: CGFloat) {
         
+        
         self.selectionStyle = .none
         backgroundColor = .clear
         
@@ -65,8 +68,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
       // if typeMonday == .generalSettings || typeSunday == .generalSettings  {segmentedControllCommonSettings.isHidden = true}
     
         segmentedControllCommonSettings.isHidden = isGeneral
-        segmentedControllCommonSettings.insertSegment(withTitle: "common", at: 0, animated: true)
-        segmentedControllCommonSettings.insertSegment(withTitle: "special", at: 1, animated: true)
+        segmentedControllCommonSettings.insertSegment(withTitle: AppTexts.commonAppTexts, at: 0, animated: true)
+        segmentedControllCommonSettings.insertSegment(withTitle: AppTexts.specialAppTexts, at: 1, animated: true)
         //segmentedControllCommonSettings.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         segmentedControllCommonSettings.tag = tag
         addSubview(segmentedControllCommonSettings)
@@ -88,7 +91,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         timesADayLabel.adjustsFontSizeToFitWidth = true
         timesADayLabel.minimumScaleFactor = 0.2
         timesADayLabel.textAlignment = .left
-        timesADayLabel.text = "times a day:"
+        timesADayLabel.text = AppTexts.timesADayAppTexts
         addSubview(timesADayLabel)
         timesADayLabel.translatesAutoresizingMaskIntoConstraints = false
         

@@ -51,7 +51,7 @@ extension GraphCollectionView: UICollectionViewDataSource, UICollectionViewDeleg
         cell.volume = gotWater.volumeGet
         cell.targetVolume = gotWater.volumeTarget
         
-        let volumeTypeComplitely = gotWater.isOzType ? " oz" : " L"
+        let volumeTypeComplitely = gotWater.isOzType ? " oz" : AppTexts.literShortlyAppTexts
         cell.volumeType = volumeTypeComplitely
         
         cell.setupCell()

@@ -156,7 +156,7 @@ extension SettingsViewController {
         label.textColor = .black//#colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.2
-        label.text = "Notifications"
+        label.text = AppTexts.notificationsAppTexts
         
         notificationSubsettingsMenu.tableHeaderView = label
         notificationSubsettingsMenu.tableHeaderView?.bounds.size.height = view.bounds.height * 1 / 20
@@ -251,23 +251,26 @@ extension SettingsViewController {
     func setupNotificationSettingsTableViewCells(cell: NotificationSubsettingsMenuCell, indexPath: IndexPath) -> NotificationSubsettingsMenuCell {
         
         clearCellForUseQueueCells(views: cell.subviews)
-        
+        cell.isGeneralCell = indexPath.section == 0
         //get curent notification
         
         var notification = notificationsStracture[indexPath.section]
         
+        /*
         //additional check that current notification equal current cell
-        let sectionTitle = currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: indexPath.section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: indexPath.section)?.sectionTitle
-        if notification.name != sectionTitle, let notifications = notificationsStracture {
+        let notificationName = currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: indexPath.section)?.notificationName: NotificationSettingsTableViewCellTypeMondayFirst(rawValue: indexPath.section)?.notificationName//.sectionTitle
+        if notification.name != notificationName, let notifications = notificationsStracture {
             for item in notifications {
                 
-                let notificationName = currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: indexPath.section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: indexPath.section)?.sectionTitle
+                
+                let notificationName = currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: indexPath.section)?.notificationName : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: indexPath.section)?.notificationName
                 if item.name == notificationName {
                     notification = item
                     break
                 }
             }
         }
+        */
         
         //50: 20 - 2 constraints into view, 45 - 9 constraints between elements inside cell + 5 as a precaution; / 6 - 6 elements in cell
         let itemWidth = (view.bounds.width - 70) / 6
@@ -275,7 +278,7 @@ extension SettingsViewController {
         //setup cells
         
        // cell.setupCell(withFirstTypeMondy: NotificationSettingsTableViewCellTypeMondayFirst(rawValue: indexPath.section)!, withFirstTypeSunday: NotificationSettingsTableViewCellTypeSundayFirst (rawValue: indexPath.section)!, currentTypeMonday: currentUser.volumeType != "oz", itemWidth: itemWidth)
-        let isGeneral = NotificationSettingsTableViewCellTypeSundayFirst(rawValue: indexPath.section)! == .generalSettings || NotificationSettingsTableViewCellTypeMondayFirst(rawValue: indexPath.section)! == .generalSettings ? true : false
+        let isGeneral = currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: indexPath.section)! == .generalSettings ? true : false : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: indexPath.section)! == .generalSettings ? true : false
         
         cell.setupCell(withTag: indexPath.section, isGeneral:
             isGeneral, itemWidth: itemWidth)
@@ -287,7 +290,7 @@ extension SettingsViewController {
         cell.segmentedControllCommonSettings.selectedSegmentIndex = notification.isCommon ? 0 : 1
         
         //hide if off or (if common settings exept general)
-        if notification.isActive == false || notification.isCommon == true && notification.name != NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle {
+        if notification.isActive == false || notification.isCommon == true && !cell.isGeneralCell {// notification.name != NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle
             hideViews(views: [cell.lessTimesButton, cell.timesRepeatCountLabel,  cell.moreTimesButton, cell.extentionSetupNotificationTimesADayButton, cell.startTimeLabel, cell.startSlider, cell.startAmPmLabel, cell.stopTimeLabel,  cell.stopAmPmLabel, cell.stopTimeSlider, cell.repeatImageView, cell.timesADayLabel, cell.startLabel, cell.stopLabel])
         }
         
@@ -408,7 +411,7 @@ extension SettingsViewController {
             return 0
         }
         let currentNotification = notificationsStracture[indexPath.section]
-        if currentNotification.isActive! && !currentNotification.isCommon! || currentNotification.name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle ?? "Common" && currentNotification.isActive! {
+        if currentNotification.isActive! && !currentNotification.isCommon! || indexPath.section == 0 && currentNotification.isActive!{//currentNotification.name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle ?? "Common" && currentNotification.isActive! {
             return ((view.bounds.width - 50) / 6) * 3 + 90
         } else {
             return ((view.bounds.width - 50) / 6)
@@ -528,7 +531,7 @@ extension SettingsViewController {
         
         notificationsStracture[sender.tag].isActive = !notificationsStracture[sender.tag].isActive
         
-        if notificationsStracture[sender.tag].name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle {
+        if sender.tag == 0 {//notificationsStracture[sender.tag].name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle {
             for (itemNumber, notification) in notificationsStracture.enumerated() {
                 
                 if notification.isCommon! {
@@ -573,7 +576,7 @@ extension SettingsViewController {
         
         notificationsStracture[sender.tag].times -= 1
         notificationsStracture[sender.tag].notificationsTimeADay = setupNotificationsTime(for: notificationsStracture[sender.tag])
-        if notificationsStracture[sender.tag].name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle {
+        if sender.tag == 0 {//notificationsStracture[sender.tag].name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle {
             for (itemNumber, item) in notificationsStracture.enumerated() {
                 if item.isCommon {
                     notificationsStracture[itemNumber].times = notificationsStracture[sender.tag].times
@@ -593,7 +596,7 @@ extension SettingsViewController {
         
         notificationsStracture[sender.tag].times += 1
         notificationsStracture[sender.tag].notificationsTimeADay =  setupNotificationsTime(for: notificationsStracture[sender.tag])
-        if notificationsStracture[sender.tag].name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle {
+        if sender.tag == 0 {//} notificationsStracture[sender.tag].name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle {
             for (itemNumber, item) in notificationsStracture.enumerated() {
                 if item.isCommon {
                     notificationsStracture[itemNumber].times = notificationsStracture[sender.tag].times

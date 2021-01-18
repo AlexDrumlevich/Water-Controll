@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  Water Controll
+
+  Created by ALEXEY DRUMLEVICH on 17.01.2021.
+  Copyright © 2021 ALEXEY DRUMLEVICH. All rights reserved.
+*/
+
+"Privacy - Tracking Usage Description" = "Приложение будет использовать идентификаторы для целей показа рекламы.";
+
+
+//"App will use identifiers to deliver ads to you." = "Приложение будет использовать идентификаторы для целей показа рекламы.";

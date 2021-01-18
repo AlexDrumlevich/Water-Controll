@@ -72,7 +72,7 @@ extension SettingsViewController {
             NSAttributedString.Key.font: font!, NSAttributedString.Key.foregroundColor: UIColor.purple
         ]
         
-        let text = "Add user"
+        let text = AppTexts.addUserAppTexts
         let attributedStringNormal = NSMutableAttributedString(string: text, attributes: titleAttributesNormalState)
         let attributedStringAssigne = NSMutableAttributedString(string: text, attributes: titleAttributesAssignState)
         plusButton.setAttributedTitle(attributedStringNormal, for: .normal)

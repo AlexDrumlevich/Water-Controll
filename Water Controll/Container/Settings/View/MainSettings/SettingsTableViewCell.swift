@@ -46,11 +46,11 @@ class SettingsTableViewCell: UITableViewCell {
             setupDeleteUserCell()
          
         case .restorePurchases:
-            setupLabelOnlyCells(labelText: "Restore purchases")
+            setupLabelOnlyCells(labelText: AppTexts.restorePurchasesAppTexts)
         case .rateTheApp:
-            setupLabelOnlyCells(labelText: "Rate the app")
+            setupLabelOnlyCells(labelText: AppTexts.rateTheAppAppTexts)
         case .shareTheApp:
-            setupLabelOnlyCells(labelText: "Share the app")
+            setupLabelOnlyCells(labelText: AppTexts.shareTheAppAppTexts)
         }
     }
     
@@ -80,7 +80,7 @@ class SettingsTableViewCell: UITableViewCell {
         textField.clipsToBounds = true
         
         youNameLabel = UILabel()
-        youNameLabel.text = "Name"
+        youNameLabel.text = AppTexts.nameAppTexts
         youNameLabel.textColor = .gray
         youNameLabel.backgroundColor = .clear
         youNameLabel.alpha = 0.5
@@ -95,7 +95,31 @@ class SettingsTableViewCell: UITableViewCell {
     
     private func setupLabelOnlyCells(labelText: String) {
        
-        setFirstTypeLabels(labelText: labelText)
+        let label = UILabel()
+        let lableHeight = bounds.height - (constraintConstant * 2)
+       
+       //text settings
+
+        label.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        label.textAlignment = .center
+        label.backgroundColor = .clear
+        label.font = UIFont(name: "AmericanTypewriter", size:  lableHeight)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.1
+//        label.sizeToFit()
+        label.text = labelText
+        
+        
+       //corner radius
+       label.layer.cornerRadius = lableHeight
+       label.layer.borderWidth = 3
+       label.layer.borderColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+       label.clipsToBounds = true
+        
+        //add text field into cell
+        addSubview(label)
+        //setup constraints
+        setupConstraints(subView: label)
         
     }
     
@@ -119,7 +143,7 @@ class SettingsTableViewCell: UITableViewCell {
         setupConstraints(subView: imageView)
         
         let label = UILabel()
-        setLabel(label: label, text: "notifications", leftPartView: imageView)
+        setLabel(label: label, text: AppTexts.notificationsAppTexts, leftPartView: imageView)
     }
     
     
@@ -150,33 +174,10 @@ class SettingsTableViewCell: UITableViewCell {
         setupConstraints(subView: imageView)
         
         let label = UILabel()
-        setLabel(label: label, text: "delete user", leftPartView: imageView, textColor: .red)
+        setLabel(label: label, text: AppTexts.deleteUserAppTexts, leftPartView: imageView, textColor: .red)
         
     }
     
-    private func setFirstTypeLabels(labelText: String) {
-        let label = UILabel()
-        let lableHeight = bounds.height - (constraintConstant * 2)
-       //text settings
-        label.text = labelText
-        label.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-        label.textAlignment = .center
-        label.backgroundColor = .clear
-        label.font = UIFont(name: "AmericanTypewriter", size:  lableHeight)
-        label.minimumScaleFactor = 0.3
-        label.adjustsFontForContentSizeCategory = true
-
-       //add text field into cell
-       addSubview(label)
-       //setup constraints
-       setupConstraints(subView: label)
-       //corner radius
-       label.layer.cornerRadius = lableHeight
-       label.layer.borderWidth = 3
-       label.layer.borderColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-       label.clipsToBounds = true
-        
-    }
     
     private func setLabel(label: UILabel, text: String = "", leftPartView: UIView, textColor: UIColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)) {
         
@@ -185,7 +186,7 @@ class SettingsTableViewCell: UITableViewCell {
         label.backgroundColor = .clear
         label.font = UIFont(name: "AmericanTypewriter", size:  150)
         label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.1
+        label.minimumScaleFactor = 0.05
         label.sizeToFit()
         label.textColor = textColor
         addSubview(label)

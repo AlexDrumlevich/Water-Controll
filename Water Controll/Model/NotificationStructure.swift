@@ -13,7 +13,9 @@ import Foundation
 struct NotificationsStructure {
     var isActive: Bool!
     var isCommon: Bool!
+    // language depended
     var name: String!
+    
     var start: Int16!
     var stop: Int16!
     var times: Int16!

@@ -9,15 +9,20 @@
 import UIKit
 import QuartzCore
 import SceneKit
-
+import AVFoundation
 
 //for send type of actions after animation
 enum TypeAnimationComplitionFromMenuViewController {
     case openPourWaterIntoGlass, pourWaterIntoBottle, transferCurrentUserInMenuViewController
 }
+//bubles animation type
+enum BubleAnimationType {
+    case none, slow, fast
+}
 
 class GameViewController: UIViewController {
-    
+
+
     var isChangeWaterLevelFromPourWaterInBottle = false
     
     var currentWaterLevel: Float? = nil {
@@ -33,6 +38,13 @@ class GameViewController: UIViewController {
             setupWaterLevel(from: oldValue)
         }
     }
+    
+    var currentWaterLevelAtTheMoment: Float = 0
+    
+    //device vibrate properties
+    var needToStopVibrate = true
+    //set it when we need vibrate in some action
+    var needToVibrateInThisAction = false
     
     //we set current user when we change user in menu view controller
     var currentUser: User? {
@@ -83,6 +95,22 @@ class GameViewController: UIViewController {
     var finishRainNodePosition: SCNVector3?
     var countOfRainAction = 3
     
+    //bubles
+    var bubleFirstNode: SCNNode?
+    var bubleSecondNode: SCNNode?
+    var bubleThirdNode: SCNNode?
+    var bublesArray = [SCNNode?]()
+    var finishBubleNode: SCNNode?
+    var startBubleNode: SCNNode?
+    let possibleDistanceBubleAppearFromStartBubleNode: ClosedRange<Float> = -1.5 ... 1.5
+    let fastBubleActionTime: ClosedRange<Double> = 0.3 ... 0.6
+    let slowBubleActionTime: ClosedRange<Double> = 2 ... 4
+    let minimumLevelOfWaterForBubleAnimation: Float = 0.1
+    var bubleAnimationType: BubleAnimationType = .none
+
+    
+    
+    
     // aim reched
     var cupNode: SCNNode?
     var needToAimReachAction = false
@@ -123,6 +151,18 @@ class GameViewController: UIViewController {
         finishRainNode = scene.rootNode.childNode(withName: "finishRainNode", recursively: true)
         finishRainNodePosition = finishRainNode?.position
     
+        //bubles animation
+        bubleFirstNode = scene.rootNode.childNode(withName: "buble1", recursively: true)
+        bubleFirstNode?.isHidden = true
+        bublesArray.append(bubleFirstNode)
+        bubleSecondNode = scene.rootNode.childNode(withName: "buble2", recursively: true)
+        bubleSecondNode?.isHidden = true
+        bublesArray.append(bubleSecondNode)
+        bubleThirdNode = scene.rootNode.childNode(withName: "buble3", recursively: true)
+        bubleThirdNode?.isHidden = true
+        bublesArray.append(bubleThirdNode)
+        finishBubleNode = scene.rootNode.childNode(withName: "finishBubleNode", recursively: true)
+        startBubleNode = scene.rootNode.childNode(withName: "startBubleNode", recursively: true)
         
         // animate the 3d object
         //  ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
@@ -240,6 +280,8 @@ class GameViewController: UIViewController {
         let timeDurationAnimation = 2.0
         bottleGoHome {
             
+            self.stopBubleAction()
+            
             let waterLevel = self.currentWaterLevel ?? 1
             
             //current scale
@@ -262,7 +304,22 @@ class GameViewController: UIViewController {
                     scaleZ = scalePercent == 0 ? 0 : 0.88 + scalePercent
                 }
                 node.scale = SCNVector3(x: 1, y: currentScaleY, z: scaleZ)
-                print("currentScaleY: \(currentScaleY), z: \(scaleZ)")
+              
+                self.currentWaterLevelAtTheMoment = currentScaleY
+                
+                //stop/start buble action
+                
+                if self.bubleAnimationType == .slow {
+                    self.stopBubleAction()
+                }
+                if self.bubleAnimationType == .fast && currentScaleY < self.minimumLevelOfWaterForBubleAnimation {
+                    self.stopBubleAction()
+                }
+                if self.bubleAnimationType == .none && currentScaleY >= self.minimumLevelOfWaterForBubleAnimation {
+                    self.stopBubleAction()
+                    self.startBublesAnimation(animationType: .fast)
+                }
+    
             }
             
             if self.needToAimReachAction {
@@ -311,13 +368,35 @@ class GameViewController: UIViewController {
             if  needRainAction {
                 self.rainAction(withDuration: timeDurtionAnimation / 3)
             }
+            // buble action
+//            if self.currentWaterLevel != nil {
+//                if self.currentWaterLevel! > 0.1 {
+//                    self.startBublesAnimation(timeDuration: self.fastBubleActionTime)
+//                }
+//            }
+           
+            //vibrte when water lavel changing
+            self.needToStopVibrate = false
+            self.startVibrat()
+            
             //water action
             self.waterNode?.runAction(scaleAnimation, completionHandler: {
+            
+                //scale animation complited
                 
+                //start buble slow animation
+                if self.currentWaterLevel ?? 0 > self.minimumLevelOfWaterForBubleAnimation {
+                    self.stopBubleAction()
+                    self.startBublesAnimation(animationType: .slow)
+                }
+                
+                //stop vibrate
+                self.needToStopVibrate = true
+                self.needToVibrateInThisAction = false
                 //complition block after animation (action)
                 //start walking
                 self.startBottleAction()
-                print("Scale animation compleated")
+            
                 if self.menuViewController != nil {
                     //open PourWaterMenu if menuViewController is not nil (we set menuViewController from MenuViewController when we pour water and user isn`t single
                     DispatchQueue.main.async {
@@ -340,10 +419,24 @@ class GameViewController: UIViewController {
         }
     }
     
+    private func startVibrat() {
+        guard  needToVibrateInThisAction else {
+            return
+        }
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(30)) {
+            guard !self.needToStopVibrate else {
+                return
+            }
+            self.startVibrat()
+        }
+    }
     
+
     
     func rainAction(withDuration: Double) {
-        
+        //turn on vibrate action
+        needToVibrateInThisAction = true
         rainNode?.runAction(preparationToRainAction(withDuration:  withDuration), completionHandler: {
             DispatchQueue.main.async {
                 self.countOfRainAction -= 1

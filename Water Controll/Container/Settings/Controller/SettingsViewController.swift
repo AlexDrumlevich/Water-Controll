@@ -66,7 +66,7 @@ class SettingsViewController: UIViewController {
     let plusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Add user", for: .normal)
+        button.setTitle(AppTexts.addUserAppTexts, for: .normal)
         //button.setImage(UIImage(named: "plus"), for: .normal)
         return button
     }()

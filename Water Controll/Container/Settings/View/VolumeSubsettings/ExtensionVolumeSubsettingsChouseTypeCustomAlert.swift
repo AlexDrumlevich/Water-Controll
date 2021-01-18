@@ -26,15 +26,10 @@ extension SettingsViewController {
             
             
             let name = currentUser.name
-            let greetingText = "Hi" + (name == nil ? "! " : ", " + name! + "! ")
-            let alertTextChouseVolumeType = """
-            Please select the volume type: "Liter" or "Oz"
-            """
-            
-            let doctorConsultationText = """
-            Caution!
-            The app only controls the amount of water you drink from the daily volume you choose. To choose a daily volume you should consult your doctor.
-            """
+            let greetingText = AppTexts.firstGreetingWord + (name == nil ? "! " : ", " + name! + "! ")
+            let alertTextChouseVolumeType = AppTexts.alertTextChouseVolumeType
+                
+            let doctorConsultationText = AppTexts.doctorConsultationText
             
             let alertText = type == .selectVolumeType ? greetingText + alertTextChouseVolumeType : doctorConsultationText
             

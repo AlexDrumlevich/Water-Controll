@@ -88,17 +88,19 @@ extension SettingsViewController {
           
             
             //conversely notifications if needed 
-            if let notifications = currentUser.notifications as? NSMutableOrderedSet {
+            if let notifications = currentUser.notifications?.mutableCopy() as? NSMutableOrderedSet {
                 if currentUser.volumeType == "oz" {
-                    if (notifications[1] as? Notificaton)?.name != NotificationSettingsTableViewCellTypeSundayFirst.sunday.sectionTitle {
+                    if (notifications[1] as? Notificaton)?.name != NotificationSettingsTableViewCellTypeSundayFirst.sunday.notificationName {//.sectionTitle {
                         notifications.moveObjects(at: [7], to: 1)
                     }
                 } else {
-                    if (notifications[1] as? Notificaton)?.name == NotificationSettingsTableViewCellTypeMondayFirst.sunday.sectionTitle {
+                    if (notifications[1] as? Notificaton)?.name == NotificationSettingsTableViewCellTypeMondayFirst.sunday.notificationName {//.sectionTitle {
                         notifications.moveObjects(at: [1], to: 7)
                     }
                 }
                 currentUser.notifications = notifications
+                
+              
             }
             
             
@@ -183,7 +185,7 @@ extension SettingsViewController {
             settingsViewControllerComplitionActions(.deleteUser)
         } else {
             nameTextField.text = ""
-            nameTextField.placeholder = "Change name"// currentUser.name
+            nameTextField.placeholder = AppTexts.changeNameAppTexts// currentUser.name
             nameLabel.text = currentUser.name
             // hiddenButtons(buttons: [deleteButton], isHidden: false)
             hiddenButtons(buttons: [plusButton, backButton], isHidden: false)

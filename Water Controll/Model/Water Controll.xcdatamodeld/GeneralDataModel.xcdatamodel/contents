@@ -8,6 +8,7 @@
         <attribute name="lastWatchingRewardAdsTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="needTimesPourWaterToCallRateTheApp" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="premiumAccount" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="userWasNotifiedAboutNewAppVersion" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
     </entity>
     <entity name="AdConsents" representedClassName="AdConsents" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -52,7 +53,7 @@
     </entity>
     <entity name="UserWaterGraph" representedClassName="UserWaterGraph" syncable="YES"/>
     <elements>
-        <element name="AccessController" positionX="-54" positionY="81" width="128" height="148"/>
+        <element name="AccessController" positionX="-54" positionY="81" width="128" height="163"/>
         <element name="AdConsents" positionX="-45" positionY="99" width="128" height="73"/>
         <element name="GotWater" positionX="-54" positionY="18" width="128" height="118"/>
         <element name="NotificationsTime" positionX="-45" positionY="54" width="128" height="73"/>

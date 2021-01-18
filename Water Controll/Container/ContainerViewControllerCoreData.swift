@@ -25,6 +25,7 @@ extension ContainerViewController {
                 access.currentDate = Date()
                 access.premiumAccount = false
                 access.bottelsAvailable = 1
+                access.userWasNotifiedAboutNewAppVersion = false
                 access.needTimesPourWaterToCallRateTheApp = needTimesPourWaterToCallRateMenu
                 access.boundelAppRated = getCurrentAppVersion()
                 accessController = access
@@ -80,8 +81,7 @@ extension ContainerViewController {
                 //and pass thet we have the first user in our app
                 presentSettingsViewController(with: .firstUser)
             } else {
-                //update notifications
-                self.updateNotifications()
+              
                 //if we some user - find current user amout them
                 for user in users {
                     if user.currentUser {
@@ -89,6 +89,15 @@ extension ContainerViewController {
                         if currentUser.volumeType == nil {
                             presentSettingsViewController(with: .needToSetupVolumeSettings)
                         }
+                        
+                        /*
+                        //test
+                        for notific in currentUser!.notifications! {
+                            print((notific as! Notificaton).name)
+                        }
+                        */
+                        //update notifications
+                      self.updateNotifications()
                         return
                     }
                 }
@@ -145,7 +154,7 @@ extension ContainerViewController {
             let notification = Notificaton(context: contextDataBase)
             notification.isActive = true
             notification.isCommon = true
-            notification.name = NotificationSettingsTableViewCellTypeMondayFirst(rawValue: i)?.sectionTitle
+            notification.name = NotificationSettingsTableViewCellTypeMondayFirst(rawValue: i)?.notificationName //sectionTitle
             notification.start = 480
             notification.stop = 1320
             notification.times = 4

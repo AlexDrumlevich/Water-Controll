@@ -16,6 +16,9 @@ extension MenuViewController: AlertControllerCustomActions {
         switch indexOfPressedButton {
         case 0:
             alertControllerCustom?.clouseAlert()
+            if identifire == .newAppVersionIsReady {
+                changeValueToUserWasNotifiedAboutNewVersion()
+            }
             break
         case 1:
             
@@ -71,6 +74,10 @@ extension MenuViewController: AlertControllerCustomActions {
                     }
                 }
                 
+            case .newAppVersionIsReady:
+                openAppInAppStore()
+                alertControllerCustom?.clouseAlert()
+                changeValueToUserWasNotifiedAboutNewVersion()
             default:
                 break
             }

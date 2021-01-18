@@ -70,7 +70,9 @@ extension MenuViewController: GADRewardedAdDelegate {
         alertControllerCustom = AlertControllerCustom()
         let alertId = alertControllerCustom?.alertID
         let name = currentUser.name
-        let firstGreetingWord = "Hi"
+      
+        let firstGreetingWord = AppTexts.firstGreetingWord
+            
         
         let greetingText = firstGreetingWord + (name == nil ? "!" : ", " + name! + "!")
         
@@ -78,13 +80,15 @@ extension MenuViewController: GADRewardedAdDelegate {
         
         switch notAvailableId {
         case .notMoreBottlesAvailable:
-            messageText = " You have maximum full bottles: \(maxAvailableBottles)!"
+            messageText = AppTexts.youHaveMaximumFullBottlesAppTexts
+            let maxAvailableBottlesText = " \(maxAvailableBottles)!"
+            messageText = messageText + maxAvailableBottlesText
             
         case .notTimeAvailable:
-            messageText = " Ad to get one more bottle will be available in: "
+            messageText = AppTexts.adToGetOneMoreBottleWillBeAvailableInAppTexts
             
         default:
-            messageText = " We are sorry, ADS to get one more bottle not available now please try later."
+            messageText = AppTexts.adsToGetOneMoreBottleNotAvailableAppTexts
             guard alertControllerCustom != nil else { return }
         }
         
@@ -176,9 +180,11 @@ extension MenuViewController: GADRewardedAdDelegate {
         alertControllerCustom = AlertControllerCustom()
         var alertText = text
         if alertText == nil {
-        let name = currentUser.name ?? ""
-        let textGetOneMoreBottleOrGetPremium = "Hi," + name + "! To get one more bottle You should watch Rewarded Ads or buy a premium account to get unlimited water!"
-            alertText = textGetOneMoreBottleOrGetPremium
+        let name = currentUser.name
+        let greeting = AppTexts.firstGreetingWord + (name != nil ? ", " + name! + "!" : "!")
+            let textGetOneMoreBottleOrGetPremium = AppTexts.textGetOneMoreBottleOrGetPremiumAppTexts
+            
+            alertText = greeting + textGetOneMoreBottleOrGetPremium
         }
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getOneMoreBottle, view: view, text: alertText ?? "", imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "watchAd", thirdButtonText: "unlimitedBottels", imageInButtons: true)
@@ -213,8 +219,8 @@ extension MenuViewController: GADRewardedAdDelegate {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
             guard self.rewardedAd != nil else {
-                let textLoadError = "Ad loading error! You can try one more time or buy a premium account to get unlimited water!"
-                self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
+                
+                self.getOneMoreBottleAdCustomAlertController(text: self.adErrorText)
                 return
             }
             if self.rewardedAd?.isReady == true {
@@ -260,9 +266,8 @@ extension MenuViewController: GADRewardedAdDelegate {
                 } else {
                     self.adLoadCount = 1
                     if callFromAlert {
-                        let textLoadError = "Ad loading error! You can try one more time or buy a premium account to get unlimited water!"
                         DispatchQueue.main.async {
-                            self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
+                            self.getOneMoreBottleAdCustomAlertController(text: self.adErrorText)
                         }
                     }
                 }
@@ -302,15 +307,15 @@ extension MenuViewController: GADRewardedAdDelegate {
     
     // Tells the delegate that the rewarded ad was presented.
     func rewardedAdDidPresent(_ rewardedAd: GADRewardedAd) {
-        print("Rewarded ad presented.")
+     
     }
     // Tells the delegate that the rewarded ad was dismissed.
     func rewardedAdDidDismiss(_ rewardedAd: GADRewardedAd) {
         //if user dissmissed we load new Ad
         self.rewardedAd = nil
         createAndLoadRewardAd()
-        let textLoadError = "Ad was dismissed! You can try one more time or buy a premium account to get unlimited water!"
-        self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
+        let textAdDismissed = AppTexts.textAdDismissedAppTexts
+        self.getOneMoreBottleAdCustomAlertController(text: textAdDismissed)
         
         //show alert user dissmissed Ad so try again
     }
@@ -319,8 +324,8 @@ extension MenuViewController: GADRewardedAdDelegate {
         //if Ad failed to present we load new Ad
         self.rewardedAd = nil
         createAndLoadRewardAd()
-        let textLoadError = "Ad loading error! You can try one more time or buy a premium account to get unlimited water!"
-        self.getOneMoreBottleAdCustomAlertController(text: textLoadError)
+      
+        self.getOneMoreBottleAdCustomAlertController(text: adErrorText)
         
         // show alert with try again, take credit
     }

@@ -34,7 +34,11 @@ extension ContainerViewController: AlertControllerCustomActions {
                     break
                 }
             
-            
+            case .getAdFirstConsentForEEA:
+                // ad - free version
+                //later
+                break
+                
             case .requestIDFAWillShow:
                 //show request IDFA
                 showRequestIDFA()
@@ -50,6 +54,14 @@ extension ContainerViewController: AlertControllerCustomActions {
                 saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: false, needToSaveInDataBase: true, needToSetTrueisAdsConsent: false)
                 DispatchQueue.main.async {
                     self.prepareToRequestIDFA()
+                }
+                
+            case .getAdFirstConsentForEEA:
+                
+                saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: false, needToSaveInDataBase: true, needToSetTrueisAdsConsent: false)
+                DispatchQueue.main.async {
+                    //create get consent form
+                    self.createGetConsentForm(callFromGetOneMoreBottle: self.menuViewController != nil ? self.menuViewController.isGetConsentFormCallFromGetOneMoreBottle : false)
                 }
                 
             case .requestIDFAWillShow, .incorrectURL:

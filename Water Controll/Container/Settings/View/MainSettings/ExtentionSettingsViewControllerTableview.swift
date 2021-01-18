@@ -59,7 +59,7 @@ extension SettingsViewController {
     
     func setupIsAutoFillBottleCell() {
         guard isAutoFillBottleTypeLabel != nil else { return }
-             isAutoFillBottleTypeLabel.text = currentUser.isAutoFillBottleType ? "auto" : "manually"
+        isAutoFillBottleTypeLabel.text = currentUser.isAutoFillBottleType ? AppTexts.autoAppTexts : AppTexts.manuallyAppTexts
             
      }
 }
