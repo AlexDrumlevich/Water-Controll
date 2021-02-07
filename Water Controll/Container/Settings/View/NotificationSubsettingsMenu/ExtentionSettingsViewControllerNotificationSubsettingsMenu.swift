@@ -153,7 +153,7 @@ extension SettingsViewController {
         label.textAlignment = .center
 
       label.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.height * 1 / 30 )
-        label.textColor = .black//#colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        label.textColor = .purple//#colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.2
         label.text = AppTexts.notificationsAppTexts
@@ -254,7 +254,7 @@ extension SettingsViewController {
         cell.isGeneralCell = indexPath.section == 0
         //get curent notification
         
-        var notification = notificationsStracture[indexPath.section]
+        let notification = notificationsStracture[indexPath.section]
         
         /*
         //additional check that current notification equal current cell

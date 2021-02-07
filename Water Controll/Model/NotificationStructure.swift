@@ -29,5 +29,6 @@ enum NotificationCategories: String {
 
 
 enum NotificationActionTypes: String {
+    
     case later = "Later", dissmis = "Dissmis", fiveMinutesLater = "5 minutes later", tenMinutesLater = "10 minutes later", fifteenMinutesLater = "15 minutes later"
 }

@@ -49,6 +49,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         
         self.selectionStyle = .none
         backgroundColor = .clear
+        self.contentView.backgroundColor = .clear
         
         segmentedControllAvailabilityNotification = UISegmentedControl()
         segmentedControllAvailabilityNotification.insertSegment(withTitle: " off ", at: 0, animated: true)
@@ -57,7 +58,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         //segmentedControllAvailabilityNotification.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         segmentedControllAvailabilityNotification.tag = tag
         segmentedControllAvailabilityNotification.accessibilityIdentifier = "segmentedControllAvailabilityNotification"
-        addSubview(segmentedControllAvailabilityNotification)
+        self.contentView.addSubview(segmentedControllAvailabilityNotification)
+       // addSubview(segmentedControllAvailabilityNotification)
         segmentedControllAvailabilityNotification.translatesAutoresizingMaskIntoConstraints = false
         
         segmentedControllAvailabilityNotification.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
@@ -72,7 +74,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         segmentedControllCommonSettings.insertSegment(withTitle: AppTexts.specialAppTexts, at: 1, animated: true)
         //segmentedControllCommonSettings.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         segmentedControllCommonSettings.tag = tag
-        addSubview(segmentedControllCommonSettings)
+        self.contentView.addSubview(segmentedControllCommonSettings)
+       // addSubview(segmentedControllCommonSettings)
         segmentedControllCommonSettings.translatesAutoresizingMaskIntoConstraints = false
         segmentedControllCommonSettings.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
         segmentedControllCommonSettings.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
@@ -82,7 +85,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         repeatImageView = UIImageView()
         repeatImageView.backgroundColor = .clear
         repeatImageView.image = UIImage(named: "notification")
-        addSubview(repeatImageView)
+        self.contentView.addSubview(repeatImageView)
+        //addSubview(repeatImageView)
         
         timesADayLabel = UILabel()
         timesADayLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.4)
@@ -92,7 +96,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         timesADayLabel.minimumScaleFactor = 0.2
         timesADayLabel.textAlignment = .left
         timesADayLabel.text = AppTexts.timesADayAppTexts
-        addSubview(timesADayLabel)
+        self.contentView.addSubview(timesADayLabel)
+        //addSubview(timesADayLabel)
         timesADayLabel.translatesAutoresizingMaskIntoConstraints = false
         
         lessTimesButton = UIButton()
@@ -100,7 +105,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         lessTimesButton.setImage(UIImage(named: "minusTimesButton"), for: .normal)
         //lessTimesButton.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         lessTimesButton.tag = tag
-        addSubview(lessTimesButton)
+        self.contentView.addSubview(lessTimesButton)
+        //addSubview(lessTimesButton)
         
         timesRepeatCountLabel = UILabel()
         timesRepeatCountLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth)
@@ -109,21 +115,24 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         timesRepeatCountLabel.minimumScaleFactor = 0.2
         timesRepeatCountLabel.textAlignment = .center
         timesRepeatCountLabel.text = "2"
-        addSubview(timesRepeatCountLabel)
+        self.contentView.addSubview(timesRepeatCountLabel)
+        //addSubview(timesRepeatCountLabel)
         
         moreTimesButton = UIButton()
         moreTimesButton.backgroundColor = .clear
         moreTimesButton.setImage(UIImage(named: "plusTimesButton"), for: .normal)
         //moreTimesButton.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         moreTimesButton.tag = tag
-        addSubview(moreTimesButton)
+        self.contentView.addSubview(moreTimesButton)
+        //addSubview(moreTimesButton)
         
         extentionSetupNotificationTimesADayButton = UIButton()
         extentionSetupNotificationTimesADayButton.backgroundColor = .clear
         extentionSetupNotificationTimesADayButton.setImage(UIImage(named: "rightArrowBlue"), for: .normal)
         //extentionSetupNotificationTimesADayButton.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         extentionSetupNotificationTimesADayButton.tag = tag
-        addSubview(extentionSetupNotificationTimesADayButton)
+        self.contentView.addSubview(extentionSetupNotificationTimesADayButton)
+        //addSubview(extentionSetupNotificationTimesADayButton)
         
         startLabel = UILabel()
         startLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.6)
@@ -132,7 +141,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startLabel.minimumScaleFactor = 0.2
         startLabel.textAlignment = .left
         startLabel.text = "Start:"
-        addSubview(startLabel)
+        self.contentView.addSubview(startLabel)
+        //addSubview(startLabel)
         
         startTimeLabel = UILabel()
         startTimeLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.6)
@@ -141,7 +151,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startTimeLabel.minimumScaleFactor = 0.2
         startTimeLabel.textAlignment = .center
         startTimeLabel.backgroundColor = .clear
-        addSubview(startTimeLabel)
+        self.contentView.addSubview(startTimeLabel)
+       // addSubview(startTimeLabel)
         
         startAmPmLabel = UILabel()
         startAmPmLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.5)
@@ -149,14 +160,19 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startAmPmLabel.adjustsFontSizeToFitWidth = true
         startAmPmLabel.minimumScaleFactor = 0.2
         startAmPmLabel.textAlignment = .center
-        addSubview(startAmPmLabel)
+        self.contentView.addSubview(startAmPmLabel)
+      //  addSubview(startAmPmLabel)
         
         startSlider = UISlider()
         startSlider.maximumTrackTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-        startSlider.minimumTrackTintColor = .black
+        startSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        startSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+    
+        startSlider.minimumTrackTintColor = .white
         //startSlider.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         startSlider.tag = tag
-        addSubview(startSlider)
+        self.contentView.addSubview(startSlider)
+      //  addSubview(startSlider)
         
         stopLabel = UILabel()
         stopLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.6)
@@ -165,7 +181,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopLabel.minimumScaleFactor = 0.2
         stopLabel.textAlignment = .left
         stopLabel.text = "Stop:"
-        addSubview(stopLabel)
+        self.contentView.addSubview(stopLabel)
+        //addSubview(stopLabel)
         
         stopTimeLabel = UILabel()
         stopTimeLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.6)
@@ -174,7 +191,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopTimeLabel.adjustsFontSizeToFitWidth = true
         stopTimeLabel.minimumScaleFactor = 0.2
         stopTimeLabel.textAlignment = .center
-        addSubview(stopTimeLabel)
+        self.contentView.addSubview(stopTimeLabel)
+        //addSubview(stopTimeLabel)
         
         stopAmPmLabel = UILabel()
         stopAmPmLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.5)
@@ -182,14 +200,17 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopAmPmLabel.adjustsFontSizeToFitWidth = true
         stopAmPmLabel.minimumScaleFactor = 0.2
         stopAmPmLabel.textAlignment = .center
-        addSubview(stopAmPmLabel)
+        self.contentView.addSubview(stopAmPmLabel)
+        //addSubview(stopAmPmLabel)
         
         stopTimeSlider = UISlider()
         //stopTimeSlider.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         stopTimeSlider.tag = tag
         stopTimeSlider.minimumTrackTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-        stopTimeSlider.maximumTrackTintColor  = .black
-        addSubview(stopTimeSlider)
+        stopTimeSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
+        stopTimeSlider.maximumTrackTintColor  = .white
+        self.contentView.addSubview(stopTimeSlider)
+        //addSubview(stopTimeSlider)
         
         
         // CONSTRAINTS

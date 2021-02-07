@@ -81,8 +81,7 @@ extension SettingsViewController: UITableViewDelegate {
                 deleteUserAlertController()
                
             case .restorePurchases:
-                //later
-                break
+                settingsViewControllerComplitionActions(.restorPurchases)
                 
             case .rateTheApp:
                 rateAppByUserWish()
@@ -122,6 +121,7 @@ extension SettingsViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+       
         //notification subsettings menu
         let notificationsText = " " + AppTexts.notificationsAppTexts
         if tableView.tag == 1 {
@@ -133,6 +133,37 @@ extension SettingsViewController: UITableViewDataSource {
         } else {
             return ""
         }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard tableView.tag != 0 else {
+            let view = UIView()
+            view.backgroundColor = .clear
+            return view
+        }
+        //notification subsettings menu
+        var text = ""
+        if tableView.tag == 1 {
+            let titleADayPart = (currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: section)?.sectionTitle) ?? ""
+            text = titleADayPart
+               //notifications time a day menu
+        } else if tableView.tag == 2 {
+            let notificationsText = " " + AppTexts.notificationsAppTexts
+            text = setupSectionTitleInTableViewNotificationsTimeADay() + notificationsText
+        } else {
+            text = ""
+        }
+        let label = UILabel()
+        label.backgroundColor = .white
+        label.font = UIFont(name: "AmericanTypewriter", size:  20)
+        label.textColor = UIColor.purple
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.2
+        label.textAlignment = .left
+        label.text = text
+        return label
+        
     }
     
     

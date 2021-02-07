@@ -10,5 +10,5 @@ import Foundation
 
 
 enum AlertIdentifiers {
-    case noWaterInBottle, noBottlesWithWater, fillTheIsNotEmptyBottle, deleteUser, deleteGotWaterData, getOneMoreBottle, getOneMoreBottleNotAvailable, tryAgainLoadAd, getAdFirstConsentForEEA, getAdConsentNotForEEA, tryGetAdConsentOneMoreTime, requestIDFAWasDenied, requestIDFAWillShow, incorrectURL, notificationDenied, general, newAppVersionIsReady
+    case noWaterInBottle, noBottlesWithWater, fillTheIsNotEmptyBottle, deleteUser, deleteGotWaterData, getOneMoreBottle, getOneMoreBottleNotAvailable, tryAgainLoadAd, getAdFirstConsentForEEA, getAdConsentNotForEEA, tryGetAdConsentOneMoreTime, requestIDFAWasDenied, requestIDFAWillShow, incorrectURL, notificationDenied, general, newAppVersionIsReady, purchasePremium
 }

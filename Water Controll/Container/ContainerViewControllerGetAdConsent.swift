@@ -11,6 +11,7 @@ import PersonalizedAdConsent
 import UserMessagingPlatform
 import AppTrackingTransparency
 import AdSupport
+import GoogleMobileAds
 //fo testing
 import AdSupport
 
@@ -89,7 +90,13 @@ extension ContainerViewController {
      */
     
     
-    
+
+    func startGoogleAds() {
+        if !isGoogleAdsStarted{
+            GADMobileAds.sharedInstance().start(completionHandler: nil)
+            isGoogleAdsStarted = true
+        }
+    }
     
     
     // request IDFA
@@ -124,7 +131,7 @@ extension ContainerViewController {
         }
     }
     
-    
+    //show request IDFA
     func showRequestIDFA() {
         if #available(iOS 14, *) {
             DispatchQueue.main.async {
@@ -160,19 +167,16 @@ extension ContainerViewController {
     
     
     
-    
-    
-    
-    
     //get consent if needed
     func getAdConsent(callFromGetOneMoreBottle: Bool, changeAdConsent: Bool = false) {
         self.callSaveFunctionFromGetOneMoreBottle = callFromGetOneMoreBottle
         
         //for testing
+        //test
         // Geography appears as in EEA for debug devices.
         
         
-        PACConsentInformation.sharedInstance.debugGeography = .EEA
+      PACConsentInformation.sharedInstance.debugGeography = .EEA
         
         
         // Geography appears as not in EEA for debug devices.
@@ -207,6 +211,9 @@ extension ContainerViewController {
                     switch PACConsentInformation.sharedInstance.consentStatus {
                     case .nonPersonalized, .personalized:
                         
+                        //start ads
+                        self.startGoogleAds()
+                        
                         if changeAdConsent {
                             
                             self.createGetConsentForm(callFromGetOneMoreBottle: callFromGetOneMoreBottle)
@@ -215,8 +222,12 @@ extension ContainerViewController {
                             self.saveText = ""
                             self.callSaveFunctionFromGetOneMoreBottle = callFromGetOneMoreBottle
                             self.needToSaveConsentInDataBase = false
-                            //prepare for request IDFA
-                            self.prepareToRequestIDFA()
+                            //prepare for request IDFA if needed pr save
+                            if PACConsentInformation.sharedInstance.consentStatus == .nonPersonalized {
+                                self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
+                            } else {
+                                self.prepareToRequestIDFA()
+                            }
                         }
                         
                     case .unknown:
@@ -246,6 +257,9 @@ extension ContainerViewController {
                     
                     if let isAdConsentWasGotten = self.accessController?.isGotConsent {
                         if isAdConsentWasGotten {
+                            //start ads
+                            self.startGoogleAds()
+                            
                             if changeAdConsent {
                                 DispatchQueue.main.async {
                                     self.getAdsConsentForNotEuropeanZoneAlertController(callFromGetOneMoreBottle: callFromGetOneMoreBottle, changeConsent: true)
@@ -308,8 +322,8 @@ extension ContainerViewController {
                 //present form
                 
                 form.present(from: self) { (error, userPrefersAdFree) in
-                        self.activityIndicatorStopAnimating()
-                
+                    self.activityIndicatorStopAnimating()
+                    
                     if let _ = error {
                         
                         // Handle error.
@@ -321,8 +335,11 @@ extension ContainerViewController {
                     } else if userPrefersAdFree {
                         // User prefers to use a paid version of the app.
                         // get premium
-                        self.becamePremiumAccaunt()
+                        self.sratrPurchasing()
+                       // self.becamePremiumAccaunt()
                     } else {
+                        //start ads
+                        self.startGoogleAds()
                         // Check the user's consent choice.
                         let status =
                             PACConsentInformation.sharedInstance.consentStatus
@@ -331,11 +348,17 @@ extension ContainerViewController {
                         
                         let textToSaveConsent = "consent to ADS was gotten"
                         
+                        
                         //save ad consent
                         self.saveText = textToSaveConsent
                         self.callSaveFunctionFromGetOneMoreBottle = callFromGetOneMoreBottle
                         self.needToSaveConsentInDataBase = true
-                        self.prepareToRequestIDFA()
+                        
+                        if status == .nonPersonalized {
+                            self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
+                        } else {
+                            self.prepareToRequestIDFA()
+                        }
                         
                     }
                 }
@@ -346,19 +369,20 @@ extension ContainerViewController {
     
     // get conset alert controller not for European zone
     func getAdsConsentForNotEuropeanZoneAlertController(callFromGetOneMoreBottle: Bool, changeConsent: Bool = false) {
-        DispatchQueue.main.async {
+        
             if self.alertControllerCustom != nil {
                 self.alertControllerCustom?.clouseAlert()
+                self.removeViewBehindAlertAnderBanner()
             }
-            
+        DispatchQueue.main.async {
             self.alertControllerCustom = AlertControllerCustom()
             
-           
+            
             let alertGetAdsConsentForNotEuropeanZoneText = AppTexts.alertGetAdsConsentForNotEuropeanZoneTextAppTexts
-                
+            
             let changeConsentText =  AppTexts.changeConsentTextAppTexts
-                
-                
+            
+            
             
             self.saveText = "consent was gotten to use data and device identifire to show ads"
             self.callSaveFunctionFromGetOneMoreBottle = callFromGetOneMoreBottle
@@ -374,14 +398,16 @@ extension ContainerViewController {
     
     // get conset alert controller not for European zone
     func getBeforeAdsConsentForEuropeanZoneAlertController(callFromGetOneMoreBottle: Bool) {
-        DispatchQueue.main.async {
+       
             if self.alertControllerCustom != nil {
                 self.alertControllerCustom?.clouseAlert()
+                self.removeViewBehindAlertAnderBanner()
             }
             
+        DispatchQueue.main.async {
             self.alertControllerCustom = AlertControllerCustom()
             
-           
+            
             let alertText = AppTexts.alertBeforeGetAdsConsentForEuropeanZoneTextAppTexts
             
             self.saveText = "user was notificated about no age restrictions in Ads"
@@ -401,19 +427,20 @@ extension ContainerViewController {
     
     // request IDFA will show
     func requestIDFAWillShowCustomAlert() {
-        DispatchQueue.main.async { [self] in
-            if self.alertControllerCustom != nil {
-                self.alertControllerCustom?.clouseAlert()
+        
+            if alertControllerCustom != nil {
+                alertControllerCustom?.clouseAlert()
+                removeViewBehindAlertAnderBanner()
             }
-            
+        DispatchQueue.main.async {
             self.alertControllerCustom = AlertControllerCustom()
             
             
-          
+            
             let alertRequestIDFAWillShow = AppTexts.alertRequestIDFAWillShowAppTexts
             
             guard self.alertControllerCustom != nil else { return }
-            alertControllerCustom!.createAlert(observer: self, alertIdentifire: .requestIDFAWillShow, view: createViewBehindAlertAnderBanner(), text: alertRequestIDFAWillShow, imageName: nil, firstButtonText: "Ok", secondButtonText: "Ad-free", thirdButtonText: nil, imageInButtons: false)
+            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .requestIDFAWillShow, view: self.createViewBehindAlertAnderBanner(), text: alertRequestIDFAWillShow, imageName: nil, firstButtonText: "Ok", secondButtonText: "Ad-free", thirdButtonText: nil, imageInButtons: false)
             
         }
         
@@ -421,11 +448,12 @@ extension ContainerViewController {
     
     // request IDFA was denied
     func requestIDFAWasDeniedCustomAlert(isProblemsWithOpenningPhoneSettings: Bool = false) {
-        DispatchQueue.main.async { [self] in
-            if self.alertControllerCustom != nil {
-                self.alertControllerCustom?.clouseAlert()
+       
+            if alertControllerCustom != nil {
+                alertControllerCustom?.clouseAlert()
+                removeViewBehindAlertAnderBanner()
             }
-            
+        DispatchQueue.main.async {
             self.alertControllerCustom = AlertControllerCustom()
             
             
@@ -435,7 +463,7 @@ extension ContainerViewController {
             let alertTextIDFADeniedProblemsWithOpenSettings = AppTexts.alertProblemsWithOpenSettingsAppTexts
             
             guard self.alertControllerCustom != nil else { return }
-            alertControllerCustom!.createAlert(observer: self, alertIdentifire: .requestIDFAWasDenied, view: createViewBehindAlertAnderBanner(), text: isProblemsWithOpenningPhoneSettings ? alertTextIDFADeniedProblemsWithOpenSettings : alertRequestIDFAWasDenied, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Settings", thirdButtonText: isProblemsWithOpenningPhoneSettings ? nil : "Ad-free", imageInButtons: false)
+            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .requestIDFAWasDenied, view: self.createViewBehindAlertAnderBanner(), text: isProblemsWithOpenningPhoneSettings ? alertTextIDFADeniedProblemsWithOpenSettings : alertRequestIDFAWasDenied, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Settings", thirdButtonText: isProblemsWithOpenningPhoneSettings ? nil : "Ad-free", imageInButtons: false)
             
         }
         
@@ -451,7 +479,7 @@ extension ContainerViewController {
             }
             
             self.alertControllerCustom = AlertControllerCustom()
-  
+            
             let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText = AppTexts.alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerTextAppTexts
             
             guard self.alertControllerCustom != nil else { return }
@@ -462,17 +490,18 @@ extension ContainerViewController {
     
     func incorrectURLAlertController() {
         
-        DispatchQueue.main.async { [self] in
-            if self.alertControllerCustom != nil {
-                self.alertControllerCustom?.clouseAlert()
+        
+            if alertControllerCustom != nil {
+                alertControllerCustom?.clouseAlert()
+                removeViewBehindAlertAnderBanner()
             }
-            
+        DispatchQueue.main.async {
             self.alertControllerCustom = AlertControllerCustom()
-         
+            
             let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText = AppTexts.alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerCantLoadAdTextAppTexts
             
             guard self.alertControllerCustom != nil else { return }
-            alertControllerCustom!.createAlert(observer: self, alertIdentifire: .incorrectURL, view: createViewBehindAlertAnderBanner(), text: alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Ad-free", thirdButtonText: nil, imageInButtons: false)
+            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .incorrectURL, view: self.createViewBehindAlertAnderBanner(), text: alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Ad-free", thirdButtonText: nil, imageInButtons: false)
         }
         
     }
@@ -497,7 +526,7 @@ extension ContainerViewController {
     }
     
     //to alert be under banner
-    private func createViewBehindAlertAnderBanner() -> UIView {
+    func createViewBehindAlertAnderBanner() -> UIView {
         guard bannerView != nil  else {
             return view
         }
@@ -516,8 +545,11 @@ extension ContainerViewController {
         guard viewBehindAlertAnderBanner != nil else {
             return
         }
-        viewBehindAlertAnderBanner?.removeFromSuperview()
-        viewBehindAlertAnderBanner = nil
+        DispatchQueue.main.async {
+            self.viewBehindAlertAnderBanner?.removeFromSuperview()
+            self.viewBehindAlertAnderBanner = nil
+        }
+        
     }
     
 }

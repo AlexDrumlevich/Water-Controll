@@ -309,7 +309,7 @@ class MenuViewController: UIViewController {
         nameLabel.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.width * 12 / 100 )
         nameLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.minimumScaleFactor = 0.5
+        nameLabel.minimumScaleFactor = 0.05
         
         
     }

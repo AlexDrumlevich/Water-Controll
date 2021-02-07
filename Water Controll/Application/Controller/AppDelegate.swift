@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreData
-import GoogleMobileAds
+//import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         //strart google ads
-          GADMobileAds.sharedInstance().start(completionHandler: nil)
+        //  GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         //  ContainerViewController - is initial View Controller
            window = UIWindow()
@@ -34,6 +34,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           window?.rootViewController = containerViewController
  
         notifications.notificationCenter.delegate = notifications
+        
+        
+        //add observer - setupPurchases, if we can pay - get goods - .getProducts()
+        IAPManager.shared.setupPurchases { success in
+            if success {
+                print("can make payments")
+                IAPManager.shared.getProducts()
+            }
+        }
+
+        sleep(5)
         
         return true
     }

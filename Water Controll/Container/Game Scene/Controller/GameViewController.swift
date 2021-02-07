@@ -82,11 +82,11 @@ class GameViewController: UIViewController {
     //pupils movement
     var pupilsNodeFirstPosition: SCNVector3?
     //left -right
-    let possibleDistancePupilsMovementRangeX = -0.01 ... 0.01
+    let possibleDistancePupilsMovementRangeX = -0.02 ... 0.02
     //up - down
-    let possibleDistancePupilsMovementRangeY = -0.02 ... 0.02
+    let possibleDistancePupilsMovementRangeY = -0.03 ... 0.03
     // ahead - back
-    let possibleDistancePupilsMovementRangeZ = -0.01 ... 0.01
+    let possibleDistancePupilsMovementRangeZ = -0.03 ... 0.03
     
     // rain - pouer water is bottle
     var rainNode: SCNNode?

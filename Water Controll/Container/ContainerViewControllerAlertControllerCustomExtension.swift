@@ -36,7 +36,7 @@ extension ContainerViewController: AlertControllerCustomActions {
             
             case .getAdFirstConsentForEEA:
                 // ad - free version
-                //later
+                sratrPurchasing()
                 break
                 
             case .requestIDFAWillShow:
@@ -51,6 +51,9 @@ extension ContainerViewController: AlertControllerCustomActions {
             switch identifire {
             //ads
             case .getAdConsentNotForEEA:
+                //start ads
+                startGoogleAds()
+                
                 saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: false, needToSaveInDataBase: true, needToSetTrueisAdsConsent: false)
                 DispatchQueue.main.async {
                     self.prepareToRequestIDFA()
@@ -66,7 +69,8 @@ extension ContainerViewController: AlertControllerCustomActions {
                 
             case .requestIDFAWillShow, .incorrectURL:
                 // get premium
-                becamePremiumAccaunt()
+                //becamePremiumAccaunt()
+                sratrPurchasing()
                 break
                 
             case .requestIDFAWasDenied:
@@ -97,7 +101,8 @@ extension ContainerViewController: AlertControllerCustomActions {
             
             case .getAdConsentNotForEEA, .tryGetAdConsentOneMoreTime, .requestIDFAWasDenied:
                 // get premium
-                becamePremiumAccaunt()
+                //becamePremiumAccaunt()
+                sratrPurchasing()
                 break
             default:
                 break

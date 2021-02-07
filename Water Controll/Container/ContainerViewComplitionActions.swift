@@ -28,4 +28,8 @@ enum ContainerViewComplitionActions {
     
     case showDeniedNotificationCustomAlert(Bool)
     
+    case purchase
+    
+    case restorPurchases
+    
 }

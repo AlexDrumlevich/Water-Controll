@@ -30,7 +30,7 @@ extension MenuViewController {
     func becomePremiumAccountFromMenuViewController() {
         
         if let containerVC = self.parent as? ContainerViewController {
-            containerVC.becamePremiumAccaunt()
+            containerVC.sratrPurchasing()
         } else {
            // getOneMoreBottleAdCustomAlertController()
             print("error")

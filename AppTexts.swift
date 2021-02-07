@@ -18,45 +18,45 @@ struct  AppTexts {
     
     static let thirdTypeTextNotificationBody = NSLocalizedString("It`s time to drink some water!", comment: "notification text")
     
-    static let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerCantLoadAdTextAppTexts = NSLocalizedString("\tWe are sorry, but we have problem with download app to use it free by showing ads.\n\t\"Cancel\" - app will continue downloading, but you won`t be able to get more bottles with water.\n\t\"Ad-free\" - you can paid for ad-free version.", comment: "alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText")
+    static let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerCantLoadAdTextAppTexts = NSLocalizedString("\tWe are sorry, but we have a problem downloading the app to use it for free by viewing ads.\n\t\"Cancel\" - app will continue downloading, but you won`t be able to get more bottles with water.\n\t\"Ad-free\" - you can paiy for ad-free version.", comment: "alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText")
     
-    static let alertGetAdsConsentForNotEuropeanZoneTextAppTexts = NSLocalizedString("\tWelcome! We keep this app free by showing ads. We care about your privasy and data security.\n\t\"Ads\" - your agree to our partners will collect data and use a unique identifire on your devise to show you ads. Advertising may have age restrictions. By selecting \"Ads\" you confirm that you have reached the age of majority, otherwise you should use the \"Ad-free\" version.\n\t\"Ad-free\" - ad-free version.\n\t\"Cancel\" - app will continue downloading, but you won`t be able to get more bottles with water.", comment: "alertGetAdsConsentForNotEuropeanZoneText")
+    static let alertGetAdsConsentForNotEuropeanZoneTextAppTexts = NSLocalizedString("\tWelcome! We keep this app free by showing ads. We care about your privacy and data security.\n\t\"Ads\" - your agree that our partners will collect data and use a unique identifier on your device to show you ads. Advertising may have age restrictions. By selecting \"Ads\" you confirm that you have reached the age of majority, otherwise you should use the \"Ad-free\" version.\n\t\"Ad-free\" - ad-free version.\n\t\"Cancel\" - app will continue downloading, but you won`t be able to get more bottles with water.", comment: "alertGetAdsConsentForNotEuropeanZoneText")
     
     static let alertBeforeGetAdsConsentForEuropeanZoneTextAppTexts = NSLocalizedString("\tWelcome! We keep this app free by showing ads. Advertising may have age restrictions. By selecting \"Ads\" version you confirm that you have reached the age of majority, otherwise you should use the \"Ad-free\" version.", comment: "alertBeforeGetAdsConsentForEuropeanZoneTextAppTexts")
     
-    static let changeConsentTextAppTexts =  NSLocalizedString("\tWe keep this app free by showing ads. We care about your privasy and data security.\n\t\"Ads\" - your agree to our partners will collect data and use a unique identifire on your devise to show you ads.\n\t\"Ad-free\" - ad-free version.", comment: "changeConsentText")
+    static let changeConsentTextAppTexts =  NSLocalizedString("\tWe keep this app free by showing ads. We care about your privacy and data security.\n\t\"Ads\" - your agree that our partners will collect data and use a unique identifier on your device to show you ads.\n\t\"Ad-free\" - ad-free version.", comment: "changeConsentText")
     
-    static let alertRequestIDFAWillShowAppTexts = NSLocalizedString("\tWe keep this app free by showing ads. Tap 'Allow tracking' on the next screen to give permission to use your devise identifiers, such as the device’s advertising identifier, to displaying ads in the app. You can also pay for ad-free version.", comment: "alertRequestIDFAWillShow")
+    static let alertRequestIDFAWillShowAppTexts = NSLocalizedString("\tWe keep this app free by showing ads. Tap 'Allow tracking' on the next screen to give permission to use your device identifiers, such as the device’s advertising identifier, to display ads in the app. You can also pay for ad-free version.", comment: "alertRequestIDFAWillShow")
     
-    static let alertRequestIDFAWasDeniedAppTexts = NSLocalizedString("\nWe keep this app free by showing ads. We use your devise identifiers, such as the device’s advertising identifier, to displaying ads in the app. You denied these data to the app. You can 'Allow tracking' in phone`s settings or pay for ad-free version.", comment: "alertRequestIDFAWasDenied")
+    static let alertRequestIDFAWasDeniedAppTexts = NSLocalizedString("\nWe keep this app free by showing ads. We use your device identifiers, such as the device’s advertising identifier, to display ads in the app. You denied access to these data. You can 'Allow tracking' in the phone`s settings or pay for ad-free version.", comment: "alertRequestIDFAWasDenied")
     
     
-    static let alertProblemsWithOpenSettingsAppTexts = NSLocalizedString("\tSorry! We have problems with openning app notification settings. You can try to do this manually in your phone settings.", comment: "alertProblemsWithOpenSettingsAppTexts")
+    static let alertProblemsWithOpenSettingsAppTexts = NSLocalizedString("\tSorry! We have a problem openning the app notification settings. You can try to do this manually in your phone settings.", comment: "alertProblemsWithOpenSettingsAppTexts")
     
-    static let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerTextAppTexts = NSLocalizedString("\tWe are sorry, but we have problem with download app to use it free by showing ads. It can be problems with Interet connection.\n\t\"Cancel\" - app will continue downloading, but you won`t be able to get more bottles with water.\n\t\"Try again\" - try to load app to use it free by showing ads.\n\t\"Ad-free\" - you can paid for ad-free version.", comment: "alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText")
+    static let alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerTextAppTexts = NSLocalizedString("\tWe are sorry, but we have a problem downloading the app to use it for free by viewing ads. It can be problems with the Interet connection.\n\t\"Cancel\" - app will continue downloading, but you won`t be able to get more bottles with water.\n\t\"Try again\" - try to load app to use it free by showing ads.\n\t\"Ad-free\" - you can paid for ad-free version.", comment: "alertTryGetAdConsentOneMoreTimeOrByPremiumAlertControllerText")
     
     static let adErrorTextAppTexts = NSLocalizedString("Ad loading error! You can try one more time or buy a premium account to get unlimited water!", comment: "textLoadError")
     
     static let alertTextNotificationDeniedAppTexts = NSLocalizedString("\tWe use notifications to remind you to drink water. But you refused to notify the app. You can enable notifications in your phone settings.", comment: "alertTextNotificationDenied")
     
     
-    static let textGetOneMoreBottleOrGetPremiumAppTexts = NSLocalizedString(" To get one more bottle You should watch Rewarded Ads or buy a premium account to get unlimited water!", comment: "textGetOneMoreBottleOrGetPremium")
+    static let textGetOneMoreBottleOrGetPremiumAppTexts = NSLocalizedString(" To get one more bottle, you should watch Rewarded Ads or buy a premium account to get unlimited water!", comment: "textGetOneMoreBottleOrGetPremium")
     
     static let youHaveMaximumFullBottlesAppTexts = NSLocalizedString(" You have maximum full bottles:", comment: "youHaveMaximumFullBottlesAppTexts")
     
     static let adToGetOneMoreBottleWillBeAvailableInAppTexts = NSLocalizedString(" Ad to get one more bottle will be available in: ", comment: "adToGetOneMoreBottleWillBeAvailableInAppTexts")
     
-    static let adsToGetOneMoreBottleNotAvailableAppTexts = NSLocalizedString(" We are sorry, ADS to get one more bottle not available now please try later.", comment: "adsToGetOneMoreBottleNotAvailableAppTexts")
+    static let adsToGetOneMoreBottleNotAvailableAppTexts = NSLocalizedString(" We are sorry, Ads to get one more bottle are not available now, please try later.", comment: "adsToGetOneMoreBottleNotAvailableAppTexts")
     
     static let meAppTexts = NSLocalizedString("me", comment: "me(Do you really want to delete me)")
     
     static let doYouReallyWantToDeleteMeAppTexts = NSLocalizedString("Do you really want to delete ", comment: "doYouReallyWantToDeleteMeAppTexts")
     
-    static let functionUnavailableAppTexts  = NSLocalizedString(" We are sorry, this function unavailable.", comment: "functionUnavailableAppTexts")
+    static let functionUnavailableAppTexts  = NSLocalizedString(" We are sorry, this function is unavailable.", comment: "functionUnavailableAppTexts")
     
-    static let alertTextChouseVolumeType = NSLocalizedString("\tPlease select the volume type: \"Liter\" or \"Oz\"", comment: "alertTextChouseVolumeType")
+    static let alertTextChouseVolumeType = NSLocalizedString("\tPlease select the units system: \"Liter\" or \"Oz\"", comment: "alertTextChouseVolumeType")
     
-    static let doctorConsultationText = NSLocalizedString("\tCaution!\n\tThe app only controls the amount of water you drink from the daily volume you choose. To choose a daily volume you should consult your doctor.", comment: "doctorConsultationText")
+    static let doctorConsultationText = NSLocalizedString("\tCaution!\n\tThe app only controls the amount of water you drink based on daily quantity you choose. To choose daily quantity, you should consult your doctor.", comment: "doctorConsultationText")
     
     static let addUserAppTexts = NSLocalizedString("Add user", comment: "Add user button")
     
@@ -126,5 +126,23 @@ struct  AppTexts {
     static let sundayAppTexts = NSLocalizedString("Sunday", comment: "Sunday")
 
     static let nameAppTexts = NSLocalizedString("Name", comment: "Name")
+    
+    static let cancelAppTexts = NSLocalizedString("Cancel", comment: "Cancel")
+    
+    static let buyAppTexts = NSLocalizedString("Buy", comment: "Buy")
 
+    static let offerPremiumVersionAppTexts = NSLocalizedString("\tHi! \n\tDo you want to buy app version with out ad and with unlimited water bottles!? /n/t/The prise: ", comment: "offer premium version")
+    
+    static let loadingAppTexts = NSLocalizedString("\tLoading...", comment: "loading")
+    
+    static let errorAppTexts = NSLocalizedString("\tSorry! An error occurred. Please, try again later.", comment: "error")
+    
+    static let congratulationsGetVIPVersionAppTexts = NSLocalizedString("\tCongratulations! \n\tNow you have an ad-free version of the app with unlimited water bottles!", comment: "Congratulations Get VIP Version")
+    
+    static let laterAppTexts = NSLocalizedString("later", comment: "later")
+    static let fiveMinutesLaterAppTexts = NSLocalizedString("5 minutes later", comment: "5 minutes later")
+    static let tenMinutesLaterAppTexts = NSLocalizedString("10 minutes later", comment: "10 minutes later")
+    static let fifteenMinutesLaterAppTexts = NSLocalizedString("15 minutes later", comment: "15 minutes later")
+    static let dissmisAppTexts = NSLocalizedString("dissmis", comment: "dissmis")
+ 
 }

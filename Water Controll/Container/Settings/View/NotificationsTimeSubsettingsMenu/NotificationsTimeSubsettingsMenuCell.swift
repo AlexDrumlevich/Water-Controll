@@ -24,7 +24,7 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         
         self.selectionStyle = .none
         backgroundColor = .clear
-        
+        self.contentView.backgroundColor = .clear
         
         notificationNumberLabel = UILabel()
         notificationNumberLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.5)
@@ -32,7 +32,8 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         notificationNumberLabel.adjustsFontSizeToFitWidth = true
         notificationNumberLabel.minimumScaleFactor = 0.2
         notificationNumberLabel.textAlignment = .left
-        addSubview(notificationNumberLabel)
+        self.contentView.addSubview(notificationNumberLabel)
+        //addSubview(notificationNumberLabel)
         notificationNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         
         timeLabel = UILabel()
@@ -41,14 +42,17 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         timeLabel.adjustsFontSizeToFitWidth = true
         timeLabel.minimumScaleFactor = 0.2
         timeLabel.textAlignment = .left
-        addSubview(timeLabel)
+        self.contentView.addSubview(timeLabel)
+        //addSubview(timeLabel)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         timeSlider = UISlider()
-        timeSlider.maximumTrackTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-        timeSlider.minimumTrackTintColor = .black
+        timeSlider.maximumTrackTintColor = .white
+        timeSlider.minimumTrackTintColor = .white
+        timeSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         timeSlider.tag = rowNumber
-        addSubview(timeSlider)
+        self.contentView.addSubview(timeSlider)
+        //addSubview(timeSlider)
         timeSlider.translatesAutoresizingMaskIntoConstraints = false
         
         amPmLabel = UILabel()
@@ -57,7 +61,8 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         amPmLabel.adjustsFontSizeToFitWidth = true
         amPmLabel.minimumScaleFactor = 0.2
         amPmLabel.textAlignment = .center
-        addSubview(amPmLabel)
+        self.contentView.addSubview(amPmLabel)
+       // addSubview(amPmLabel)
         amPmLabel.translatesAutoresizingMaskIntoConstraints = false
         
         nextDayLabel = UILabel()
@@ -67,8 +72,8 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         nextDayLabel.adjustsFontSizeToFitWidth = true
         nextDayLabel.minimumScaleFactor = 0.2
         nextDayLabel.textAlignment = .center
-        
-        addSubview(nextDayLabel)
+        self.contentView.addSubview(nextDayLabel)
+        //addSubview(nextDayLabel)
         nextDayLabel.translatesAutoresizingMaskIntoConstraints = false
         
         

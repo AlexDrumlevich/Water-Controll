@@ -17,6 +17,8 @@ class ContainerViewController: UIViewController {
     //get from  AppDelegate
     var contextDataBase: NSManagedObjectContext!
     
+    // premium account
+    var purchaseController: PurchaseController?
     
     //rate app
     let needTimesPourWaterToCallRateMenu: Int16 = 15
@@ -94,6 +96,7 @@ class ContainerViewController: UIViewController {
     var viewBehindAlertAnderBanner: UIView?
     
     //ads consent
+    var isGoogleAdsStarted = false
     let publisherIdentifiers = ["pub-4369651523388674"]
     let privacyUrl = "https://www.your.com/privacyurl"
     //ump consent
@@ -307,6 +310,13 @@ class ContainerViewController: UIViewController {
                             self.settingsViewController.notificationDeniedCustomAlertInSettingsViewController()
                         }
                     }
+                    
+                case .purchase:
+                    self.sratrPurchasing()
+                
+                case .restorPurchases:
+                    self.sratrPurchasing(needToRestoreOnly: true)
+                    
                 }
             }
            

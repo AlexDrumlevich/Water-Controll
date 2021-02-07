@@ -75,6 +75,9 @@
 		808343C225434C3500858FEC /* GotWater+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */; };
 		808343C325434C3500858FEC /* GotWater+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343C125434C3500858FEC /* GotWater+CoreDataProperties.swift */; };
 		8083A51A250732920066C56E /* AlertControllerCategoryActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083A519250732920066C56E /* AlertControllerCategoryActions.swift */; };
+		8093B41F25BA787400F47726 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093B41E25BA787400F47726 /* IAP.swift */; };
+		8093B42525BA7AFB00F47726 /* IAPProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093B42425BA7AFB00F47726 /* IAPProducts.swift */; };
+		8093B42F25BB1CFF00F47726 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093B42E25BB1CFF00F47726 /* PurchaseController.swift */; };
 		80A7B6EB24B19A0B00649034 /* NotificationStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80A7B6EA24B19A0B00649034 /* NotificationStructure.swift */; };
 		80AAFE012478BB61003DD185 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AAFE002478BB61003DD185 /* MenuViewController.swift */; };
 		80AAFE032478BD4C003DD185 /* BottomMenuCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AAFE022478BD4C003DD185 /* BottomMenuCollectionView.swift */; };
@@ -94,7 +97,7 @@
 		80AB16A525B3F1CB00896B6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80AB16A725B3F1CB00896B6F /* InfoPlist.strings */; };
 		80DBD0DB258A2AFA002CFC73 /* SceneKit Scene.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 80DBD0DA258A2AFA002CFC73 /* SceneKit Scene.scnp */; };
 		80ED10AB258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10AA258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift */; };
-		80ED10BA259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10B9259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift */; };
+		80ED10BA259EF4FF00B3F915 /* ContainerViewControllerPurchaseAndBecamePremiumAccaunt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10B9259EF4FF00B3F915 /* ContainerViewControllerPurchaseAndBecamePremiumAccaunt.swift */; };
 		80ED10BF25A2323300B3F915 /* ExtensionCallRateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10BE25A2323300B3F915 /* ExtensionCallRateApp.swift */; };
 		80ED10E325A48B0000B3F915 /* ExtensionSettingsViewControllerShareAndRateTheApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80ED10E225A48B0000B3F915 /* ExtensionSettingsViewControllerShareAndRateTheApp.swift */; };
 		80FA83A3255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80FA83A2255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift */; };
@@ -195,6 +198,9 @@
 		808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataClass.swift"; path = "../../GotWater+CoreDataClass.swift"; sourceTree = "<group>"; };
 		808343C125434C3500858FEC /* GotWater+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataProperties.swift"; path = "../../GotWater+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8083A519250732920066C56E /* AlertControllerCategoryActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerCategoryActions.swift; sourceTree = "<group>"; };
+		8093B41E25BA787400F47726 /* IAP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.swift; sourceTree = "<group>"; };
+		8093B42425BA7AFB00F47726 /* IAPProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProducts.swift; sourceTree = "<group>"; };
+		8093B42E25BB1CFF00F47726 /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
 		80A7B6EA24B19A0B00649034 /* NotificationStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationStructure.swift; sourceTree = "<group>"; };
 		80AAFE002478BB61003DD185 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		80AAFE022478BD4C003DD185 /* BottomMenuCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuCollectionView.swift; sourceTree = "<group>"; };
@@ -218,7 +224,7 @@
 		80AB16AC25B3F1D300896B6F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		80DBD0DA258A2AFA002CFC73 /* SceneKit Scene.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = "SceneKit Scene.scnp"; sourceTree = "<group>"; };
 		80ED10AA258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControolerRichedAimAnimation.swift; sourceTree = "<group>"; };
-		80ED10B9259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerBecamePremiumAccaunt.swift; sourceTree = "<group>"; };
+		80ED10B9259EF4FF00B3F915 /* ContainerViewControllerPurchaseAndBecamePremiumAccaunt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerPurchaseAndBecamePremiumAccaunt.swift; sourceTree = "<group>"; };
 		80ED10BE25A2323300B3F915 /* ExtensionCallRateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCallRateApp.swift; sourceTree = "<group>"; };
 		80ED10E225A48B0000B3F915 /* ExtensionSettingsViewControllerShareAndRateTheApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionSettingsViewControllerShareAndRateTheApp.swift; sourceTree = "<group>"; };
 		80FA83A2255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerGetAdConsent.swift; sourceTree = "<group>"; };
@@ -444,7 +450,7 @@
 		806268612476386A0056BA8F = {
 			isa = PBXGroup;
 			children = (
-				80AB16A725B3F1CB00896B6F /* InfoPlist.strings */,
+				8093B42325BA787F00F47726 /* IAP */,
 				80AB169425A9968300896B6F /* AppTexts.swift */,
 				80AB168B25A95F5300896B6F /* Localizable.strings */,
 				805376A5249F8362007136F6 /* Notifications */,
@@ -470,8 +476,9 @@
 		8062686C2476386A0056BA8F /* Water Controll */ = {
 			isa = PBXGroup;
 			children = (
-				8053FCB02483704200A4418A /* Model */,
+				8093B41325B7505D00F47726 /* Resource */,
 				80AAFE0A2478CBA1003DD185 /* Container */,
+				8053FCB02483704200A4418A /* Model */,
 				80AAFDFC24784E19003DD185 /* Application */,
 				80AAFDFB24784DEE003DD185 /* Support */,
 			);
@@ -504,6 +511,24 @@
 				805033ED250B16EB002BA456 /* AlertIdentifires.swift */,
 			);
 			path = AlertController;
+			sourceTree = "<group>";
+		};
+		8093B41325B7505D00F47726 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				80AB16A725B3F1CB00896B6F /* InfoPlist.strings */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		8093B42325BA787F00F47726 /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				8093B41E25BA787400F47726 /* IAP.swift */,
+				8093B42425BA7AFB00F47726 /* IAPProducts.swift */,
+				8093B42E25BB1CFF00F47726 /* PurchaseController.swift */,
+			);
+			name = IAP;
 			sourceTree = "<group>";
 		};
 		80AAFDF824784D8E003DD185 /* View */ = {
@@ -593,7 +618,7 @@
 			isa = PBXGroup;
 			children = (
 				80AAFE0B2478CBD7003DD185 /* ContainerViewController.swift */,
-				80ED10B9259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift */,
+				80ED10B9259EF4FF00B3F915 /* ContainerViewControllerPurchaseAndBecamePremiumAccaunt.swift */,
 				80489D452561675800CE26AA /* ContainerViewControllerAlertControllerCustomExtension.swift */,
 				8054EE8B2557050400BDCFA5 /* ContainerViewController GADBannerViewDelegate.swift */,
 				8055912524C883000053B892 /* ContainerViewControllerCoreData.swift */,
@@ -900,6 +925,7 @@
 				805033F0250B17E4002BA456 /* ExtentionAlertControllerCustom.swift in Sources */,
 				8042640A251AF51A009B29F5 /* GraphCollectionViewCell.swift in Sources */,
 				80AAFE0F2478D84E003DD185 /* BottomMenuModel.swift in Sources */,
+				8093B41F25BA787400F47726 /* IAP.swift in Sources */,
 				806268722476386A0056BA8F /* GameViewController.swift in Sources */,
 				807208B824CAD48300EEB68B /* PourWaterMenuPickersDelegate.swift in Sources */,
 				805514D22488A8B0008B9731 /* ExtentionSettingsViewControllerActions.swift in Sources */,
@@ -909,7 +935,7 @@
 				80ED10AB258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift in Sources */,
 				808343C225434C3500858FEC /* GotWater+CoreDataClass.swift in Sources */,
 				803E6F9C247C45F500C19DF9 /* ExtentionSettingsViewControllerTableview.swift in Sources */,
-				80ED10BA259EF4FF00B3F915 /* ContainerViewControllerBecamePremiumAccaunt.swift in Sources */,
+				80ED10BA259EF4FF00B3F915 /* ContainerViewControllerPurchaseAndBecamePremiumAccaunt.swift in Sources */,
 				80602816252F73650065FDD5 /* User+CoreDataClass.swift in Sources */,
 				8052826C24A859A8000A8F11 /* NotificationsTime+CoreDataProperties.swift in Sources */,
 				80489D462561675800CE26AA /* ContainerViewControllerAlertControllerCustomExtension.swift in Sources */,
@@ -969,10 +995,12 @@
 				80AAFE052478C0FB003DD185 /* BottomMenuCollectionViewCell.swift in Sources */,
 				80489DAB257BB81500CE26AA /* ContainerViewControllerActivityIndicator.swift in Sources */,
 				80AAFE14247A916E003DD185 /* SettingsViewController.swift in Sources */,
+				8093B42F25BB1CFF00F47726 /* PurchaseController.swift in Sources */,
 				8041AD872588B647007EB9AC /* GameViewControllerPupilsMovementAnimation.swift in Sources */,
 				80AB167D25A8CC0500896B6F /* AccessController+CoreDataClass.swift in Sources */,
 				80ED10BF25A2323300B3F915 /* ExtensionCallRateApp.swift in Sources */,
 				805498AA248E505A0043DC2B /* ExtentionSettingViewControllerTextField.swift in Sources */,
+				8093B42525BA7AFB00F47726 /* IAPProducts.swift in Sources */,
 				807208B624CA928D00EEB68B /* PourWaterMenu.swift in Sources */,
 				80FA83A3255F7AFC00B20822 /* ContainerViewControllerGetAdConsent.swift in Sources */,
 				8050A1182495013B003F852F /* ExtentionSettingsViewControllerNotificationSubsettingsMenu.swift in Sources */,
