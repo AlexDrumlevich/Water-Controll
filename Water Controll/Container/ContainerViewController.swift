@@ -69,7 +69,10 @@ class ContainerViewController: UIViewController {
             }
         }
     }
-    
+   
+    //layouts controll
+    var viewHeight: CGFloat = 0.0
+    var viewWidth: CGFloat = 0.0
     
     //child controllers
     var menuViewController: MenuViewController!
@@ -83,9 +86,6 @@ class ContainerViewController: UIViewController {
     var saveText = ""
     var callSaveFunctionFromGetOneMoreBottle = false
     var needToSaveConsentInDataBase = false
-    
-    
-    //lacalize greeting
     
     
     
@@ -142,7 +142,9 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-    
+        viewWidth = view.frame.width
+        viewHeight = view.frame.height
+        print(viewHeight, viewWidth)
         
         // get access controller
         getAccesControllerFromLocalDataBase()
@@ -153,6 +155,26 @@ class ContainerViewController: UIViewController {
         
         // prepare to get Ad Consent
         prepareToGetAdConsent(callFromGetOneMoreBottle: false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if view.frame.width != viewWidth || view.frame.height != viewHeight {
+            viewWidth = view.frame.width
+            viewHeight = view.frame.height
+            if menuViewController != nil {
+                menuViewController.isVertical = viewWidth >= viewHeight
+                if menuViewController.alertControllerCustom != nil {
+                    menuViewController.alertControllerCustom?.clouseAlert()
+                }
+                if menuViewController.graphView != nil {
+                    menuViewController.deleteGraphView()
+                }
+                if menuViewController.pourWaterMenu != nil {
+                    menuViewController.deletePourWaterMenu()
+                }
+            }
+            setConstraintsWhenChangeHappens()
+        }
     }
     
     // get Ad Consent
@@ -171,10 +193,6 @@ class ContainerViewController: UIViewController {
     
     func viewDidLoadContinueLoading() {
         
-       
-        
-      
-        
         //add banner
         if isAdsConsent {
             createBanner()
@@ -188,7 +206,6 @@ class ContainerViewController: UIViewController {
         gotWaterFill()
         
        
-      
         //create, add and present GameViewController
         presentGameViewController()
         (gameViewController as? GameViewController)?.currentUser = currentUser
@@ -329,6 +346,7 @@ class ContainerViewController: UIViewController {
                 
                 self.setConstraintsForChildViewWhenBunnerIsOnOff(view: self.settingsViewController.view)
             }
+            self.settingsViewController.isVertical = self.view.frame.width >= self.view.frame.height
             self.settingsViewController.activation()
 
         }
@@ -338,7 +356,7 @@ class ContainerViewController: UIViewController {
     func presentBottomMenuActionsMenuViewControllerViaClosure() {
         
         //closure complitionPresentSettingsViewControllet from bottomMenuCollectionView
-        self.menuViewController?.bottomMenuCollectionView.complitionBottomMenuActions = { mode in
+        self.menuViewController?.bottomMenuCollectionView?.complitionBottomMenuActions = { mode in
             //guard let self = self else { return }
             
             
@@ -381,7 +399,7 @@ class ContainerViewController: UIViewController {
         
         
         //closure complitionPourWaterIntoBottle
-        self.menuViewController.bottomMenuCollectionView.complitionPourWaterIntoBottleAccess = { (label) in
+        self.menuViewController.bottomMenuCollectionView?.complitionPourWaterIntoBottleAccess = { (label) in
             guard self.accessController != nil else {
                 label.text = ""
                 return
@@ -426,7 +444,7 @@ class ContainerViewController: UIViewController {
             //scroll bottom menu
             guard self.menuViewController != nil else { return }
             if !isBecamePremiumAccaunt {
-            self.menuViewController.bottomMenuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                self.menuViewController.bottomMenuCollectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
             }
         }
     }

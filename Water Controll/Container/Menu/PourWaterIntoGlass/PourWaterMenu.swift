@@ -26,7 +26,7 @@ extension MenuViewController {
              }
         
        // bottomMenuCollectionView.isUserInteractionEnabled = false
-        bottomMenuCollectionView.isHidden = true
+        bottomMenuCollectionView?.isHidden = true
         pourWaterMenu = UIView()
         
         //setup full volume and volume type from data base
@@ -61,8 +61,8 @@ extension MenuViewController {
         
         self.pourWaterMenu.removeFromSuperview()
         self.pourWaterMenu = nil
-        bottomMenuCollectionView.isUserInteractionEnabled = true
-        bottomMenuCollectionView.isHidden = false
+        bottomMenuCollectionView?.isUserInteractionEnabled = true
+        bottomMenuCollectionView?.isHidden = false
     }
     
     // add buttons in VolumeSubsettingsMenu
@@ -112,7 +112,11 @@ extension MenuViewController {
         pourWaterMenu.translatesAutoresizingMaskIntoConstraints = false
         pourWaterMenu.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant:  2 * constraintConstant).isActive = true
         pourWaterMenu.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -2 * constraintConstant).isActive = true
-        pourWaterMenu.bottomAnchor.constraint(equalTo: bottomMenuCollectionView.topAnchor, constant: -2 * constraintConstant).isActive = true
+        if isVertical {
+            pourWaterMenu.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        } else {
+            pourWaterMenu.bottomAnchor.constraint(equalTo: bottomMenuCollectionView!.topAnchor, constant: -2 * constraintConstant).isActive = true
+        }
         pourWaterMenu.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2 * constraintConstant).isActive = true
     }
     
@@ -130,7 +134,7 @@ extension MenuViewController {
         cancelButtonInPourWaterMenu.translatesAutoresizingMaskIntoConstraints = false
         cancelButtonInPourWaterMenu.leadingAnchor.constraint(equalTo: pourWaterMenu.leadingAnchor, constant: constraintConstant).isActive = true
         cancelButtonInPourWaterMenu.topAnchor.constraint(equalTo: pourWaterMenu.topAnchor, constant: constraintConstant).isActive = true
-        cancelButtonInPourWaterMenu.widthAnchor.constraint(equalTo: pourWaterMenu.widthAnchor, multiplier: 0.15).isActive = true
+        cancelButtonInPourWaterMenu.widthAnchor.constraint(equalTo: isVertical ? pourWaterMenu.heightAnchor : pourWaterMenu.widthAnchor, multiplier: 0.15).isActive = true
         cancelButtonInPourWaterMenu.heightAnchor.constraint(equalTo: cancelButtonInPourWaterMenu.widthAnchor).isActive = true
         
         cancelButtonInPourWaterMenu.setImage(UIImage(named: "cancelSmallBlue"), for: .normal)
@@ -151,7 +155,7 @@ extension MenuViewController {
         volumeTypeLabelForPourWaterMenu.heightAnchor.constraint(equalTo: cancelButtonInPourWaterMenu.heightAnchor).isActive = true
         // text settings volumeTypeLabelForPourWaterMenu
         volumeTypeLabelForPourWaterMenu.textAlignment = .center
-        volumeTypeLabelForPourWaterMenu.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.width * 12 / 100 )
+        volumeTypeLabelForPourWaterMenu.font = UIFont(name: "AmericanTypewriter", size: isVertical ? view.bounds.height * 11 / 100 : view.bounds.width * 11 / 100 )
         volumeTypeLabelForPourWaterMenu.textColor = #colorLiteral(red: 0.1640408039, green: 0.2041007578, blue: 1, alpha: 1)
         volumeTypeLabelForPourWaterMenu.adjustsFontSizeToFitWidth = true
         volumeTypeLabelForPourWaterMenu.minimumScaleFactor = 0.2
@@ -160,7 +164,8 @@ extension MenuViewController {
         
         //pickers
         //picker width
-        let pickerWidth = isOzType ? view.bounds.width * 0.7 / 3 : view.bounds.width * 0.7 / 4
+        let pickersWidth = isVertical ? view.bounds.height * 0.7 : view.bounds.width * 0.7
+        let pickerWidth = isOzType ? pickersWidth / 3 : pickersWidth / 4
         //first center X position
         let centerXPosition = isOzType ? (view.bounds.width - (4 * constraintConstant))  / 4 : (view.bounds.width - (4 * constraintConstant)) / 5
         print("pickerWidth: \(pickerWidth), centerXPosition: \(centerXPosition)")

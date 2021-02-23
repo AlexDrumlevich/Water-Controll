@@ -28,67 +28,38 @@ extension ContainerViewController {
     
     
     
-    func becamePremiumAccaunt () {
+    func becamePremiumAccaunt() {
         
-        var needTocreateBanner = false
+        //   var needTocreateBanner = false
         
-        accessController?.premiumAccount = !accessController!.premiumAccount
+        // accessController?.premiumAccount = !accessController!.premiumAccount
         
-        if !accessController!.premiumAccount {
-            if bannerView == nil {
-                needTocreateBanner = true
-                
-            }
-        } else {
-            
-            bannerView?.removeFromSuperview()
-            bannerView = nil
-        }
+        //        if !accessController!.premiumAccount {
+        //            if bannerView == nil {
+        //                needTocreateBanner = true
+        //
+        //            }
+        //        } else {
+        //
+        //            bannerView?.removeFromSuperview()
+        //            bannerView = nil
+        //        }
         
-        
-        if menuViewController == nil {
-            self.viewDidLoadContinueLoading()
-        } else {
-            
-            
-            
-            clouseSettingsViewController()
-            
+        if bannerView != nil {
             DispatchQueue.main.async {
-                
-                if needTocreateBanner {
-                    self.createBanner()
-                    if self.menuViewController != nil {
-                        self.setConstraintsForChildViewWhenBunnerIsOnOff(view: self.menuViewController.view)
-                    }
-                    if self.gameViewController != nil {
-                        self.setConstraintsForChildViewWhenBunnerIsOnOff(view: self.gameViewController.view)
-                    }
-                    
-                } else {
-                if self.menuViewController != nil {
-                    self.setConstraintsForChildViewWhenBunnerIsOnOff(view: self.menuViewController.view)
-                }
-                if self.gameViewController != nil {
-                    self.setConstraintsForChildViewWhenBunnerIsOnOff(view: self.gameViewController.view)
-                }
-                }
-                self.menuViewController.bottomMenuCollectionView.removeFromSuperview()
-                self.menuViewController.bottomMenuCollectionView = BottomMenuCollectionView()
-                self.presentBottomMenuActionsMenuViewControllerViaClosure()
-                self.menuViewController.view.addSubview(self.menuViewController.bottomMenuCollectionView)
-                self.menuViewController.setupBottomMenuCollectionView()
-            
+                self.bannerView?.removeFromSuperview()
+                self.bannerView = nil
             }
-            
-           
-            
         }
+        accessController?.premiumAccount = true
+        saveContextInLocalDataBase()
         
+        setConstraintsWhenChangeHappens()
     }
     
-    
 }
+
+
 
 
 

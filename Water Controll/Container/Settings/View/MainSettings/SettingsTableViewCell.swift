@@ -96,7 +96,7 @@ class SettingsTableViewCell: UITableViewCell {
     private func setupLabelOnlyCells(labelText: String) {
        
         let label = UILabel()
-        let lableHeight = bounds.height - (constraintConstant * 2)
+        let lableHeight = (bounds.height - (constraintConstant * 2)) * 0.8
        
        //text settings
 
@@ -174,17 +174,20 @@ class SettingsTableViewCell: UITableViewCell {
         setupConstraints(subView: imageView)
         
         let label = UILabel()
-        setLabel(label: label, text: AppTexts.deleteUserAppTexts, leftPartView: imageView, textColor: .red)
+        setLabel(label: label, text: AppTexts.deleteUserAppTexts, leftPartView: imageView, textColor: .red, isMultyString: true)
         
     }
     
     
-    private func setLabel(label: UILabel, text: String = "", leftPartView: UIView, textColor: UIColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)) {
-        
+    private func setLabel(label: UILabel, text: String = "", leftPartView: UIView, textColor: UIColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1), isMultyString: Bool = false) {
+        let lableHeight = (bounds.height - (constraintConstant * 2)) * 0.8
         label.text = text
+        if isMultyString {
+            label.numberOfLines = 0
+        }
         label.textAlignment = .center
         label.backgroundColor = .clear
-        label.font = UIFont(name: "AmericanTypewriter", size:  150)
+        label.font = UIFont(name: "AmericanTypewriter", size:  lableHeight)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.05
         label.sizeToFit()

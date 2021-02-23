@@ -13,7 +13,7 @@ extension MenuViewController {
     func pourWaterIntoBottleIsNotEmptyBottle() {
         
         if alertControllerCustom != nil {
-           alertControllerCustom?.clouseAlert()
+            alertControllerCustom?.clouseAlert()
         }
         
         alertControllerCustom = AlertControllerCustom()
@@ -64,14 +64,14 @@ extension MenuViewController {
     //alert no bottles
     func noBottlesWithWaterAlertController() {
         if alertControllerCustom != nil {
-           alertControllerCustom?.clouseAlert()
+            alertControllerCustom?.clouseAlert()
         }
         
         alertControllerCustom = AlertControllerCustom()
         let textNoAvailableBottlesWithWater = AppTexts.textNoAvailableBottlesWithWater
         guard alertControllerCustom != nil else { return }
         alertControllerCustom!.createAlert(observer: self, alertIdentifire: .noBottlesWithWater, view: view, text: textNoAvailableBottlesWithWater, imageName: nil, firstButtonText: "cancelSmallBlue", secondButtonText: "getOneMoreBottle", thirdButtonText: "unlimitedBottels", imageInButtons: true)
-
+        
     }
     // auto fill system
     //we call this method from ContainerViewControllerEmptyBottleInDayBeginning and when users change - did set method in menu view controller 

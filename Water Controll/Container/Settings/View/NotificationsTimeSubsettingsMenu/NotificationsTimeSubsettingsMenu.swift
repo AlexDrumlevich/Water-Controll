@@ -59,11 +59,19 @@ extension SettingsViewController {
     
     //setup constraints
     private func setupNotificationsTimeSubsettingsMenuConstraints() {
+        
         notificationsTimeSubsettingsMenu.translatesAutoresizingMaskIntoConstraints = false
         notificationsTimeSubsettingsMenu.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20).isActive = true
         notificationsTimeSubsettingsMenu.bottomAnchor.constraint(equalTo: okButton.topAnchor, constant: -20).isActive = true
-        notificationsTimeSubsettingsMenu.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 10).isActive = true
-        notificationsTimeSubsettingsMenu.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -10).isActive = true
+        
+        if isVertical {
+            notificationsTimeSubsettingsMenu.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.5).isActive = true
+            notificationsTimeSubsettingsMenu.centerXAnchor.constraint(equalTo: blurView.centerXAnchor).isActive = true
+        } else {
+            notificationsTimeSubsettingsMenu.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 10).isActive = true
+            notificationsTimeSubsettingsMenu.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -10).isActive = true
+        }
+        
     }
     
     //ok Action
@@ -119,7 +127,7 @@ extension SettingsViewController {
     
     //cell height
     func setupCellHideInTableViewNotificationsTimeADay() -> CGFloat {
-        return CGFloat((view.bounds.width - 50) / 3)
+        return isVertical ? CGFloat((view.bounds.width - 50) / 6) : CGFloat((view.bounds.width - 50) / 3)
     }
     
     
@@ -143,7 +151,7 @@ extension SettingsViewController {
         
         let time = notificationForSetupNotificationsTime[indexPath.row]
         //item width
-        let itemWidth = (view.bounds.width - 50) / 6
+        let itemWidth = isVertical ? (view.bounds.height - 50) / 12 : (view.bounds.width - 50) / 6
         
         //setup cell
         cell.setupCell(itemWidth: itemWidth, rowNumber: indexPath.row)

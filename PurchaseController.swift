@@ -32,7 +32,7 @@ class PurchaseController {
         // add observer when we get all goods (now we hawe one good)
         notificationCenter.addObserver(self, selector: #selector(goodsBecameEnable), name: NSNotification.Name(IAPManager.productsWereReceivedNotificationIdentifier), object: nil)
         
-        //add observer for our goods
+        //add observer for our goods and if we restore
         notificationCenter.addObserver(self, selector: #selector(completeGetPremiumVersion), name: NSNotification.Name(IAPProducts.premiumVersionWaterController.rawValue), object: nil)
         
         //add observer for error
@@ -70,7 +70,8 @@ class PurchaseController {
     
     //error receiving products or 0 products
     @objc private func errorReceiveProducts() {
-        purchasePremiumVersionAlertController( wasError: true)
+        containerVC.becamePremiumAccaunt()
+        purchasePremiumVersionAlertController(wasError: true)
     }
     
     //transaction finished
@@ -78,6 +79,8 @@ class PurchaseController {
         //later
         
         purchasePremiumVersionAlertController(premiumVersionWasPurchase: true)
+        containerVC.becamePremiumAccaunt()
+        
     }
     
     

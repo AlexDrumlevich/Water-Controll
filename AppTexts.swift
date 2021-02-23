@@ -144,5 +144,13 @@ struct  AppTexts {
     static let tenMinutesLaterAppTexts = NSLocalizedString("10 minutes later", comment: "10 minutes later")
     static let fifteenMinutesLaterAppTexts = NSLocalizedString("15 minutes later", comment: "15 minutes later")
     static let dissmisAppTexts = NSLocalizedString("dissmis", comment: "dissmis")
+    
+    static let reminderAppTexts = NSLocalizedString("reminder", comment: "reminder")
+    
+    static let aimAchievedAppTexts = NSLocalizedString("The aim achieved !!!", comment: "The aim achieved")
  
+    static let updateAppTexts = NSLocalizedString("update", comment: "update")
+    
+
+
 }

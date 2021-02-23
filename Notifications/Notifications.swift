@@ -144,6 +144,7 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
         // 1 content
         let content = UNMutableNotificationContent()
         content.title = ""
+     
         content.body = textBody
         content.sound = UNNotificationSound.default
         content.categoryIdentifier = NotificationCategories.timeToDrink.rawValue
@@ -188,7 +189,7 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
         let timeToDrinkNotificationCategory = UNNotificationCategory(identifier: categoryName,
                                                                      actions: timeToDrinkNotificationActions,
                                                                      intentIdentifiers: [],
-                                                                     hiddenPreviewsBodyPlaceholder: nil,
+                                                                     hiddenPreviewsBodyPlaceholder: AppTexts.reminderAppTexts,
                                                                      categorySummaryFormat: nil,
                                                                      options: [])
         // register category

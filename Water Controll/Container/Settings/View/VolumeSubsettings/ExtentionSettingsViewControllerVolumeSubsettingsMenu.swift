@@ -110,7 +110,7 @@ extension SettingsViewController {
         volumeSubsettingsMenu.addSubview(literButton)
         //constraints
         literButton.translatesAutoresizingMaskIntoConstraints = false
-        literButton.widthAnchor.constraint(equalTo: volumeSubsettingsMenu.widthAnchor, multiplier: 1/2, constant: -2 * constraintConstant).isActive = true
+        literButton.widthAnchor.constraint(equalTo: isVertical ? volumeSubsettingsMenu.heightAnchor : volumeSubsettingsMenu.widthAnchor, multiplier: 1/3, constant: -2 * constraintConstant).isActive = true
         literButton.heightAnchor.constraint(equalTo: literButton.widthAnchor).isActive = true
         literButton.topAnchor.constraint(equalTo: volumeSubsettingsMenu.topAnchor, constant: constraintConstant).isActive = true
         literButton.leadingAnchor.constraint(equalTo: volumeSubsettingsMenu.leadingAnchor, constant: constraintConstant).isActive = true
@@ -124,7 +124,7 @@ extension SettingsViewController {
         volumeSubsettingsMenu.addSubview(ozButton)
         //constraints
         ozButton.translatesAutoresizingMaskIntoConstraints = false
-        ozButton.widthAnchor.constraint(equalTo: volumeSubsettingsMenu.widthAnchor, multiplier: 1/2, constant: -2 * constraintConstant).isActive = true
+        ozButton.widthAnchor.constraint(equalTo: literButton.widthAnchor).isActive = true
         ozButton.heightAnchor.constraint(equalTo: ozButton.widthAnchor).isActive = true
         ozButton.topAnchor.constraint(equalTo: volumeSubsettingsMenu.topAnchor, constant: constraintConstant).isActive = true
         ozButton.trailingAnchor.constraint(equalTo: volumeSubsettingsMenu.trailingAnchor, constant: -constraintConstant).isActive = true

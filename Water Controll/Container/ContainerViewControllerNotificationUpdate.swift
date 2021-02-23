@@ -203,7 +203,7 @@ extension ContainerViewController {
         
         for (index, notification) in notificationsData.enumerated() {
             
-            notificationCenter.createScheduleNotification(title: AppTexts.firstGreetingWord + "! " + (notification.name), body: getNotificationBodyText(), categoryIdentifier: notification.notificationIdentifire, threadIdentifier: notification.notificationIdentifire, weekDay: notification.day, hour: notification.hour, minute: notification.minute, isLast: index == notificationsData.count - 1) {
+            notificationCenter.createScheduleNotification(title: AppTexts.firstGreetingWord + (notification.name) + "!", body: getNotificationBodyText(), categoryIdentifier: notification.notificationIdentifire, threadIdentifier: notification.notificationIdentifire, weekDay: notification.day, hour: notification.hour, minute: notification.minute, isLast: index == notificationsData.count - 1) {
                 
             }
             // if we create last notification time in last day we call okActionNotificationSubsettingsMenu, wich clouses setinngs menu or only notification subsettings menu

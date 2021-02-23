@@ -46,8 +46,8 @@
             filePath = "Water Controll/Container/Settings/View/NotificationSubsettingsMenu/ExtentionSettingsViewControllerNotificationSubsettingsMenu.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "655"
-            endingLineNumber = "655"
+            startingLineNumber = "665"
+            endingLineNumber = "665"
             landmarkName = "startSliderAction(sender:event:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "Water Controll/Container/Settings/View/NotificationSubsettingsMenu/ExtentionSettingsViewControllerNotificationSubsettingsMenu.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "762"
-            endingLineNumber = "762"
+            startingLineNumber = "772"
+            endingLineNumber = "772"
             landmarkName = "stopSliderAction(sender:event:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "Water Controll/Container/Settings/View/NotificationSubsettingsMenu/ExtentionSettingsViewControllerNotificationSubsettingsMenu.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
+            startingLineNumber = "572"
+            endingLineNumber = "572"
             landmarkName = "segmentedControllCommonSettingsAction(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "Water Controll/Container/Settings/View/NotificationSubsettingsMenu/ExtentionSettingsViewControllerNotificationSubsettingsMenu.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "555"
-            endingLineNumber = "555"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "segmentedControllCommonSettingsAction(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +318,8 @@
             filePath = "Notifications/Notifications.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "reminder(timeInterval:textBody:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -368,22 +368,6 @@
                   offsetFromSymbolStart = "0">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AB63CE2A-48B2-4EC5-88A2-93827C33B42E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Water Controll/Application/Controller/AppDelegate.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "application(_:didFinishLaunchingWithOptions:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -855,8 +839,8 @@
             filePath = "Water Controll/Container/Menu/PourWaterIntoGlass/PourWaterMenu.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
             landmarkName = "noWaterIntoBottleAlertController()"
             landmarkType = "7">
          </BreakpointContent>
@@ -871,8 +855,8 @@
             filePath = "Water Controll/Container/Game Scene/Controller/GameViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "488"
-            endingLineNumber = "488"
+            startingLineNumber = "519"
+            endingLineNumber = "519"
             landmarkName = "handleTap(_:)"
             landmarkType = "7">
          </BreakpointContent>

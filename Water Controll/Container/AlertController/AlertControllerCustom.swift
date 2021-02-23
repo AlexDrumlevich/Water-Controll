@@ -253,7 +253,7 @@ class AlertControllerCustom: UIView {
         
         button.translatesAutoresizingMaskIntoConstraints = false
         
-        button.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1/3, constant: -10).isActive = true
+        button.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: view.frame.width >= view.frame.height ? 1/5 : 1/3, constant: -10).isActive = true
         
         button.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true
 

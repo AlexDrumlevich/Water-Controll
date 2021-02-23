@@ -11,6 +11,9 @@ import GoogleMobileAds
 
 class MenuViewController: UIViewController {
     
+    //orientation
+    var isVertical = false
+    
     //product url
     var productURLString = ""
     //URL to get information in app store
@@ -39,7 +42,7 @@ class MenuViewController: UIViewController {
             leftButton.isHidden = isSinglUser
         }
     }
-   // acceess controller
+    // acceess controller
     var accessController: AccessController?
     
     //get one more bottle
@@ -65,7 +68,7 @@ class MenuViewController: UIViewController {
     var activityIndicatorInMenuViewController: UIActivityIndicatorView?
     
     //bottom menu
-    var bottomMenuCollectionView = BottomMenuCollectionView()
+    var bottomMenuCollectionView: BottomMenuCollectionView?
     var countLabelAvailableBottlesInCell: UILabel?
     var isNeedToAnimateBottomMenu = true
     //graph view
@@ -139,6 +142,9 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // constraints for bottomMenuCollectionView
+        isVertical = view.frame.height <= view.frame.width
+        bottomMenuCollectionView = BottomMenuCollectionView(isVertical: isVertical)
         view.backgroundColor = .clear
         //add subviews
         addSubviews()
@@ -180,11 +186,11 @@ class MenuViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if isNeedToAnimateBottomMenu {
             //animate bottom menu collection view
-            let indexOfLastItemInBottomMenuCollectionView = bottomMenuCollectionView.numberOfItems(inSection: 0) - 1
+            let indexOfLastItemInBottomMenuCollectionView = bottomMenuCollectionView!.numberOfItems(inSection: 0) - 1
             
-            bottomMenuCollectionView.scrollToItem(at: IndexPath(item: indexOfLastItemInBottomMenuCollectionView, section: 0), at: .right, animated: true)
+            bottomMenuCollectionView!.scrollToItem(at: IndexPath(item: indexOfLastItemInBottomMenuCollectionView, section: 0), at: .right, animated: true)
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-                self.bottomMenuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+                self.bottomMenuCollectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
                 self.isNeedToAnimateBottomMenu = false
             }
         }
@@ -192,7 +198,7 @@ class MenuViewController: UIViewController {
     
     
     func addSubviews() {
-        view.addSubview(bottomMenuCollectionView)
+        view.addSubview(bottomMenuCollectionView!)
         view.addSubview(nameLabel)
         view.addSubview(rightButton)
         view.addSubview(leftButton)
@@ -204,20 +210,31 @@ class MenuViewController: UIViewController {
     func setupBottomMenuCollectionView() {
         // add bottomMenuCollectionView to MenuViewController
         
-        // constraints for bottomMenuCollectionView
-        bottomMenuCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        bottomMenuCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-
-        bottomMenuCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bottomMenuCollectionView.heightAnchor.constraint(equalToConstant: view.bounds.width / 4).isActive = true
+   
+        
+        bottomMenuCollectionView!.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        
+        if !isVertical {
+            bottomMenuCollectionView!.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        } else {
+            bottomMenuCollectionView!.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        }
+        
+        bottomMenuCollectionView!.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        if isVertical {
+            bottomMenuCollectionView!.widthAnchor.constraint(equalTo: bottomMenuCollectionView!.heightAnchor, multiplier: 0.25).isActive = true
+        } else {
+            bottomMenuCollectionView!.heightAnchor.constraint(equalToConstant: view.bounds.width / 4).isActive = true
+        }
         //set content to bottom menu collection view
         var isPremium = false
         if accessController != nil {
             isPremium = accessController!.premiumAccount
         }
-        bottomMenuCollectionView.getMenuModel(menuModel: BottomMenuModel.fetchContent(isPremiumAccount: isPremium))
+        bottomMenuCollectionView!.getMenuModel(menuModel: BottomMenuModel.fetchContent(isPremiumAccount: isPremium))
     }
-
+    
     
     
     
@@ -236,7 +253,7 @@ class MenuViewController: UIViewController {
         
         
         if isTheAimReached {
-            self.pouredWaterLabel.text = "The aim reached !!!"
+            self.pouredWaterLabel.text = AppTexts.aimAchievedAppTexts
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
                 self.calculateText()
             }
@@ -245,33 +262,33 @@ class MenuViewController: UIViewController {
             calculateText()
         }
     }
-     
-        private func calculateText() {
-            
-                
-            let mlText = AppTexts.mlAppTexts
-            let literText = AppTexts.literAppTexts
-            let litersText = AppTexts.litersAppTexts
-            
-                let waterWasDrunk = self.currentUser.volumeType == "oz" ? String(Int(self.currentUser.currentVolume)) : self.currentUser.currentVolume >= 1.0 ? String(self.currentUser.currentVolume) : String(format: "%.0f", (self.currentUser.currentVolume) * 1000) + " " + mlText
-                
-                let fullBottleVolume = self.currentUser.volumeType == "oz" ? String(format: "%.0f", self.currentUser.fullVolume) : self.currentUser.fullVolume >= 1.0 ? String(Float(round(self.currentUser.fullVolume * 100) / 100)) : String(format: "%.0f", self.currentUser.fullVolume * 1000)
-                
-            let type = self.currentUser.volumeType == "oz" ? self.currentUser.volumeType ?? "oz" : self.currentUser.fullVolume >= 1.0 ? self.currentUser.fullVolume >= 2.0 ? litersText : literText : (" " + mlText)
-                
-                let waterWasDrunkPercentsFloat = self.currentUser.currentVolume * 100 / self.currentUser.fullVolume
-                
-                let waterWasDrunkPercentsFloatRounded = roundf(waterWasDrunkPercentsFloat)
-                
-                let waterWasDrunkPercents = String(format: "%.0f", waterWasDrunkPercentsFloatRounded)
-                
-            let waterWasDrunkText = AppTexts.progressAppTexts
-                
-            let textLabel = waterWasDrunkText + ": " + waterWasDrunk + " " + AppTexts.outOffAppTexts + " " + fullBottleVolume + " " + type + " ("  + waterWasDrunkPercents + " %)"
-                self.pouredWaterLabel.text = textLabel
-            
-        }
-
+    
+    private func calculateText() {
+        
+        
+        let mlText = AppTexts.mlAppTexts
+        let literText = AppTexts.literAppTexts
+        let litersText = AppTexts.litersAppTexts
+        
+        let waterWasDrunk = self.currentUser.volumeType == "oz" ? String(Int(self.currentUser.currentVolume)) : self.currentUser.currentVolume >= 1.0 ? String(self.currentUser.currentVolume) : String(format: "%.0f", (self.currentUser.currentVolume) * 1000) + " " + mlText
+        
+        let fullBottleVolume = self.currentUser.volumeType == "oz" ? String(format: "%.0f", self.currentUser.fullVolume) : self.currentUser.fullVolume >= 1.0 ? String(Float(round(self.currentUser.fullVolume * 100) / 100)) : String(format: "%.0f", self.currentUser.fullVolume * 1000)
+        
+        let type = self.currentUser.volumeType == "oz" ? self.currentUser.volumeType ?? "oz" : self.currentUser.fullVolume >= 1.0 ? self.currentUser.fullVolume >= 2.0 ? litersText : literText : (" " + mlText)
+        
+        let waterWasDrunkPercentsFloat = self.currentUser.currentVolume * 100 / self.currentUser.fullVolume
+        
+        let waterWasDrunkPercentsFloatRounded = roundf(waterWasDrunkPercentsFloat)
+        
+        let waterWasDrunkPercents = String(format: "%.0f", waterWasDrunkPercentsFloatRounded)
+        
+        let waterWasDrunkText = AppTexts.progressAppTexts
+        
+        let textLabel = waterWasDrunkText + ": " + waterWasDrunk + " " + AppTexts.outOffAppTexts + " " + fullBottleVolume + " " + type + " ("  + waterWasDrunkPercents + " %)"
+        self.pouredWaterLabel.text = textLabel
+        
+    }
+    
     
     
     
@@ -287,7 +304,7 @@ class MenuViewController: UIViewController {
         
         //set text settings
         pouredWaterLabel.textAlignment = .center
-        pouredWaterLabel.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.width * 12 / 100 )
+        pouredWaterLabel.font = UIFont(name: "AmericanTypewriter", size:  isVertical ? view.bounds.height * 11 / 100 : view.bounds.width * 11 / 100 )
         pouredWaterLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         pouredWaterLabel.adjustsFontSizeToFitWidth = true
         pouredWaterLabel.minimumScaleFactor = 0.2
@@ -306,7 +323,8 @@ class MenuViewController: UIViewController {
         nameLabel.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.12).isActive = true
         //set text settings
         nameLabel.textAlignment = .center
-        nameLabel.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.width * 12 / 100 )
+        nameLabel.font = UIFont(name: "AmericanTypewriter", size:  isVertical ? view.bounds.height * 11 / 100 : view.bounds.width * 11 / 100)
+        
         nameLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         nameLabel.adjustsFontSizeToFitWidth = true
         nameLabel.minimumScaleFactor = 0.05

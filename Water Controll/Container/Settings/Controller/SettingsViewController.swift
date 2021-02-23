@@ -184,6 +184,9 @@ class SettingsViewController: UIViewController {
     var currentNotificationsTimeDaySender: Int!
     var isNextDay: [Bool]!
     
+    //vertical or horizontal orientation
+    var isVertical = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

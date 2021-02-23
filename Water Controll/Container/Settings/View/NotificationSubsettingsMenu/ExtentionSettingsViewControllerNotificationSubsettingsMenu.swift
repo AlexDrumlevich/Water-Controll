@@ -152,14 +152,14 @@ extension SettingsViewController {
         //set text settings
         label.textAlignment = .center
 
-      label.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.height * 1 / 30 )
+        label.font = UIFont(name: "AmericanTypewriter", size: view.bounds.height / 30)
         label.textColor = .purple//#colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.2
         label.text = AppTexts.notificationsAppTexts
         
         notificationSubsettingsMenu.tableHeaderView = label
-        notificationSubsettingsMenu.tableHeaderView?.bounds.size.height = view.bounds.height * 1 / 20
+        notificationSubsettingsMenu.tableHeaderView?.bounds.size.height = view.bounds.height / 20
         notificationSubsettingsMenu.tableHeaderView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
@@ -238,12 +238,18 @@ extension SettingsViewController {
     
     //setup constraints
     private func setupNotificationSubsettingsMenuConstraints() {
-    
+        
         notificationSubsettingsMenu.translatesAutoresizingMaskIntoConstraints = false
         notificationSubsettingsMenu.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20).isActive = true
         notificationSubsettingsMenu.bottomAnchor.constraint(equalTo: okButton.topAnchor, constant: -20).isActive = true
-        notificationSubsettingsMenu.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 10).isActive = true
-        notificationSubsettingsMenu.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -10).isActive = true
+        
+        if isVertical {
+            notificationSubsettingsMenu.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.5).isActive = true
+            notificationSubsettingsMenu.centerXAnchor.constraint(equalTo: blurView.centerXAnchor).isActive = true
+        } else {
+            notificationSubsettingsMenu.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 10).isActive = true
+            notificationSubsettingsMenu.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -10).isActive = true
+        }
     }
     
     
@@ -273,7 +279,7 @@ extension SettingsViewController {
         */
         
         //50: 20 - 2 constraints into view, 45 - 9 constraints between elements inside cell + 5 as a precaution; / 6 - 6 elements in cell
-        let itemWidth = (view.bounds.width - 70) / 6
+        let itemWidth = isVertical ? (view.bounds.height) / 12 : (view.bounds.width - 70) / 6
         
         //setup cells
         
@@ -412,9 +418,13 @@ extension SettingsViewController {
         }
         let currentNotification = notificationsStracture[indexPath.section]
         if currentNotification.isActive! && !currentNotification.isCommon! || indexPath.section == 0 && currentNotification.isActive!{//currentNotification.name == NotificationSettingsTableViewCellTypeMondayFirst(rawValue: 0)?.sectionTitle ?? "Common" && currentNotification.isActive! {
-            return ((view.bounds.width - 50) / 6) * 3 + 90
+            if isVertical {
+              return ((view.bounds.height) / 12) * 3 + 90
+            } else {
+                return ((view.bounds.width - 50) / 6) * 3 + 90
+            }
         } else {
-            return ((view.bounds.width - 50) / 6)
+            return isVertical ? ((view.bounds.height) / 12) : ((view.bounds.width - 50) / 6)
         }
     }
     
@@ -887,7 +897,7 @@ extension SettingsViewController {
     
     //configerated segmented controll`s font
     private func configurateFontForSegmentedControllers(for sender: UISegmentedControl) {
-        let itemWidth = (view.bounds.width - 50) / 6
+        let itemWidth = isVertical ? (view.bounds.height) / 12 :  (view.bounds.width - 50) / 6
         if let fontForSegmentedControlls = UIFont(name: "AmericanTypewriter", size:  itemWidth / 2.5) {
             if sender.accessibilityIdentifier == "segmentedControllAvailabilityNotification" {
                 sender.setTitleTextAttributes([NSAttributedString.Key.font: fontForSegmentedControlls, NSAttributedString.Key.foregroundColor: sender.selectedSegmentIndex == 0 ? UIColor.red : #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)], for: .selected)

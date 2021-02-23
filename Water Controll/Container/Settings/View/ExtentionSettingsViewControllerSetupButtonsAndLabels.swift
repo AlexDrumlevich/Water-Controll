@@ -44,7 +44,7 @@ extension SettingsViewController {
         backButton.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: 10).isActive = true
         backButton.topAnchor.constraint(equalTo: blurView.topAnchor, constant:  30).isActive = true
         
-        backButton.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
+        backButton.widthAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.12).isActive = true
         backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor).isActive = true
     }
     
@@ -81,8 +81,8 @@ extension SettingsViewController {
        //constraints
         plusButton.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -10).isActive = true
         plusButton.topAnchor.constraint(equalTo: blurView.topAnchor, constant:  30).isActive = true
-        plusButton.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.3).isActive = true
-        plusButton.heightAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
+        plusButton.widthAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.3).isActive = true
+        plusButton.heightAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.12).isActive = true
     }
      
     //setup constraints for nameLabel
@@ -94,10 +94,10 @@ extension SettingsViewController {
            nameLabel.leadingAnchor.constraint(equalTo: leftButton.trailingAnchor, constant: constraintConstant).isActive = true
            nameLabel.trailingAnchor.constraint(equalTo: rightButton.leadingAnchor, constant: -constraintConstant).isActive = true
            
-           nameLabel.heightAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
+           nameLabel.heightAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.12).isActive = true
            //set text settings
            nameLabel.textAlignment = .center
-           nameLabel.font = UIFont(name: "AmericanTypewriter", size:  view.bounds.width * 12 / 100 )
+        nameLabel.font = UIFont(name: "AmericanTypewriter", size: isVertical ? view.bounds.height * 11 / 100 : view.bounds.width * 11 / 100)
            nameLabel.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         nameLabel.adjustsFontSizeToFitWidth = true
            nameLabel.minimumScaleFactor = 0.5
@@ -111,7 +111,7 @@ extension SettingsViewController {
 
         //set constraints
         rightButton.trailingAnchor.constraint(equalTo: blurView.trailingAnchor, constant: -constraintConstant).isActive = true
-        rightButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 1 / 10).isActive = true
+        rightButton.widthAnchor.constraint(equalToConstant: isVertical ? view.bounds.height / 10 : view.bounds.width / 10).isActive = true
     rightButton.topAnchor.constraint(equalTo: plusButton.bottomAnchor, constant: 10).isActive = true
         rightButton.heightAnchor.constraint(equalTo: nameLabel.heightAnchor, multiplier: 0.7).isActive = true
         
@@ -122,7 +122,7 @@ extension SettingsViewController {
 
         //set constraints
         leftButton.leadingAnchor.constraint(equalTo: blurView.leadingAnchor, constant: constraintConstant).isActive = true
-        leftButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 1 / 10).isActive = true
+        leftButton.widthAnchor.constraint(equalToConstant: isVertical ? view.bounds.height / 10 : view.bounds.width / 10).isActive = true
         leftButton.topAnchor.constraint(equalTo: plusButton.bottomAnchor, constant: 10).isActive = true
         leftButton.heightAnchor.constraint(equalTo: nameLabel.heightAnchor, multiplier: 0.7).isActive = true
     }
@@ -135,8 +135,8 @@ extension SettingsViewController {
     //add cancelButton setup constraints for cancelButton
     func setupCancelButton()  {
   
-        cancelButton.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
-        cancelButton.heightAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
+        cancelButton.widthAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.12).isActive = true
+        cancelButton.heightAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.12).isActive = true
         cancelButton.centerXAnchor.constraint(equalTo: blurView.centerXAnchor, constant: -view.bounds.width * 24 / 100 ).isActive = true
         bottomCancelButtonConstraint = cancelButton.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant:  -30)
         bottomCancelButtonConstraint.isActive = true
@@ -146,8 +146,8 @@ extension SettingsViewController {
     //add okButton setup constraints for okButton
     func setupOkButton()  {
      
-        okButton.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
-        okButton.heightAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.12).isActive = true
+        okButton.widthAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.12).isActive = true
+        okButton.heightAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.12).isActive = true
         okButton.centerXAnchor.constraint(equalTo: blurView.centerXAnchor, constant: view.bounds.width * 24 / 100 ).isActive = true
         bottomOkButtonConstraint = okButton.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant:  -30)
         bottomOkButtonConstraint.isActive = true
@@ -157,8 +157,8 @@ extension SettingsViewController {
     //add deleteButton setup constraints for deleteButton
     func setupDeleteButton()  {
       
-        deleteButton.widthAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.14).isActive = true
-        deleteButton.heightAnchor.constraint(equalTo: blurView.widthAnchor, multiplier: 0.14).isActive = true
+        deleteButton.widthAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.14).isActive = true
+        deleteButton.heightAnchor.constraint(equalTo: isVertical ? blurView.heightAnchor : blurView.widthAnchor, multiplier: 0.14).isActive = true
         deleteButton.centerXAnchor.constraint(equalTo: blurView.centerXAnchor).isActive = true
         deleteButton.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant:  -30).isActive = true
         

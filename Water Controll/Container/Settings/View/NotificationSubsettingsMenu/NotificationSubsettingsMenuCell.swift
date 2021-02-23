@@ -43,7 +43,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
     
     //setup cells depending of type (SettingsViewControllerTableViewCellType) of cell
     //item width depend on view width)
-   // func setupCell(withFirstTypeMondy typeMonday: NotificationSettingsTableViewCellTypeMondayFirst, withFirstTypeSunday typeSunday: NotificationSettingsTableViewCellTypeSundayFirst, currentTypeMonday: Bool, itemWidth: CGFloat)
+    // func setupCell(withFirstTypeMondy typeMonday: NotificationSettingsTableViewCellTypeMondayFirst, withFirstTypeSunday typeSunday: NotificationSettingsTableViewCellTypeSundayFirst, currentTypeMonday: Bool, itemWidth: CGFloat)
     func setupCell(withTag tag: Int, isGeneral: Bool, itemWidth: CGFloat) {
         
         
@@ -59,7 +59,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         segmentedControllAvailabilityNotification.tag = tag
         segmentedControllAvailabilityNotification.accessibilityIdentifier = "segmentedControllAvailabilityNotification"
         self.contentView.addSubview(segmentedControllAvailabilityNotification)
-       // addSubview(segmentedControllAvailabilityNotification)
+        // addSubview(segmentedControllAvailabilityNotification)
         segmentedControllAvailabilityNotification.translatesAutoresizingMaskIntoConstraints = false
         
         segmentedControllAvailabilityNotification.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
@@ -67,15 +67,15 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         segmentedControllAvailabilityNotification.topAnchor.constraint(equalTo: topAnchor, constant: constraintConstant).isActive = true
         
         segmentedControllCommonSettings = UISegmentedControl()
-      // if typeMonday == .generalSettings || typeSunday == .generalSettings  {segmentedControllCommonSettings.isHidden = true}
-    
+        // if typeMonday == .generalSettings || typeSunday == .generalSettings  {segmentedControllCommonSettings.isHidden = true}
+        
         segmentedControllCommonSettings.isHidden = isGeneral
         segmentedControllCommonSettings.insertSegment(withTitle: AppTexts.commonAppTexts, at: 0, animated: true)
         segmentedControllCommonSettings.insertSegment(withTitle: AppTexts.specialAppTexts, at: 1, animated: true)
         //segmentedControllCommonSettings.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         segmentedControllCommonSettings.tag = tag
         self.contentView.addSubview(segmentedControllCommonSettings)
-       // addSubview(segmentedControllCommonSettings)
+        // addSubview(segmentedControllCommonSettings)
         segmentedControllCommonSettings.translatesAutoresizingMaskIntoConstraints = false
         segmentedControllCommonSettings.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
         segmentedControllCommonSettings.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
@@ -152,7 +152,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startTimeLabel.textAlignment = .center
         startTimeLabel.backgroundColor = .clear
         self.contentView.addSubview(startTimeLabel)
-       // addSubview(startTimeLabel)
+        // addSubview(startTimeLabel)
         
         startAmPmLabel = UILabel()
         startAmPmLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.5)
@@ -161,18 +161,18 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startAmPmLabel.minimumScaleFactor = 0.2
         startAmPmLabel.textAlignment = .center
         self.contentView.addSubview(startAmPmLabel)
-      //  addSubview(startAmPmLabel)
+        //  addSubview(startAmPmLabel)
         
         startSlider = UISlider()
         startSlider.maximumTrackTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         startSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         startSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
-    
+        
         startSlider.minimumTrackTintColor = .white
         //startSlider.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         startSlider.tag = tag
         self.contentView.addSubview(startSlider)
-      //  addSubview(startSlider)
+        //  addSubview(startSlider)
         
         stopLabel = UILabel()
         stopLabel.font = UIFont(name: "AmericanTypewriter", size:  itemWidth * 0.6)
@@ -252,9 +252,10 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         //extentionSetupNotificationTimesADayButton
         extentionSetupNotificationTimesADayButton.translatesAutoresizingMaskIntoConstraints = false
         extentionSetupNotificationTimesADayButton.leadingAnchor.constraint(equalTo: moreTimesButton.trailingAnchor, constant: constraintConstant * 3).isActive = true
-        extentionSetupNotificationTimesADayButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
+        //extentionSetupNotificationTimesADayButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
         extentionSetupNotificationTimesADayButton.centerYAnchor.constraint(equalTo: repeatImageView.centerYAnchor).isActive = true
         extentionSetupNotificationTimesADayButton.heightAnchor.constraint(equalTo: moreTimesButton.heightAnchor).isActive = true
+        extentionSetupNotificationTimesADayButton.widthAnchor.constraint(equalTo: extentionSetupNotificationTimesADayButton.heightAnchor).isActive = true
         
         //startLabel
         startLabel.translatesAutoresizingMaskIntoConstraints = false

@@ -14,7 +14,7 @@ extension GameViewController {
     
     
     //go home bottle
-//    status: @escaping (UNAuthorizationStatus) -> Void
+    //    status: @escaping (UNAuthorizationStatus) -> Void
     func bottleGoHome(completionBlock: @ escaping () -> Void) {
         guard emptyBottleNodeFirstPosition != nil else {
             completionBlock()
@@ -23,9 +23,13 @@ extension GameViewController {
         
         bottleEmptyNode?.removeAllActions()
         
-        let goHomeAction = SCNAction.move(to: emptyBottleNodeFirstPosition!, duration: 0.5)
-        bottleEmptyNode?.runAction(goHomeAction) {
-        completionBlock()
+        if bottleEmptyNode?.position.x != emptyBottleNodeFirstPosition?.x || bottleEmptyNode?.position.y != emptyBottleNodeFirstPosition?.y || bottleEmptyNode?.position.z != emptyBottleNodeFirstPosition?.z {
+            let goHomeAction = SCNAction.move(to: emptyBottleNodeFirstPosition!, duration: 0.5)
+            bottleEmptyNode?.runAction(goHomeAction) {
+                completionBlock()
+            }
+        } else {
+            completionBlock()
         }
         
     }
@@ -39,14 +43,14 @@ extension GameViewController {
     
     // botle walking action
     private func startBottleWalking() {
-
+        
         
         bottleEmptyNode?.runAction(getSCNActionToGo(), completionHandler: {
             DispatchQueue.main.async {
                 self.startBottleWalking()
             }
         })
-         
+        
     }
     
     
@@ -59,7 +63,7 @@ extension GameViewController {
     }
     
     
-   private func startBottleRotation() {
+    private func startBottleRotation() {
         bottleEmptyNode?.runAction(getSCNActionRotation(), completionHandler: {
             DispatchQueue.main.async {
                 self.startBottleRotation()
@@ -68,16 +72,16 @@ extension GameViewController {
     }
     
     private func getSCNActionRotation() -> SCNAction {
-      //  let aimXAxisRotate = Double.random(in: possibleAngleRange)
-       // let aimYAxisRotate = Double.random(in: possibleAngleRange)
+        //  let aimXAxisRotate = Double.random(in: possibleAngleRange)
+        // let aimYAxisRotate = Double.random(in: possibleAngleRange)
         //let aimZAxisRotate = Double.random(in: possibleAngleRange)
         let aimWRotated = Double.random(in: possibleAngleRange)
         
         
         let rotateAction = SCNAction.rotate(toAxisAngle: SCNVector4(0, 0.1, 0, aimWRotated), duration: 3)
-         return rotateAction
+        return rotateAction
     }
-
-
+    
+    
     
 }

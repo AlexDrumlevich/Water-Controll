@@ -16,9 +16,12 @@ class BottomMenuCollectionView: UICollectionView {
     
     var menuModel = [BottomMenuModel]()
     
-     init() {
+    var isVertical = false
+    
+    init(isVertical: Bool) {
+        self.isVertical = isVertical
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = isVertical ? . vertical : .horizontal
         super.init(frame: .zero, collectionViewLayout: layout)
         backgroundColor = .clear
         delegate = self
@@ -105,7 +108,7 @@ extension BottomMenuCollectionView: UICollectionViewDataSource {
 extension BottomMenuCollectionView: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (bounds.width / 4) - 10 , height: (bounds.width / 4) - 10 )
+        return isVertical ? CGSize(width: (bounds.height / 4) - 10 , height: (bounds.height / 4) - 10 ) : CGSize(width: (bounds.width / 4) - 10 , height: (bounds.width / 4) - 10 )
     }
 }
 

@@ -302,7 +302,7 @@ extension MenuViewController: GADRewardedAdDelegate {
         containerVC.accessController?.bottelsAvailable += 1
         containerVC.accessController?.lastWatchingRewardAdsTime = Date()
         containerVC.saveContextInLocalDataBase()
-        bottomMenuCollectionView.reloadData()
+        bottomMenuCollectionView?.reloadData()
     }
     
     // Tells the delegate that the rewarded ad was presented.

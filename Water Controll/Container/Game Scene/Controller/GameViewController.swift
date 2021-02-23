@@ -21,8 +21,8 @@ enum BubleAnimationType {
 }
 
 class GameViewController: UIViewController {
-
-
+    
+    
     var isChangeWaterLevelFromPourWaterInBottle = false
     
     var currentWaterLevel: Float? = nil {
@@ -53,6 +53,9 @@ class GameViewController: UIViewController {
         }
     }
     
+    
+    //reduse animation
+    var isWithOutAnimation = false
     
     var typeAnimationComplitionFromMenuViewController: TypeAnimationComplitionFromMenuViewController = .openPourWaterIntoGlass
     var cameraNode: SCNNode? = nil
@@ -107,7 +110,7 @@ class GameViewController: UIViewController {
     let slowBubleActionTime: ClosedRange<Double> = 2 ... 4
     let minimumLevelOfWaterForBubleAnimation: Float = 0.1
     var bubleAnimationType: BubleAnimationType = .none
-
+    
     
     
     
@@ -123,6 +126,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isWithOutAnimation = UIAccessibility.isReduceMotionEnabled
         // create a new scene
         let scene = SCNScene(named: "art.scnassets/bottle.scn")!
         //add camera
@@ -150,7 +154,7 @@ class GameViewController: UIViewController {
         rainNodePosition = rainNode?.position
         finishRainNode = scene.rootNode.childNode(withName: "finishRainNode", recursively: true)
         finishRainNodePosition = finishRainNode?.position
-    
+        
         //bubles animation
         bubleFirstNode = scene.rootNode.childNode(withName: "buble1", recursively: true)
         bubleFirstNode?.isHidden = true
@@ -189,8 +193,18 @@ class GameViewController: UIViewController {
         // get first position on empty bottle node
         emptyBottleNodeFirstPosition = bottleEmptyNode?.position
         pupilsNodeFirstPosition = pupilsNode?.position
-        startBottleAction()
-        startPupilMovements()
+        
+        // we start it when water level changes
+        //startBottleAction()
+        if !isWithOutAnimation {
+            startPupilMovements()
+        }
+        
+        if currentUser != nil {
+            if currentUser!.isEmptyBottle {
+                stopBubleAction()
+            }
+        }
         //addRainParticleSystem()
         
     }
@@ -304,7 +318,7 @@ class GameViewController: UIViewController {
                     scaleZ = scalePercent == 0 ? 0 : 0.88 + scalePercent
                 }
                 node.scale = SCNVector3(x: 1, y: currentScaleY, z: scaleZ)
-              
+                
                 self.currentWaterLevelAtTheMoment = currentScaleY
                 
                 //stop/start buble action
@@ -319,15 +333,30 @@ class GameViewController: UIViewController {
                     self.stopBubleAction()
                     self.startBublesAnimation(animationType: .fast)
                 }
-    
+                
+                if self.currentUser != nil {
+                    if self.currentUser!.isEmptyBottle {
+                        self.stopBubleAction()
+                        
+                    }
+                }
+                
             }
             
             if self.needToAimReachAction {
                 
-                self.richedAimAction {
+                if self.isWithOutAnimation {
                     DispatchQueue.main.async {
+                        self.needToAimReachAction = false
                         self.putOnGlasses()
                         self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: false)
+                    }
+                } else {
+                    self.richedAimAction {
+                        DispatchQueue.main.async {
+                            self.putOnGlasses()
+                            self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: false)
+                        }
                     }
                 }
             } else {
@@ -369,24 +398,24 @@ class GameViewController: UIViewController {
                 self.rainAction(withDuration: timeDurtionAnimation / 3)
             }
             // buble action
-//            if self.currentWaterLevel != nil {
-//                if self.currentWaterLevel! > 0.1 {
-//                    self.startBublesAnimation(timeDuration: self.fastBubleActionTime)
-//                }
-//            }
-           
+            //            if self.currentWaterLevel != nil {
+            //                if self.currentWaterLevel! > 0.1 {
+            //                    self.startBublesAnimation(timeDuration: self.fastBubleActionTime)
+            //                }
+            //            }
+            
             //vibrte when water lavel changing
             self.needToStopVibrate = false
             self.startVibrat()
             
             //water action
             self.waterNode?.runAction(scaleAnimation, completionHandler: {
-            
+                
                 //scale animation complited
                 
                 //start buble slow animation
+                self.stopBubleAction()
                 if self.currentWaterLevel ?? 0 > self.minimumLevelOfWaterForBubleAnimation {
-                    self.stopBubleAction()
                     self.startBublesAnimation(animationType: .slow)
                 }
                 
@@ -395,8 +424,10 @@ class GameViewController: UIViewController {
                 self.needToVibrateInThisAction = false
                 //complition block after animation (action)
                 //start walking
-                self.startBottleAction()
-            
+                if !self.isWithOutAnimation{
+                    self.startBottleAction()
+                }
+                
                 if self.menuViewController != nil {
                     //open PourWaterMenu if menuViewController is not nil (we set menuViewController from MenuViewController when we pour water and user isn`t single
                     DispatchQueue.main.async {
@@ -407,11 +438,11 @@ class GameViewController: UIViewController {
                             
                         case .pourWaterIntoBottle:
                             self.menuViewController?.pourWaterIntoBottle(with: self.menuViewController?.accessController)
-                        
+                            
                         case .transferCurrentUserInMenuViewController:
                             self.menuViewController?.currentUser = self.currentUser
                         }
-                       
+                        
                         self.menuViewController = nil
                     }
                 }
@@ -432,7 +463,7 @@ class GameViewController: UIViewController {
         }
     }
     
-
+    
     
     func rainAction(withDuration: Double) {
         //turn on vibrate action

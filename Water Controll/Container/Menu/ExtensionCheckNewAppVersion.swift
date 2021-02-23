@@ -59,7 +59,7 @@ extension MenuViewController {
         alertControllerCustom = AlertControllerCustom()
         let textWeHaveNewAppVersion = AppTexts.textWeHaveNewAppVersionAppTexts
         guard alertControllerCustom != nil else { return }
-        alertControllerCustom!.createAlert(observer: self, alertIdentifire: .newAppVersionIsReady, view: view, text: textWeHaveNewAppVersion, imageName: nil, firstButtonText: "cance", secondButtonText: "update", thirdButtonText: nil, imageInButtons: false)
+        alertControllerCustom!.createAlert(observer: self, alertIdentifire: .newAppVersionIsReady, view: view, text: textWeHaveNewAppVersion, imageName: nil, firstButtonText: AppTexts.cancelAppTexts, secondButtonText: AppTexts.updateAppTexts, thirdButtonText: nil, imageInButtons: false)
         
     }
     
