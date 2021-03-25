@@ -201,7 +201,7 @@ extension MenuViewController {
         deleteGraphDataButton!.heightAnchor.constraint(equalTo: deleteGraphDataButton!.widthAnchor).isActive = true
         //cancelGraphViewButton!.leadingAnchor.constraint(equalTo: superViewOfGraphCollectionView.leadingAnchor, constant: 5).isActive = true
         deleteGraphDataButton!.trailingAnchor.constraint(equalTo: superViewOfGraphCollectionView.trailingAnchor, constant:  -5).isActive = true
-        deleteGraphDataButton!.bottomAnchor.constraint(equalTo: superViewOfGraphCollectionView.bottomAnchor, constant: -5).isActive = true
+            deleteGraphDataButton!.bottomAnchor.constraint(equalTo: superViewOfGraphCollectionView.bottomAnchor, constant: -20).isActive = true
         }
         //graph collection view constraints
         
@@ -219,12 +219,12 @@ extension MenuViewController {
         var needToCreateCountDeletDaysHistirySlider = false
         var labelDeleteGraphDataText = "Do you want to delete the entire history of water consumption?"
         if countDaysHistory != nil {
-            labelDeleteGraphDataText = "You have \(String(countDaysHistory!)) days history of water consumption!"
+            labelDeleteGraphDataText = AppTexts.youHaveAppTexts + " \(String(countDaysHistory!)) "
             if countDaysHistory! > 2 {
                 needToCreateCountDeletDaysHistirySlider = true
-                labelDeleteGraphDataText += " Do you want to delete the first 1 day of this history?"
+                labelDeleteGraphDataText += AppTexts.daysAppTexts + " " + AppTexts.ofWaterConsumptionHistoryAppTexts + "! " + AppTexts.doYouReallyWantToDeleteTheFirstAppTexts + " 1 " + AppTexts.dayAppTexts + " " + AppTexts.ofWaterConsumptionAppTexts
             } else {
-                labelDeleteGraphDataText += " Do you want to delete this history?"
+                labelDeleteGraphDataText += AppTexts.dayAppTexts + " " + AppTexts.ofWaterConsumptionHistoryAppTexts + "! " + AppTexts.doYouWantToDeleteThisHistoryAppTexts + "?"
             }
             //start value to delete
             countDaysHistoryToDelete = 1
@@ -294,8 +294,8 @@ extension MenuViewController {
     
     //update text in label
     func updateTextDeleteLabel(valueOfDays: Int) {
-        let dayText = valueOfDays == 1 ? " day " : " days "
-        deleletLabel?.text = "You have \(String(countDaysHistory!)) days history of water consumption! Do you want to delete the first \(valueOfDays)" + dayText + "of this history?"
+        let dayText = valueOfDays == 1 ? AppTexts.dayAppTexts + " " : AppTexts.daysAppTexts + " " //" day " : " days "
+        deleletLabel?.text = AppTexts.youHaveAppTexts + " \(String(countDaysHistory!))" + " " + AppTexts.daysAppTexts + " " + AppTexts.ofWaterConsumptionHistoryAppTexts + "! " + AppTexts.doYouReallyWantToDeleteTheFirstAppTexts + " \(valueOfDays)" + dayText + AppTexts.ofWaterConsumptionAppTexts//"of this history?"
     }
     
     //create delete days slider

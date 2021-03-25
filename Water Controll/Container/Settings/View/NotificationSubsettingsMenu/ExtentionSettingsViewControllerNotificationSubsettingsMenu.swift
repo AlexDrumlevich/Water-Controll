@@ -160,7 +160,7 @@ extension SettingsViewController {
         
         notificationSubsettingsMenu.tableHeaderView = label
         notificationSubsettingsMenu.tableHeaderView?.bounds.size.height = view.bounds.height / 20
-        notificationSubsettingsMenu.tableHeaderView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        //notificationSubsettingsMenu.tableHeaderView?.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
         /*

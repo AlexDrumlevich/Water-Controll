@@ -131,7 +131,7 @@ struct  AppTexts {
     
     static let buyAppTexts = NSLocalizedString("Buy", comment: "Buy")
 
-    static let offerPremiumVersionAppTexts = NSLocalizedString("\tHi! \n\tDo you want to buy app version with out ad and with unlimited water bottles!? /n/t/The prise: ", comment: "offer premium version")
+    static let offerPremiumVersionAppTexts = NSLocalizedString("\tHi! \n\tDo you want to buy app version with out ad and with unlimited water bottles!? \n\tThe prise: ", comment: "offer premium version")
     
     static let loadingAppTexts = NSLocalizedString("\tLoading...", comment: "loading")
     
@@ -151,6 +151,11 @@ struct  AppTexts {
  
     static let updateAppTexts = NSLocalizedString("update", comment: "update")
     
+    static let youHaveAppTexts = NSLocalizedString("You have", comment: "You have")
 
+    static let ofWaterConsumptionHistoryAppTexts = NSLocalizedString("of water consumption history", comment: "of water consumption history")
+    
+    static let doYouWantToDeleteThisHistoryAppTexts = NSLocalizedString("Do you want to delete this history", comment: " Do you want to delete this history")
 
+   
 }

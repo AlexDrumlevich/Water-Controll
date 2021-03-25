@@ -415,7 +415,7 @@ extension ContainerViewController {
             self.needToSaveConsentInDataBase = true
             
             guard self.alertControllerCustom != nil else { return }
-            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getAdFirstConsentForEEA, view: self.createViewBehindAlertAnderBanner(), text: alertText, imageName: nil, firstButtonText: "Ad-free", secondButtonText: "Ads", thirdButtonText: nil, imageInButtons: false)
+            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .getAdFirstConsentForEEA, view: self.createViewBehindAlertAnderBanner(), text: alertText, imageName: nil, firstButtonText: "Cancel", secondButtonText: "Ads", thirdButtonText: "Ad-free", imageInButtons: false)
             
         }
         
@@ -526,7 +526,7 @@ extension ContainerViewController {
     }
     
     //to alert be under banner
-    func createViewBehindAlertAnderBanner() -> UIView {
+    func createViewBehindAlertAnderBanner(becamePremium: Bool = false) -> UIView {
         guard bannerView != nil  else {
             return view
         }
@@ -534,10 +534,19 @@ extension ContainerViewController {
         viewBehindAlertAnderBanner?.backgroundColor = .clear
         view.addSubview(viewBehindAlertAnderBanner!)
         viewBehindAlertAnderBanner?.translatesAutoresizingMaskIntoConstraints = false
-        viewBehindAlertAnderBanner?.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
+        if becamePremium {
+            viewBehindAlertAnderBanner?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        } else {
+            viewBehindAlertAnderBanner?.topAnchor.constraint(equalTo: bannerView.bottomAnchor).isActive = true
+        }
+       
+        
         viewBehindAlertAnderBanner?.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         viewBehindAlertAnderBanner?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         viewBehindAlertAnderBanner?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        guard bannerView != nil  else {
+            return view
+        }
         return viewBehindAlertAnderBanner!
     }
     

@@ -29,7 +29,7 @@ extension SettingsViewController: UITableViewDelegate {
                 }
             }
             return settingsViewControllerTableViewCellType.cellHeightMultiplicator * view.bounds.height
-             // notifications time a day
+            // notifications time a day
         } else if tableView.tag == 2 {
             return setupCellHideInTableViewNotificationsTimeADay()
         } else {
@@ -40,7 +40,7 @@ extension SettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-     
+        
         //tableViewMainSettings
         if tableView.tag == 0 {
             //if text fild is editing and we touch in cell in tabel view
@@ -58,7 +58,7 @@ extension SettingsViewController: UITableViewDelegate {
             case .name:
                 //activate text field as first responder
                 if isKeyboardHidden {
-                nameTextField.becomeFirstResponder()
+                    nameTextField.becomeFirstResponder()
                     tableViewMainSettings.isScrollEnabled = false
                 }
             case .bottleSettings:
@@ -70,7 +70,7 @@ extension SettingsViewController: UITableViewDelegate {
                 if notificationSubsettingsMenu == nil {
                     self.showNotificationSubsettingsMenu()
                 }
-            
+                
             case .isAutoFillWater:
                 
                 currentUser.isAutoFillBottleType = !currentUser.isAutoFillBottleType
@@ -79,7 +79,7 @@ extension SettingsViewController: UITableViewDelegate {
                 
             case .deleteUser:
                 deleteUserAlertController()
-               
+                
             case .restorePurchases:
                 settingsViewControllerComplitionActions(.restorPurchases)
                 
@@ -108,7 +108,7 @@ extension SettingsViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-     // tableViewMainSettings
+        // tableViewMainSettings
         if tableView.tag == 0 {
             return SettingsViewControllerTableViewCellType.allCases.count
             // notifications time a day
@@ -121,13 +121,13 @@ extension SettingsViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-       
+        
         //notification subsettings menu
         let notificationsText = " " + AppTexts.notificationsAppTexts
         if tableView.tag == 1 {
             let titleADayPart = (currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: section)?.sectionTitle) ?? ""
             return titleADayPart
-               //notifications time a day menu
+            //notifications time a day menu
         } else if tableView.tag == 2 {
             return setupSectionTitleInTableViewNotificationsTimeADay() + notificationsText
         } else {
@@ -147,7 +147,7 @@ extension SettingsViewController: UITableViewDataSource {
         if tableView.tag == 1 {
             let titleADayPart = (currentUser.volumeType == "oz" ? NotificationSettingsTableViewCellTypeSundayFirst(rawValue: section)?.sectionTitle : NotificationSettingsTableViewCellTypeMondayFirst(rawValue: section)?.sectionTitle) ?? ""
             text = titleADayPart
-               //notifications time a day menu
+            //notifications time a day menu
         } else if tableView.tag == 2 {
             let notificationsText = " " + AppTexts.notificationsAppTexts
             text = setupSectionTitleInTableViewNotificationsTimeADay() + notificationsText
@@ -170,14 +170,14 @@ extension SettingsViewController: UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-   
+        
         //tableViewMainSettings
         if tableView.tag == 0 {
-                print("tableViewMainSettings")
             let cell = SettingsTableViewCell()
-            cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!)
+            
             switch SettingsViewControllerTableViewCellType(rawValue: indexPath.row) {
             case .name:
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!)
                 //additional setup text fild and add actions
                 nameTextField = cell.textField
                 nameTextField.placeholder = AppTexts.changeNameAppTexts//currentUser.name ?? ""
@@ -201,18 +201,25 @@ extension SettingsViewController: UITableViewDataSource {
                 }
                 
             case .bottleSettings:
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!)
                 volumeBottleImageView = cell.bottleImageView
                 volumeLabel = cell.volumeLabel
                 //setup image and volume from ExtentionSettingsViewControllerTableview
                 setupVolumeBottleCell()
-            
+                
             case .isAutoFillWater:
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!, cellIsHidden: !accessController!.premiumAccount)
                 isAutoFillBottleTypeLabel = cell.isAutoFillBottleLabelView
                 setupIsAutoFillBottleCell()
                 
+            case .restorePurchases:
+                
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!, cellIsHidden:
+                                accessController!.premiumAccount)
                 
             default:
-                break
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!)
+                
             }
             return cell
             
@@ -222,14 +229,14 @@ extension SettingsViewController: UITableViewDataSource {
             let cell = NotificationSubsettingsMenuCell()
             //blinkin stop label
             defer {
-                    setupBlinkingStopLabel(isBlinkin: notificationsStracture[indexPath.section].stop - notificationsStracture[indexPath.section].start <= 0,  sectionNumber: indexPath.section, label: cell.stopLabel)
+                setupBlinkingStopLabel(isBlinkin: notificationsStracture[indexPath.section].stop - notificationsStracture[indexPath.section].start <= 0,  sectionNumber: indexPath.section, label: cell.stopLabel)
             }
             //method from ExtentionSettingsViewControllerNotificationSubsettingsMenu
             return setupNotificationSettingsTableViewCells(cell: cell, indexPath: indexPath)
-        
-             //notifications time subsettings menu
+            
+            //notifications time subsettings menu
         } else {
-                  print("notifications time subsettings menu")
+            print("notifications time subsettings menu")
             guard let cell = tableView.dequeueReusableCell(withIdentifier: NotificationsTimeSubsettingsMenuCell.cellID, for: indexPath) as? NotificationsTimeSubsettingsMenuCell else {
                 print("can`t get cell as  NotificationsTimeSubsettingsMenuCell in cellForRowAt indexPath")
                 return UITableViewCell()
@@ -237,4 +244,5 @@ extension SettingsViewController: UITableViewDataSource {
             return setupNotificationsTimeSubsettingsMenuCells(cell: cell, indexPath: indexPath)
         }
     }
+    
 }

@@ -175,13 +175,13 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
         //actions
         let timeToDrinkNotificationActions = [
             //Later notification
-            UNNotificationAction(identifier: NotificationActionTypes.fiveMinutesLater.rawValue,  title: NotificationActionTypes.fiveMinutesLater.rawValue, options: []),
+            UNNotificationAction(identifier: NotificationActionTypes.fiveMinutesLater.rawValue,  title: AppTexts.fiveMinutesLaterAppTexts, options: []),
             
-                UNNotificationAction(identifier: NotificationActionTypes.tenMinutesLater.rawValue,  title: NotificationActionTypes.tenMinutesLater.rawValue, options: []),
+            UNNotificationAction(identifier: NotificationActionTypes.tenMinutesLater.rawValue,  title: AppTexts.tenMinutesLaterAppTexts, options: []),
                   
-                UNNotificationAction(identifier: NotificationActionTypes.fifteenMinutesLater.rawValue,  title: NotificationActionTypes.fifteenMinutesLater.rawValue, options: []),
+            UNNotificationAction(identifier: NotificationActionTypes.fifteenMinutesLater.rawValue,  title: AppTexts.fifteenMinutesLaterAppTexts, options: []),
                     
-            UNNotificationAction(identifier: NotificationActionTypes.dissmis.rawValue,  title: NotificationActionTypes.dissmis.rawValue, options: [.destructive]),
+            UNNotificationAction(identifier: NotificationActionTypes.dissmis.rawValue,  title: AppTexts.dissmisAppTexts, options: [.destructive]),
         ]
         
         // notification category

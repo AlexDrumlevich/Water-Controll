@@ -82,6 +82,4 @@ extension GameViewController {
         return rotateAction
     }
     
-    
-    
 }

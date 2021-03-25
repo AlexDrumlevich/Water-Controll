@@ -49,7 +49,10 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         
         self.selectionStyle = .none
         backgroundColor = .clear
+        
         self.contentView.backgroundColor = .clear
+       
+        
         
         segmentedControllAvailabilityNotification = UISegmentedControl()
         segmentedControllAvailabilityNotification.insertSegment(withTitle: " off ", at: 0, animated: true)
@@ -58,13 +61,9 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         //segmentedControllAvailabilityNotification.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         segmentedControllAvailabilityNotification.tag = tag
         segmentedControllAvailabilityNotification.accessibilityIdentifier = "segmentedControllAvailabilityNotification"
-        self.contentView.addSubview(segmentedControllAvailabilityNotification)
+        addSubview(segmentedControllAvailabilityNotification)
         // addSubview(segmentedControllAvailabilityNotification)
-        segmentedControllAvailabilityNotification.translatesAutoresizingMaskIntoConstraints = false
-        
-        segmentedControllAvailabilityNotification.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
-        segmentedControllAvailabilityNotification.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constraintConstant).isActive = true
-        segmentedControllAvailabilityNotification.topAnchor.constraint(equalTo: topAnchor, constant: constraintConstant).isActive = true
+      
         
         segmentedControllCommonSettings = UISegmentedControl()
         // if typeMonday == .generalSettings || typeSunday == .generalSettings  {segmentedControllCommonSettings.isHidden = true}
@@ -74,18 +73,15 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         segmentedControllCommonSettings.insertSegment(withTitle: AppTexts.specialAppTexts, at: 1, animated: true)
         //segmentedControllCommonSettings.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         segmentedControllCommonSettings.tag = tag
-        self.contentView.addSubview(segmentedControllCommonSettings)
+        addSubview(segmentedControllCommonSettings)
         // addSubview(segmentedControllCommonSettings)
-        segmentedControllCommonSettings.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControllCommonSettings.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
-        segmentedControllCommonSettings.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
-        segmentedControllCommonSettings.topAnchor.constraint(equalTo: topAnchor, constant: constraintConstant).isActive = true
+        
         
         
         repeatImageView = UIImageView()
         repeatImageView.backgroundColor = .clear
         repeatImageView.image = UIImage(named: "notification")
-        self.contentView.addSubview(repeatImageView)
+        addSubview(repeatImageView)
         //addSubview(repeatImageView)
         
         timesADayLabel = UILabel()
@@ -96,7 +92,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         timesADayLabel.minimumScaleFactor = 0.2
         timesADayLabel.textAlignment = .left
         timesADayLabel.text = AppTexts.timesADayAppTexts
-        self.contentView.addSubview(timesADayLabel)
+        addSubview(timesADayLabel)
         //addSubview(timesADayLabel)
         timesADayLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -105,7 +101,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         lessTimesButton.setImage(UIImage(named: "minusTimesButton"), for: .normal)
         //lessTimesButton.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         lessTimesButton.tag = tag
-        self.contentView.addSubview(lessTimesButton)
+        addSubview(lessTimesButton)
         //addSubview(lessTimesButton)
         
         timesRepeatCountLabel = UILabel()
@@ -115,7 +111,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         timesRepeatCountLabel.minimumScaleFactor = 0.2
         timesRepeatCountLabel.textAlignment = .center
         timesRepeatCountLabel.text = "2"
-        self.contentView.addSubview(timesRepeatCountLabel)
+        addSubview(timesRepeatCountLabel)
         //addSubview(timesRepeatCountLabel)
         
         moreTimesButton = UIButton()
@@ -123,7 +119,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         moreTimesButton.setImage(UIImage(named: "plusTimesButton"), for: .normal)
         //moreTimesButton.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         moreTimesButton.tag = tag
-        self.contentView.addSubview(moreTimesButton)
+        addSubview(moreTimesButton)
         //addSubview(moreTimesButton)
         
         extentionSetupNotificationTimesADayButton = UIButton()
@@ -131,7 +127,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         extentionSetupNotificationTimesADayButton.setImage(UIImage(named: "rightArrowBlue"), for: .normal)
         //extentionSetupNotificationTimesADayButton.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         extentionSetupNotificationTimesADayButton.tag = tag
-        self.contentView.addSubview(extentionSetupNotificationTimesADayButton)
+        addSubview(extentionSetupNotificationTimesADayButton)
         //addSubview(extentionSetupNotificationTimesADayButton)
         
         startLabel = UILabel()
@@ -141,7 +137,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startLabel.minimumScaleFactor = 0.2
         startLabel.textAlignment = .left
         startLabel.text = "Start:"
-        self.contentView.addSubview(startLabel)
+        addSubview(startLabel)
         //addSubview(startLabel)
         
         startTimeLabel = UILabel()
@@ -151,7 +147,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startTimeLabel.minimumScaleFactor = 0.2
         startTimeLabel.textAlignment = .center
         startTimeLabel.backgroundColor = .clear
-        self.contentView.addSubview(startTimeLabel)
+        addSubview(startTimeLabel)
         // addSubview(startTimeLabel)
         
         startAmPmLabel = UILabel()
@@ -160,7 +156,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startAmPmLabel.adjustsFontSizeToFitWidth = true
         startAmPmLabel.minimumScaleFactor = 0.2
         startAmPmLabel.textAlignment = .center
-        self.contentView.addSubview(startAmPmLabel)
+        addSubview(startAmPmLabel)
         //  addSubview(startAmPmLabel)
         
         startSlider = UISlider()
@@ -171,7 +167,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         startSlider.minimumTrackTintColor = .white
         //startSlider.tag = currentTypeMonday ? typeMonday.rawValue : typeSunday.rawValue
         startSlider.tag = tag
-        self.contentView.addSubview(startSlider)
+        addSubview(startSlider)
         //  addSubview(startSlider)
         
         stopLabel = UILabel()
@@ -181,7 +177,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopLabel.minimumScaleFactor = 0.2
         stopLabel.textAlignment = .left
         stopLabel.text = "Stop:"
-        self.contentView.addSubview(stopLabel)
+        addSubview(stopLabel)
         //addSubview(stopLabel)
         
         stopTimeLabel = UILabel()
@@ -191,7 +187,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopTimeLabel.adjustsFontSizeToFitWidth = true
         stopTimeLabel.minimumScaleFactor = 0.2
         stopTimeLabel.textAlignment = .center
-        self.contentView.addSubview(stopTimeLabel)
+        addSubview(stopTimeLabel)
         //addSubview(stopTimeLabel)
         
         stopAmPmLabel = UILabel()
@@ -200,7 +196,7 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopAmPmLabel.adjustsFontSizeToFitWidth = true
         stopAmPmLabel.minimumScaleFactor = 0.2
         stopAmPmLabel.textAlignment = .center
-        self.contentView.addSubview(stopAmPmLabel)
+        addSubview(stopAmPmLabel)
         //addSubview(stopAmPmLabel)
         
         stopTimeSlider = UISlider()
@@ -209,11 +205,24 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopTimeSlider.minimumTrackTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         stopTimeSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         stopTimeSlider.maximumTrackTintColor  = .white
-        self.contentView.addSubview(stopTimeSlider)
+        addSubview(stopTimeSlider)
         //addSubview(stopTimeSlider)
         
         
         // CONSTRAINTS
+        //segmentedControllAvailabilityNotification
+        segmentedControllAvailabilityNotification.translatesAutoresizingMaskIntoConstraints = false
+        
+        segmentedControllAvailabilityNotification.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
+        segmentedControllAvailabilityNotification.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constraintConstant).isActive = true
+        segmentedControllAvailabilityNotification.topAnchor.constraint(equalTo: topAnchor, constant: constraintConstant).isActive = true
+        
+        //segmentedControllCommonSettings
+        segmentedControllCommonSettings.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControllCommonSettings.heightAnchor.constraint(equalToConstant: itemWidth * 0.7).isActive = true
+        segmentedControllCommonSettings.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
+        segmentedControllCommonSettings.topAnchor.constraint(equalTo: topAnchor, constant: constraintConstant).isActive = true
+        
         //repeatImageView
         repeatImageView.translatesAutoresizingMaskIntoConstraints = false
         repeatImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constraintConstant).isActive = true
@@ -336,6 +345,8 @@ class NotificationSubsettingsMenuCell: UITableViewCell {
         stopTimeSlider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: constraintConstant).isActive = true
         stopTimeSlider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -constraintConstant).isActive = true
         stopTimeSlider.topAnchor.constraint(equalTo: stopLabel.bottomAnchor, constant: constraintConstant).isActive = true
+        
+        sendSubviewToBack(self.contentView)
         
     }
 }

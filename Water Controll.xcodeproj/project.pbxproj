@@ -72,6 +72,7 @@
 		807208B624CA928D00EEB68B /* PourWaterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807208B524CA928D00EEB68B /* PourWaterMenu.swift */; };
 		807208B824CAD48300EEB68B /* PourWaterMenuPickersDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807208B724CAD48300EEB68B /* PourWaterMenuPickersDelegate.swift */; };
 		8082B80025E4B19700B6538F /* ContainerViewControllerChangeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8082B7FF25E4B19700B6538F /* ContainerViewControllerChangeConstraints.swift */; };
+		8082B81325E5F90700B6538F /* GameViewControllerSunAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8082B81225E5F90700B6538F /* GameViewControllerSunAction.swift */; };
 		808343BF25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343BE25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift */; };
 		808343C225434C3500858FEC /* GotWater+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */; };
 		808343C325434C3500858FEC /* GotWater+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343C125434C3500858FEC /* GotWater+CoreDataProperties.swift */; };
@@ -196,6 +197,7 @@
 		807208B524CA928D00EEB68B /* PourWaterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PourWaterMenu.swift; sourceTree = "<group>"; };
 		807208B724CAD48300EEB68B /* PourWaterMenuPickersDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PourWaterMenuPickersDelegate.swift; sourceTree = "<group>"; };
 		8082B7FF25E4B19700B6538F /* ContainerViewControllerChangeConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerChangeConstraints.swift; sourceTree = "<group>"; };
+		8082B81225E5F90700B6538F /* GameViewControllerSunAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerSunAction.swift; sourceTree = "<group>"; };
 		808343BE25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerGotWaterFill.swift; sourceTree = "<group>"; };
 		808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataClass.swift"; path = "../../GotWater+CoreDataClass.swift"; sourceTree = "<group>"; };
 		808343C125434C3500858FEC /* GotWater+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataProperties.swift"; path = "../../GotWater+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 			children = (
 				806268712476386A0056BA8F /* GameViewController.swift */,
 				8041AD812588767A007EB9AC /* GameViewControllerWalkAnimation.swift */,
+				8082B81225E5F90700B6538F /* GameViewControllerSunAction.swift */,
 				80ED10AA258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift */,
 				8041AD862588B647007EB9AC /* GameViewControllerPupilsMovementAnimation.swift */,
 				80AB165825A57C1300896B6F /* GameViewControllerBublesAnimation.swift */,
@@ -747,7 +750,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1210;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "ALEXEY DRUMLEVICH";
 				TargetAttributes = {
 					806268692476386A0056BA8F = {
@@ -952,6 +955,7 @@
 				80602817252F73650065FDD5 /* User+CoreDataProperties.swift in Sources */,
 				80489DA625735D2B00CE26AA /* ContainerViewControllerOpenAppSettings.swift in Sources */,
 				80489D6D25657B9700CE26AA /* AdConsents+CoreDataProperties.swift in Sources */,
+				8082B81325E5F90700B6538F /* GameViewControllerSunAction.swift in Sources */,
 				8052826D24A859A8000A8F11 /* Notificaton+CoreDataClass.swift in Sources */,
 				808343BF25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift in Sources */,
 				8054EE8C2557050400BDCFA5 /* ContainerViewController GADBannerViewDelegate.swift in Sources */,
@@ -1070,6 +1074,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1131,6 +1136,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1187,11 +1193,12 @@
 			baseConfigurationReference = EFFDFC2FB7204B22C9E89B3B /* Pods-Water Controll.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 457AUZSV22;
 				INFOPLIST_FILE = "Water Controll/Support/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1209,11 +1216,12 @@
 			baseConfigurationReference = A937873007C57E0582934956 /* Pods-Water Controll.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Alexej Drumlevich (457AUZSV22)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 457AUZSV22;
 				INFOPLIST_FILE = "Water Controll/Support/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1251,7 +1259,6 @@
 		};
 		806268992476386B0056BA8F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57C86392771414C8E21843A9 /* Pods-Water ControllTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1295,7 +1302,6 @@
 		};
 		8062689C2476386B0056BA8F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A0650FDE67D8CF0CB283B82 /* Pods-Water Controll-Water ControllUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -60,6 +60,7 @@ class IAPManager: NSObject {
     
     static let errorInTransaction = "IAPManagerErrorInTransacton"
     static let errorInRestore = "IAPManagerErrorInRestore"
+    static let userRefusedTransaction = "userRefusedTransaction"
     
     static var isRequestProductsInProcces = false
     
@@ -185,6 +186,9 @@ extension IAPManager: SKPaymentTransactionObserver {
             if transactionError.code != SKError.paymentCancelled.rawValue {
                 NotificationCenter.default.post(name: NSNotification.Name(IAPManager.errorInTransaction), object: nil)
                 print("Ошибка транзакции: \(transaction.error!.localizedDescription)")
+            } else {
+                NotificationCenter.default.post(name: NSNotification.Name(IAPManager.userRefusedTransaction), object: nil)
+                
             }
         }
         //теперь надо из очереди транзакций удалить транзакцию с ошибкой

@@ -35,14 +35,22 @@ class PurchaseController {
         //add observer for our goods and if we restore
         notificationCenter.addObserver(self, selector: #selector(completeGetPremiumVersion), name: NSNotification.Name(IAPProducts.premiumVersionWaterController.rawValue), object: nil)
         
-        //add observer for error
+        //add observer for error of receiving products
         notificationCenter.addObserver(self, selector: #selector(errorReceiveProducts), name: NSNotification.Name(IAPManager.errorProductsReceivingNotificationIdentifier), object: nil)
+        
+        // add observer for error in transaction
+        notificationCenter.addObserver(self, selector: #selector(errorInTransaction), name: NSNotification.Name(IAPManager.errorInTransaction), object: nil)
+        
+        // add observer user refused transaction
+        notificationCenter.addObserver(self, selector: #selector(userRefusedTransaction), name: NSNotification.Name(IAPManager.userRefusedTransaction), object: nil)
+        
+        
         
         if needToRestoreOnly {
             restorePurchases()
         } else {
-        // show alert
-        purchasePremiumVersionAlertController()
+            // show alert
+            purchasePremiumVersionAlertController()
         }
     }
     
@@ -70,9 +78,24 @@ class PurchaseController {
     
     //error receiving products or 0 products
     @objc private func errorReceiveProducts() {
-        containerVC.becamePremiumAccaunt()
         purchasePremiumVersionAlertController(wasError: true)
+        //later
+        // containerVC.becamePremiumAccaunt()
     }
+    
+    @objc private func errorInTransaction() {
+        purchasePremiumVersionAlertController(wasError: true)
+        
+    }
+    
+    //user refused transaction
+    
+    @objc private func userRefusedTransaction() {
+        if containerVC.menuViewController == nil {
+            containerVC.prepareToGetAdConsent(callFromGetOneMoreBottle: false)
+        }
+    }
+    
     
     //transaction finished
     @objc private func completeGetPremiumVersion() {
@@ -82,6 +105,8 @@ class PurchaseController {
         containerVC.becamePremiumAccaunt()
         
     }
+    
+    
     
     
     
@@ -116,10 +141,10 @@ class PurchaseController {
     // purchase premium version alert
     private func purchasePremiumVersionAlertController(premiumVersionWasPurchase: Bool = false, wasError: Bool = false) {
         
-            if self.alertControllerCustom != nil {
-                self.alertControllerCustom?.clouseAlert()
-                self.containerVC.removeViewBehindAlertAnderBanner()
-            }
+        if self.alertControllerCustom != nil {
+            self.alertControllerCustom?.clouseAlert()
+            self.containerVC.removeViewBehindAlertAnderBanner()
+        }
         DispatchQueue.main.async {
             self.alertControllerCustom = AlertControllerCustom()
             
@@ -133,19 +158,21 @@ class PurchaseController {
                 
                 text = AppTexts.congratulationsGetVIPVersionAppTexts
                 //user in process of getting premium version
+            } else if isError {
+                text = AppTexts.errorAppTexts
             } else {
                 //no products - so we try to get products
                 if self.iapManager.products.isEmpty {
                     if isError {
                         text = AppTexts.errorAppTexts
                     } else {
-                    text = AppTexts.loadingAppTexts
-                    isLoading = true
+                        text = AppTexts.loadingAppTexts
+                        isLoading = true
                         
                         if !IAPManager.isRequestProductsInProcces {
-                        self.tryLoadProductsOneMoreTime()
+                            self.tryLoadProductsOneMoreTime()
                         }
-                    
+                        
                     }
                     // we have products
                 } else {
@@ -169,7 +196,7 @@ class PurchaseController {
             
             
             guard self.alertControllerCustom != nil else { return }
-            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .purchasePremium, view: self.containerVC.createViewBehindAlertAnderBanner(), text: text, imageName: nil, firstButtonText: premiumVersionWasPurchase ? "Ok" : AppTexts.cancelAppTexts, secondButtonText: premiumVersionWasPurchase ? nil : isLoading ? nil : isError ? nil : "RP", thirdButtonText: premiumVersionWasPurchase ? nil : isLoading ? nil : isError ? nil : AppTexts.buyAppTexts, imageInButtons: false, isActivityIndicatorButtonSecond: isLoading)
+            self.alertControllerCustom!.createAlert(observer: self, alertIdentifire: .purchasePremium, view: self.containerVC.createViewBehindAlertAnderBanner(becamePremium: premiumVersionWasPurchase), text: text, imageName: nil, firstButtonText: premiumVersionWasPurchase ? "Ok" : AppTexts.cancelAppTexts, secondButtonText: premiumVersionWasPurchase ? nil : isLoading ? nil : isError ? nil : "RP", thirdButtonText: premiumVersionWasPurchase ? nil : isLoading ? nil : isError ? nil : AppTexts.buyAppTexts, imageInButtons: false, isActivityIndicatorButtonSecond: isLoading)
             
         }
         
@@ -196,7 +223,7 @@ extension PurchaseController: AlertControllerCustomActions {
                 containerVC.prepareToGetAdConsent(callFromGetOneMoreBottle: false)
             }
             containerVC.clousePurchaseController()
-        
+            
             
         case 1:
             

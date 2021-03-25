@@ -32,7 +32,7 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         notificationNumberLabel.adjustsFontSizeToFitWidth = true
         notificationNumberLabel.minimumScaleFactor = 0.2
         notificationNumberLabel.textAlignment = .left
-        self.contentView.addSubview(notificationNumberLabel)
+        addSubview(notificationNumberLabel)
         //addSubview(notificationNumberLabel)
         notificationNumberLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -42,7 +42,7 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         timeLabel.adjustsFontSizeToFitWidth = true
         timeLabel.minimumScaleFactor = 0.2
         timeLabel.textAlignment = .left
-        self.contentView.addSubview(timeLabel)
+        addSubview(timeLabel)
         //addSubview(timeLabel)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -51,7 +51,7 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         timeSlider.minimumTrackTintColor = .white
         timeSlider.thumbTintColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         timeSlider.tag = rowNumber
-        self.contentView.addSubview(timeSlider)
+        addSubview(timeSlider)
         //addSubview(timeSlider)
         timeSlider.translatesAutoresizingMaskIntoConstraints = false
         
@@ -61,7 +61,7 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         amPmLabel.adjustsFontSizeToFitWidth = true
         amPmLabel.minimumScaleFactor = 0.2
         amPmLabel.textAlignment = .center
-        self.contentView.addSubview(amPmLabel)
+        addSubview(amPmLabel)
        // addSubview(amPmLabel)
         amPmLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -72,7 +72,7 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         nextDayLabel.adjustsFontSizeToFitWidth = true
         nextDayLabel.minimumScaleFactor = 0.2
         nextDayLabel.textAlignment = .center
-        self.contentView.addSubview(nextDayLabel)
+        addSubview(nextDayLabel)
         //addSubview(nextDayLabel)
         nextDayLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -106,6 +106,6 @@ class NotificationsTimeSubsettingsMenuCell: UITableViewCell {
         amPmLabel.widthAnchor.constraint(equalTo: amPmLabel.heightAnchor, multiplier: 1.3).isActive = true
         
        
-        
+        self.sendSubviewToBack(self.contentView)
     }
 }

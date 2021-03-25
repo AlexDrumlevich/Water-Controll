@@ -112,7 +112,13 @@ class GameViewController: UIViewController {
     var bubleAnimationType: BubleAnimationType = .none
     
     
+    //sun node
+    var sunNode: SCNNode?
+    let sunRisePosition = SCNVector3(-5, 8.5, -17.5)
+    let sunSetPosition = SCNVector3(-5, -10, -17.5)
     
+    //time sun and glass action duration
+    let sunAndGlassActionDuration: TimeInterval = 2
     
     // aim reched
     var cupNode: SCNNode?
@@ -121,6 +127,15 @@ class GameViewController: UIViewController {
     //glasses put on / off
     var isGlassesPutOn = false
     
+
+    //background scene
+    let backgroundColorWithSun =  UIColor(displayP3Red: 1, green: 0.9741613642, blue: 0.9106182112, alpha: 1) //#colorLiteral(red: 1, green: 0.9741613642, blue: 0.9106182112, alpha: 1)
+    let backgroundColorWithOutSun = UIColor(displayP3Red: 0.8907909838, green: 0.8919594846, blue: 1, alpha: 1)//#colorLiteral(red: 0.8907909838, green: 0.8919594846, blue: 1, alpha: 1)
+    var backgroundColor = UIColor(displayP3Red: 1, green: 0.9889768786, blue: 0.9721240949, alpha: 1)
+ 
+    
+    //scene sceneView
+    var sceneWaterBottle: SCNScene?
     
     
     override func viewDidLoad() {
@@ -136,7 +151,11 @@ class GameViewController: UIViewController {
         // create and add an ambient light to the scene
         scene.rootNode.addChildNode(addAmbientLight())
         
+        //backgroun animation
         
+        backgroundColor = backgroundColorWithOutSun
+        scene.background.contents = backgroundColor
+    
         
         //create bottle and other parts
         bottleEmptyNode = scene.rootNode.childNode(withName: "bottleEmptyNode", recursively: true)!
@@ -168,6 +187,10 @@ class GameViewController: UIViewController {
         finishBubleNode = scene.rootNode.childNode(withName: "finishBubleNode", recursively: true)
         startBubleNode = scene.rootNode.childNode(withName: "startBubleNode", recursively: true)
         
+        //sun
+        sunNode = scene.rootNode.childNode(withName: "sun", recursively: true)
+        sunNode?.isHidden = true
+        sunNode?.scale = SCNVector3(4, 4, 4)
         // animate the 3d object
         //  ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
         
@@ -176,15 +199,16 @@ class GameViewController: UIViewController {
         
         // set the scene to the view
         scnView.scene = scene
+        self.sceneWaterBottle = scene
         
         // allows the user to manipulate the camera
-        scnView.allowsCameraControl = true
+        //scnView.allowsCameraControl = true
         
         // show statistics such as fps and timing information
-        scnView.showsStatistics = true
+        //scnView.showsStatistics = true
         
         // configure the view
-        scnView.backgroundColor = UIColor.black
+        scnView.backgroundColor = UIColor.black//backgroundColorWithOutSun//UIColor.black
         
         // add a tap gesture recognizer
         // let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
@@ -198,6 +222,8 @@ class GameViewController: UIViewController {
         //startBottleAction()
         if !isWithOutAnimation {
             startPupilMovements()
+            //sun action
+            startSunPulsingAction()
         }
         
         if currentUser != nil {
@@ -205,6 +231,8 @@ class GameViewController: UIViewController {
                 stopBubleAction()
             }
         }
+        
+        
         //addRainParticleSystem()
         
     }
@@ -349,12 +377,15 @@ class GameViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.needToAimReachAction = false
                         self.putOnGlasses()
+                        self.sunRise()
                         self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: false)
                     }
                 } else {
                     self.richedAimAction {
                         DispatchQueue.main.async {
+                            self.needToAimReachAction = false
                             self.putOnGlasses()
+                            self.sunRise()
                             self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: false)
                         }
                     }
@@ -377,8 +408,10 @@ class GameViewController: UIViewController {
                 } else {
                     if self.isGlassesPutOn {
                         self.putOnGlasses()
+                        self.sunRise()
                     } else {
                         self.putOffGlasses()
+                        self.sunSet()
                     }
                     self.waterChangeAction(scaleAnimation: scaleAnimation, timeDurtionAnimation: timeDurationAnimation, needRainAction: false)
                 }

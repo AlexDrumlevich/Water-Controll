@@ -24,7 +24,7 @@ class SettingsTableViewCell: UITableViewCell {
     
     
     //setup cells depending of type (SettingsViewControllerTableViewCellType) of cell
-    func setupCell(with type: SettingsViewControllerTableViewCellType) {
+    func setupCell(with type: SettingsViewControllerTableViewCellType, cellIsHidden: Bool = false) {
         
         self.selectionStyle = .none
         backgroundColor = .clear
@@ -40,13 +40,20 @@ class SettingsTableViewCell: UITableViewCell {
             setupNotificationCell()
             
         case .isAutoFillWater:
+            if cellIsHidden {
+                break
+            } else {
             setupIsAutoFillWater()
-            
+            }
         case .deleteUser:
             setupDeleteUserCell()
          
         case .restorePurchases:
+            if cellIsHidden {
+                break
+            } else {
             setupLabelOnlyCells(labelText: AppTexts.restorePurchasesAppTexts)
+            }
         case .rateTheApp:
             setupLabelOnlyCells(labelText: AppTexts.rateTheAppAppTexts)
         case .shareTheApp:
@@ -59,7 +66,7 @@ class SettingsTableViewCell: UITableViewCell {
     // setup text fild for name in cell
     private func setupNameCell () {
          textField = UITextField()
-        let textFildHeight = bounds.height - (constraintConstant * 2)
+        let textFildHeight = (bounds.height - (constraintConstant * 2)) * 0.8
         //text settings
        
         textField.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)

@@ -26,7 +26,7 @@ extension ContainerViewController: AlertControllerCustomActions {
             
             switch identifire {
             
-            case .getAdConsentNotForEEA, .tryGetAdConsentOneMoreTime, .requestIDFAWasDenied, .incorrectURL:
+            case .getAdConsentNotForEEA, .tryGetAdConsentOneMoreTime, .requestIDFAWasDenied, .incorrectURL, .getAdFirstConsentForEEA:
                 //continue loading with out Ad
                 if menuViewController == nil {
                     viewDidLoadContinueLoading()
@@ -34,10 +34,6 @@ extension ContainerViewController: AlertControllerCustomActions {
                     break
                 }
             
-            case .getAdFirstConsentForEEA:
-                // ad - free version
-                sratrPurchasing()
-                break
                 
             case .requestIDFAWillShow:
                 //show request IDFA
@@ -99,7 +95,7 @@ extension ContainerViewController: AlertControllerCustomActions {
         case 2:
             switch identifire {
             
-            case .getAdConsentNotForEEA, .tryGetAdConsentOneMoreTime, .requestIDFAWasDenied:
+            case .getAdConsentNotForEEA, .tryGetAdConsentOneMoreTime, .requestIDFAWasDenied, .getAdFirstConsentForEEA:
                 // get premium
                 //becamePremiumAccaunt()
                 sratrPurchasing()
