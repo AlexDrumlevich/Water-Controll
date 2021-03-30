@@ -79,8 +79,7 @@ class PurchaseController {
     //error receiving products or 0 products
     @objc private func errorReceiveProducts() {
         purchasePremiumVersionAlertController(wasError: true)
-        //later
-        // containerVC.becamePremiumAccaunt()
+    
     }
     
     @objc private func errorInTransaction() {
@@ -99,7 +98,7 @@ class PurchaseController {
     
     //transaction finished
     @objc private func completeGetPremiumVersion() {
-        //later
+        
         
         purchasePremiumVersionAlertController(premiumVersionWasPurchase: true)
         containerVC.becamePremiumAccaunt()

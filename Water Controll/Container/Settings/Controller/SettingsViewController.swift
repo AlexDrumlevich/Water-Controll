@@ -95,7 +95,7 @@ class SettingsViewController: UIViewController {
         return button
     }()
     
-    //tableView`s properties
+    //tableView`s main settings properties
     var tableViewMainSettings: UITableView!
     var nameTextField: UITextField!
     //label instead placeholder text in text field - we set it in ExtentionSettingsViewControllerActions.swift (when changed text field) and in ExtentionSettingsViewControllerTableview.swift when we get label in cellForRowAt indexPath: IndexPath method
@@ -105,7 +105,7 @@ class SettingsViewController: UIViewController {
     var isAutoFillBottleTypeLabel: UILabel!
     //flag -  is key board hidden
     var isKeyboardHidden = true
-    
+   
     
     
     //create OK button - save settings
@@ -192,6 +192,12 @@ class SettingsViewController: UIViewController {
         
         view.backgroundColor = .clear
        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if tableViewMainSettings != nil {
+        
+        }
     }
     
     func activation() {

@@ -22,14 +22,17 @@ class SettingsTableViewCell: UITableViewCell {
     var bottleImageView: UIImageView!
     var isAutoFillBottleLabelView: UILabel!
     
+    var needToSetCornerRadius = false
     
+    var lowCellHeight: CGFloat = 44
     //setup cells depending of type (SettingsViewControllerTableViewCellType) of cell
-    func setupCell(with type: SettingsViewControllerTableViewCellType, cellIsHidden: Bool = false) {
+    func setupCell(with type: SettingsViewControllerTableViewCellType, cellIsHidden: Bool = false, lowCellHeight: CGFloat = 44) {
         
         self.selectionStyle = .none
         backgroundColor = .clear
         switch type {
         case .name:
+            self.lowCellHeight = lowCellHeight
             setupNameCell()
             
         case .bottleSettings:
@@ -40,6 +43,7 @@ class SettingsTableViewCell: UITableViewCell {
             setupNotificationCell()
             
         case .isAutoFillWater:
+            self.lowCellHeight = lowCellHeight
             if cellIsHidden {
                 break
             } else {
@@ -49,14 +53,17 @@ class SettingsTableViewCell: UITableViewCell {
             setupDeleteUserCell()
          
         case .restorePurchases:
+            self.lowCellHeight = lowCellHeight
             if cellIsHidden {
                 break
             } else {
             setupLabelOnlyCells(labelText: AppTexts.restorePurchasesAppTexts)
             }
         case .rateTheApp:
+            self.lowCellHeight = lowCellHeight
             setupLabelOnlyCells(labelText: AppTexts.rateTheAppAppTexts)
         case .shareTheApp:
+            self.lowCellHeight = lowCellHeight
             setupLabelOnlyCells(labelText: AppTexts.shareTheAppAppTexts)
         }
     }
@@ -66,25 +73,27 @@ class SettingsTableViewCell: UITableViewCell {
     // setup text fild for name in cell
     private func setupNameCell () {
          textField = UITextField()
-        let textFildHeight = (bounds.height - (constraintConstant * 2)) * 0.8
+        let textFildHeight = (lowCellHeight - (constraintConstant * 2))
+       
         //text settings
        
         textField.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         textField.textAlignment = .center
         textField.backgroundColor = .clear
-        textField.font = UIFont(name: "AmericanTypewriter", size:  textFildHeight)
+        textField.font = UIFont(name: "AmericanTypewriter", size:  textFildHeight * 0.3)
         textField.minimumFontSize = 0.3
         textField.adjustsFontForContentSizeCategory = true
         textField.returnKeyType = UIReturnKeyType.done
         //add text field into cell
-        addSubview(textField)
+        contentView.addSubview(textField)
         //setup constraints
         setupConstraints(subView: textField)
         //corner radius
-        textField.layer.cornerRadius = textFildHeight
+        textField.layer.cornerRadius = textFildHeight / 2
         textField.layer.borderWidth = 3
         textField.layer.borderColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         textField.clipsToBounds = true
+        needToSetCornerRadius = true
         
         youNameLabel = UILabel()
         youNameLabel.text = AppTexts.nameAppTexts
@@ -103,31 +112,30 @@ class SettingsTableViewCell: UITableViewCell {
     private func setupLabelOnlyCells(labelText: String) {
        
         let label = UILabel()
-        let lableHeight = (bounds.height - (constraintConstant * 2)) * 0.8
+        let lableHeight = (lowCellHeight - (constraintConstant * 2))
        
        //text settings
 
         label.textColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
         label.textAlignment = .center
         label.backgroundColor = .clear
-        label.font = UIFont(name: "AmericanTypewriter", size:  lableHeight)
+        label.font = UIFont(name: "AmericanTypewriter", size:  lableHeight * 0.3)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.1
 //        label.sizeToFit()
         label.text = labelText
         
-        
-       //corner radius
-       label.layer.cornerRadius = lableHeight
+      
+       label.layer.cornerRadius = lableHeight / 2
        label.layer.borderWidth = 3
        label.layer.borderColor = #colorLiteral(red: 0.2500994205, green: 0.2834563255, blue: 1, alpha: 1)
        label.clipsToBounds = true
-        
+        needToSetCornerRadius = true
         //add text field into cell
-        addSubview(label)
+        contentView.addSubview(label)
         //setup constraints
         setupConstraints(subView: label)
-        
+     
     }
     
     // setup image for bottleVolume question

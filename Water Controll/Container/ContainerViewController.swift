@@ -22,10 +22,11 @@ class ContainerViewController: UIViewController {
     
     //rate app
     let needTimesPourWaterToCallRateMenu: Int16 = 15
-//    later
-    let productURLString = "https://apps.apple.com/ru/app/%D1%8F%D0%BD%D0%B4%D0%B5%D0%BA%D1%81-%D0%BD%D0%B0%D0%B2%D0%B8%D0%B3%D0%B0%D1%82%D0%BE%D1%80-gps-%D0%BF%D1%80%D0%BE%D0%B1%D0%BA%D0%B8/id474500851"
-    
-    
+
+    //    product url
+    let productURLString =
+        "https://apps.apple.com/us/app/water-balance-amazing-bottle/id1557104587"
+           
     //max 5 users
     let maxUsers = 5
     var isMaximumUsers = false
@@ -91,14 +92,16 @@ class ContainerViewController: UIViewController {
     
     //ads - banner
     var bannerView: GADBannerView!
+    //later
     let bannerViewId = "ca-app-pub-3940256099942544/2934735716"
     var blurViewBehindBanner: UIView?
     var viewBehindAlertAnderBanner: UIView?
     
     //ads consent
     var isGoogleAdsStarted = false
+    // later check
     let publisherIdentifiers = ["pub-4369651523388674"]
-    let privacyUrl = "https://www.your.com/privacyurl"
+    let privacyUrl = "https://sites.google.com/view/waterbalance-amazingbottle/privacypolicy"
     //ump consent
     var canRepeatRequestUMPConsent = true
     
