@@ -45,6 +45,9 @@ extension ContainerViewController {
         
             saveContextInLocalDataBase()
             
+            guard currentUser != nil else {
+                return
+            }
             if currentUser.isAutoFillBottleType, gameViewController != nil, menuViewController != nil {
                 (gameViewController as? GameViewController)?.currentWaterLevel = currentUser.currentVolume
                 (gameViewController as! GameViewController).typeAnimationComplitionFromMenuViewController = .transferCurrentUserInMenuViewController
