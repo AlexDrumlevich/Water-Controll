@@ -28,6 +28,7 @@ extension SettingsViewController: UITableViewDelegate {
                     return 0
                 }
             }
+    
             return settingsViewControllerTableViewCellType.cellHeightMultiplicator * view.bounds.height
             // notifications time a day
         } else if tableView.tag == 2 {
@@ -177,7 +178,7 @@ extension SettingsViewController: UITableViewDataSource {
             
             switch SettingsViewControllerTableViewCellType(rawValue: indexPath.row) {
             case .name:
-                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!)
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!, lowCellHeight:  SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!.cellHeightMultiplicator * view.bounds.height)
                 //additional setup text fild and add actions
                 nameTextField = cell.textField
                 nameTextField.placeholder = AppTexts.changeNameAppTexts//currentUser.name ?? ""
@@ -208,17 +209,17 @@ extension SettingsViewController: UITableViewDataSource {
                 setupVolumeBottleCell()
                 
             case .isAutoFillWater:
-                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!, cellIsHidden: !accessController!.premiumAccount)
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!, cellIsHidden: !accessController!.premiumAccount, lowCellHeight: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!.cellHeightMultiplicator * view.bounds.height)
                 isAutoFillBottleTypeLabel = cell.isAutoFillBottleLabelView
                 setupIsAutoFillBottleCell()
                 
             case .restorePurchases:
                 
                 cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!, cellIsHidden:
-                                accessController!.premiumAccount)
+                                accessController!.premiumAccount, lowCellHeight: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!.cellHeightMultiplicator * view.bounds.height)
                 
             default:
-                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!)
+                cell.setupCell(with: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!, lowCellHeight: SettingsViewControllerTableViewCellType(rawValue: indexPath.row)!.cellHeightMultiplicator * view.bounds.height)
                 
             }
             return cell

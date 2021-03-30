@@ -37,6 +37,10 @@ extension ContainerViewController {
             for user in users {
                 user.isEmptyBottle = true
                 user.currentVolume = 0
+                
+                if gameViewController != nil {
+                    (gameViewController as? GameViewController)?.currentUser = currentUser
+                }
             }
         
             saveContextInLocalDataBase()

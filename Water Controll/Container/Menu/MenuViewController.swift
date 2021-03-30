@@ -17,8 +17,8 @@ class MenuViewController: UIViewController {
     //product url
     var productURLString = ""
     //URL to get information in app store
-    //later
-    let appURLInAppStoreToGetVersion = "http://itunes.apple.com/jp/lookup/?id=474500851"
+    // get app version 
+    let appURLInAppStoreToGetVersion = "http://itunes.apple.com/jp/lookup/?id=1557104587"
     
     
     let constraintConstant: CGFloat = 5
