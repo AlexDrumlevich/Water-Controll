@@ -175,8 +175,8 @@ extension ContainerViewController {
         //test
         // Geography appears as in EEA for debug devices.
         
-        
-      PACConsentInformation.sharedInstance.debugGeography = .EEA
+        // test
+      //PACConsentInformation.sharedInstance.debugGeography = .EEA
         
         
         // Geography appears as not in EEA for debug devices.
