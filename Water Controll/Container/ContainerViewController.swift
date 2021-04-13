@@ -94,9 +94,9 @@ class ContainerViewController: UIViewController {
     var bannerView: GADBannerView!
     
     //real ID
-    let bannerViewId = "ca-app-pub-4369651523388674/6897336216"
+   // let bannerViewId = "ca-app-pub-4369651523388674/6897336216"
     //test
-    //let bannerViewId = "ca-app-pub-3940256099942544/2934735716"
+    let bannerViewId = "ca-app-pub-3940256099942544/2934735716"
     var blurViewBehindBanner: UIView?
     var viewBehindAlertAnderBanner: UIView?
     
