@@ -37,6 +37,10 @@
 		<key>NSAllowsArbitraryLoadsInWebContent</key>
 		<true/>
 	</dict>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>DrinkWaterIntent</string>
+	</array>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>App will use identifiers to deliver ads to you.</string>
 	<key>SKAdNetworkItems</key>

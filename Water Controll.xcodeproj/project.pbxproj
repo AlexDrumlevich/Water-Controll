@@ -77,6 +77,15 @@
 		808343C225434C3500858FEC /* GotWater+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */; };
 		808343C325434C3500858FEC /* GotWater+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343C125434C3500858FEC /* GotWater+CoreDataProperties.swift */; };
 		8083A51A250732920066C56E /* AlertControllerCategoryActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083A519250732920066C56E /* AlertControllerCategoryActions.swift */; };
+		8083CBF62626899600F65583 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8083CBF52626899600F65583 /* Intents.framework */; };
+		8083CBF8262689A000F65583 /* IntentsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8083CBF7262689A000F65583 /* IntentsUI.framework */; };
+		8083CC07262A7CF800F65583 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8083CBF52626899600F65583 /* Intents.framework */; };
+		8083CC0A262A7CF800F65583 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083CC09262A7CF800F65583 /* IntentHandler.swift */; };
+		8083CC1E262A7CF800F65583 /* SiriIntensionExtention.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8083CC06262A7CF800F65583 /* SiriIntensionExtention.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8083CC58262BEB2900F65583 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8083CC57262BEB2900F65583 /* Intents.intentdefinition */; };
+		8083CC59262BEB2900F65583 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 8083CC57262BEB2900F65583 /* Intents.intentdefinition */; };
+		8083CC672632688A00F65583 /* SiriIntentionSupporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083CC662632688A00F65583 /* SiriIntentionSupporting.swift */; };
+		8083CC682632688A00F65583 /* SiriIntentionSupporting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8083CC662632688A00F65583 /* SiriIntentionSupporting.swift */; };
 		8093B41F25BA787400F47726 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093B41E25BA787400F47726 /* IAP.swift */; };
 		8093B42525BA7AFB00F47726 /* IAPProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093B42425BA7AFB00F47726 /* IAPProducts.swift */; };
 		8093B42F25BB1CFF00F47726 /* PurchaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8093B42E25BB1CFF00F47726 /* PurchaseController.swift */; };
@@ -122,7 +131,28 @@
 			remoteGlobalIDString = 806268692476386A0056BA8F;
 			remoteInfo = "Water Controll";
 		};
+		8083CC1C262A7CF800F65583 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 806268622476386A0056BA8F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8083CC05262A7CF800F65583;
+			remoteInfo = SiriIntensionExtention;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8083CC25262A7CF800F65583 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8083CC1E262A7CF800F65583 /* SiriIntensionExtention.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0A0650FDE67D8CF0CB283B82 /* Pods-Water Controll-Water ControllUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Water Controll-Water ControllUITests.release.xcconfig"; path = "Target Support Files/Pods-Water Controll-Water ControllUITests/Pods-Water Controll-Water ControllUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -204,6 +234,15 @@
 		808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataClass.swift"; path = "../../GotWater+CoreDataClass.swift"; sourceTree = "<group>"; };
 		808343C125434C3500858FEC /* GotWater+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataProperties.swift"; path = "../../GotWater+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8083A519250732920066C56E /* AlertControllerCategoryActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerCategoryActions.swift; sourceTree = "<group>"; };
+		8083CBF12625433200F65583 /* Water Controll.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Water Controll.entitlements"; sourceTree = "<group>"; };
+		8083CBF52626899600F65583 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
+		8083CBF7262689A000F65583 /* IntentsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntentsUI.framework; path = System/Library/Frameworks/IntentsUI.framework; sourceTree = SDKROOT; };
+		8083CC06262A7CF800F65583 /* SiriIntensionExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SiriIntensionExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8083CC09262A7CF800F65583 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
+		8083CC0B262A7CF800F65583 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8083CC57262BEB2900F65583 /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
+		8083CC64263263B200F65583 /* SiriIntensionExtention.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SiriIntensionExtention.entitlements; sourceTree = "<group>"; };
+		8083CC662632688A00F65583 /* SiriIntentionSupporting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiriIntentionSupporting.swift; sourceTree = "<group>"; };
 		8093B41E25BA787400F47726 /* IAP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.swift; sourceTree = "<group>"; };
 		8093B42425BA7AFB00F47726 /* IAPProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProducts.swift; sourceTree = "<group>"; };
 		8093B42E25BB1CFF00F47726 /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
@@ -248,7 +287,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8083CBF62626899600F65583 /* Intents.framework in Frameworks */,
 				68E0FEF60DF1DD543A837B46 /* Pods_Water_Controll.framework in Frameworks */,
+				8083CBF8262689A000F65583 /* IntentsUI.framework in Frameworks */,
 				80489D94256A38D400CE26AA /* AppTrackingTransparency.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,6 +307,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				29BA5EED103F0CA44F520128 /* Pods_Water_Controll_Water_ControllUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8083CC03262A7CF800F65583 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8083CC07262A7CF800F65583 /* Intents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +512,8 @@
 				8062686C2476386A0056BA8F /* Water Controll */,
 				806268832476386B0056BA8F /* Water ControllTests */,
 				8062688E2476386B0056BA8F /* Water ControllUITests */,
+				8083CC652632682E00F65583 /* SiriIntentionsSupporting */,
+				8083CC08262A7CF800F65583 /* SiriIntensionExtention */,
 				8062686B2476386A0056BA8F /* Products */,
 				56D3A9BC6F2ED07F2945159B /* Pods */,
 				D508454D907EA5CBF6D928BE /* Frameworks */,
@@ -475,6 +526,7 @@
 				8062686A2476386A0056BA8F /* Water Controll.app */,
 				806268802476386B0056BA8F /* Water ControllTests.xctest */,
 				8062688B2476386B0056BA8F /* Water ControllUITests.xctest */,
+				8083CC06262A7CF800F65583 /* SiriIntensionExtention.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -482,6 +534,7 @@
 		8062686C2476386A0056BA8F /* Water Controll */ = {
 			isa = PBXGroup;
 			children = (
+				8083CBF12625433200F65583 /* Water Controll.entitlements */,
 				8093B41325B7505D00F47726 /* Resource */,
 				80AAFE0A2478CBA1003DD185 /* Container */,
 				8053FCB02483704200A4418A /* Model */,
@@ -517,6 +570,25 @@
 				805033ED250B16EB002BA456 /* AlertIdentifires.swift */,
 			);
 			path = AlertController;
+			sourceTree = "<group>";
+		};
+		8083CC08262A7CF800F65583 /* SiriIntensionExtention */ = {
+			isa = PBXGroup;
+			children = (
+				8083CC64263263B200F65583 /* SiriIntensionExtention.entitlements */,
+				8083CC09262A7CF800F65583 /* IntentHandler.swift */,
+				8083CC0B262A7CF800F65583 /* Info.plist */,
+			);
+			path = SiriIntensionExtention;
+			sourceTree = "<group>";
+		};
+		8083CC652632682E00F65583 /* SiriIntentionsSupporting */ = {
+			isa = PBXGroup;
+			children = (
+				8083CC57262BEB2900F65583 /* Intents.intentdefinition */,
+				8083CC662632688A00F65583 /* SiriIntentionSupporting.swift */,
+			);
+			path = SiriIntentionsSupporting;
 			sourceTree = "<group>";
 		};
 		8093B41325B7505D00F47726 /* Resource */ = {
@@ -676,6 +748,8 @@
 		D508454D907EA5CBF6D928BE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8083CBF7262689A000F65583 /* IntentsUI.framework */,
+				8083CBF52626899600F65583 /* Intents.framework */,
 				80489D93256A38D400CE26AA /* AppTrackingTransparency.framework */,
 				8C2D83C9F02A950777756885 /* Pods_Water_Controll.framework */,
 				D5A500D9F1E563ED6467006E /* Pods_Water_Controll_Water_ControllUITests.framework */,
@@ -696,10 +770,12 @@
 				806268672476386A0056BA8F /* Frameworks */,
 				806268682476386A0056BA8F /* Resources */,
 				1EC4F29A7D0C495FD2B1A0D1 /* [CP] Embed Pods Frameworks */,
+				8083CC25262A7CF800F65583 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8083CC1D262A7CF800F65583 /* PBXTargetDependency */,
 			);
 			name = "Water Controll";
 			productName = "Water Controll";
@@ -745,13 +821,30 @@
 			productReference = 8062688B2476386B0056BA8F /* Water ControllUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		8083CC05262A7CF800F65583 /* SiriIntensionExtention */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8083CC22262A7CF800F65583 /* Build configuration list for PBXNativeTarget "SiriIntensionExtention" */;
+			buildPhases = (
+				8083CC02262A7CF800F65583 /* Sources */,
+				8083CC03262A7CF800F65583 /* Frameworks */,
+				8083CC04262A7CF800F65583 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SiriIntensionExtention;
+			productName = SiriIntensionExtention;
+			productReference = 8083CC06262A7CF800F65583 /* SiriIntensionExtention.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		806268622476386A0056BA8F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1230;
 				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "ALEXEY DRUMLEVICH";
 				TargetAttributes = {
@@ -765,6 +858,9 @@
 					8062688A2476386B0056BA8F = {
 						CreatedOnToolsVersion = 11.3.1;
 						TestTargetID = 806268692476386A0056BA8F;
+					};
+					8083CC05262A7CF800F65583 = {
+						CreatedOnToolsVersion = 12.3;
 					};
 				};
 			};
@@ -787,6 +883,7 @@
 				806268692476386A0056BA8F /* Water Controll */,
 				8062687F2476386B0056BA8F /* Water ControllTests */,
 				8062688A2476386B0056BA8F /* Water ControllUITests */,
+				8083CC05262A7CF800F65583 /* SiriIntensionExtention */,
 			);
 		};
 /* End PBXProject section */
@@ -814,6 +911,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		806268892476386B0056BA8F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8083CC04262A7CF800F65583 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -930,6 +1034,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8083CC58262BEB2900F65583 /* Intents.intentdefinition in Sources */,
 				808343C325434C3500858FEC /* GotWater+CoreDataProperties.swift in Sources */,
 				805033F0250B17E4002BA456 /* ExtentionAlertControllerCustom.swift in Sources */,
 				8042640A251AF51A009B29F5 /* GraphCollectionViewCell.swift in Sources */,
@@ -942,6 +1047,7 @@
 				8041AD822588767A007EB9AC /* GameViewControllerWalkAnimation.swift in Sources */,
 				80AB165F25A8106100896B6F /* ExtensionCheckNewAppVersion.swift in Sources */,
 				80ED10AB258BBF6B00B3F915 /* GameViewControolerRichedAimAnimation.swift in Sources */,
+				8083CC672632688A00F65583 /* SiriIntentionSupporting.swift in Sources */,
 				808343C225434C3500858FEC /* GotWater+CoreDataClass.swift in Sources */,
 				803E6F9C247C45F500C19DF9 /* ExtentionSettingsViewControllerTableview.swift in Sources */,
 				80ED10BA259EF4FF00B3F915 /* ContainerViewControllerPurchaseAndBecamePremiumAccaunt.swift in Sources */,
@@ -1034,6 +1140,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8083CC02262A7CF800F65583 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8083CC59262BEB2900F65583 /* Intents.intentdefinition in Sources */,
+				8083CC682632688A00F65583 /* SiriIntentionSupporting.swift in Sources */,
+				8083CC0A262A7CF800F65583 /* IntentHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1046,6 +1162,11 @@
 			isa = PBXTargetDependency;
 			target = 806268692476386A0056BA8F /* Water Controll */;
 			targetProxy = 8062688C2476386B0056BA8F /* PBXContainerItemProxy */;
+		};
+		8083CC1D262A7CF800F65583 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8083CC05262A7CF800F65583 /* SiriIntensionExtention */;
+			targetProxy = 8083CC1C262A7CF800F65583 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1197,10 +1318,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EFFDFC2FB7204B22C9E89B3B /* Pods-Water Controll.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Water Controll/Water Controll.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 457AUZSV22;
 				INFOPLIST_FILE = "Water Controll/Support/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1208,7 +1331,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ALEXEY-DRUMLEVICH.Water-Controll";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1220,10 +1343,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A937873007C57E0582934956 /* Pods-Water Controll.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Water Controll/Water Controll.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 457AUZSV22;
 				INFOPLIST_FILE = "Water Controll/Support/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1231,7 +1356,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ALEXEY-DRUMLEVICH.Water-Controll";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1325,6 +1450,54 @@
 			};
 			name = Release;
 		};
+		8083CC23262A7CF800F65583 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SiriIntensionExtention/SiriIntensionExtention.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 457AUZSV22;
+				INFOPLIST_FILE = SiriIntensionExtention/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "ALEXEY-DRUMLEVICH.Water-Controll.SiriIntensionExtention";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8083CC24262A7CF800F65583 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SiriIntensionExtention/SiriIntensionExtention.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 457AUZSV22;
+				INFOPLIST_FILE = SiriIntensionExtention/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = "ALEXEY-DRUMLEVICH.Water-Controll.SiriIntensionExtention";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1360,6 +1533,15 @@
 			buildConfigurations = (
 				8062689B2476386B0056BA8F /* Debug */,
 				8062689C2476386B0056BA8F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8083CC22262A7CF800F65583 /* Build configuration list for PBXNativeTarget "SiriIntensionExtention" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8083CC23262A7CF800F65583 /* Debug */,
+				8083CC24262A7CF800F65583 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
