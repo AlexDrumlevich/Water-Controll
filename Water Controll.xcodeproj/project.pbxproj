@@ -204,6 +204,7 @@
 		808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataClass.swift"; path = "../../GotWater+CoreDataClass.swift"; sourceTree = "<group>"; };
 		808343C125434C3500858FEC /* GotWater+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "GotWater+CoreDataProperties.swift"; path = "../../GotWater+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8083A519250732920066C56E /* AlertControllerCategoryActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerCategoryActions.swift; sourceTree = "<group>"; };
+		8083CD0F263B9AA900F65583 /* Water Controll.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Water Controll.entitlements"; sourceTree = "<group>"; };
 		8093B41E25BA787400F47726 /* IAP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.swift; sourceTree = "<group>"; };
 		8093B42425BA7AFB00F47726 /* IAPProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPProducts.swift; sourceTree = "<group>"; };
 		8093B42E25BB1CFF00F47726 /* PurchaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseController.swift; sourceTree = "<group>"; };
@@ -482,6 +483,7 @@
 		8062686C2476386A0056BA8F /* Water Controll */ = {
 			isa = PBXGroup;
 			children = (
+				8083CD0F263B9AA900F65583 /* Water Controll.entitlements */,
 				8093B41325B7505D00F47726 /* Resource */,
 				80AAFE0A2478CBA1003DD185 /* Container */,
 				8053FCB02483704200A4418A /* Model */,
@@ -1198,9 +1200,10 @@
 			baseConfigurationReference = EFFDFC2FB7204B22C9E89B3B /* Pods-Water Controll.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Water Controll/Water Controll.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 457AUZSV22;
 				INFOPLIST_FILE = "Water Controll/Support/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1208,7 +1211,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ALEXEY-DRUMLEVICH.Water-Controll";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1221,9 +1224,10 @@
 			baseConfigurationReference = A937873007C57E0582934956 /* Pods-Water Controll.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Water Controll/Water Controll.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 457AUZSV22;
 				INFOPLIST_FILE = "Water Controll/Support/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
@@ -1231,7 +1235,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "ALEXEY-DRUMLEVICH.Water-Controll";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
