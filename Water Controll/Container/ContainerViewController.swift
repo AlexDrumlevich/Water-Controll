@@ -92,14 +92,17 @@ class ContainerViewController: UIViewController {
     
     //ads - banner
     var bannerView: GADBannerView!
-    //later
-    let bannerViewId = "ca-app-pub-3940256099942544/2934735716"
+    
+    //real ID
+    let bannerViewId = "ca-app-pub-4369651523388674/6897336216"
+    //test
+    //let bannerViewId = "ca-app-pub-3940256099942544/2934735716"
     var blurViewBehindBanner: UIView?
     var viewBehindAlertAnderBanner: UIView?
     
     //ads consent
     var isGoogleAdsStarted = false
-    // later check
+    
     let publisherIdentifiers = ["pub-4369651523388674"]
     let privacyUrl = "https://sites.google.com/view/waterbalance-amazingbottle/privacypolicy"
     //ump consent

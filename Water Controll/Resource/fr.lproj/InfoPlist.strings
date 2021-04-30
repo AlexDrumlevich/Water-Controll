@@ -6,8 +6,4 @@
   Copyright © 2021 ALEXEY DRUMLEVICH. All rights reserved.
 */
 
-
-"NSUserTrackingUsageDescription" = "To deliver ads to you.";
-
-"CFBundleDisplayName" = "Water balance: Amazing bottle";
-
+"NSUserTrackingUsageDescription" = "pour afficher des publicités.";
