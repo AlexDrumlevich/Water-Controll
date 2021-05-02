@@ -176,7 +176,7 @@ extension ContainerViewController {
         // Geography appears as in EEA for debug devices.
         
         // test
-      //PACConsentInformation.sharedInstance.debugGeography = .EEA
+      PACConsentInformation.sharedInstance.debugGeography = .EEA
         
         
         // Geography appears as not in EEA for debug devices.
@@ -225,7 +225,7 @@ extension ContainerViewController {
                             //prepare for request IDFA if needed pr save
                             if PACConsentInformation.sharedInstance.consentStatus == .nonPersonalized {
                                 self.prepareToRequestIDFA()
-                               // self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
+                              // self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
                             } else {
                                 self.prepareToRequestIDFA()
                             }
@@ -356,7 +356,8 @@ extension ContainerViewController {
                         self.needToSaveConsentInDataBase = true
                         
                         if status == .nonPersonalized {
-                            self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
+                            self.prepareToRequestIDFA()
+                            //self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
                         } else {
                             self.prepareToRequestIDFA()
                         }
