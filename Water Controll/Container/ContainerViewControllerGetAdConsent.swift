@@ -224,7 +224,8 @@ extension ContainerViewController {
                             self.needToSaveConsentInDataBase = false
                             //prepare for request IDFA if needed pr save
                             if PACConsentInformation.sharedInstance.consentStatus == .nonPersonalized {
-                                self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
+                                self.prepareToRequestIDFA()
+                               // self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
                             } else {
                                 self.prepareToRequestIDFA()
                             }
