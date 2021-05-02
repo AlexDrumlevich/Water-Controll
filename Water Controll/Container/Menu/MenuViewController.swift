@@ -52,9 +52,11 @@ class MenuViewController: UIViewController {
     var rewardedAd: GADRewardedAd?
     var needsTimesToLoadRewardedAd: Int = 0
     //real ID
-    let rewardedAdId = "ca-app-pub-4369651523388674/1611002908"
-    //test
-   // let rewardedAdId = "ca-app-pub-3940256099942544/1712485313"
+
+    //let rewardedAdId = "ca-app-pub-4369651523388674/1611002908"
+    // test
+   let rewardedAdId = "ca-app-pub-3940256099942544/1712485313"
+
     
     //flag to load new video after watching
     var adLoadCount = 1
