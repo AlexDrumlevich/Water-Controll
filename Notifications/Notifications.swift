@@ -209,7 +209,7 @@ class Notifications: NSObject, UNUserNotificationCenterDelegate {
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         //в замыкании мы прописываем те опции с которыми должно прийти уведомление
-        completionHandler([.alert, .sound])
+        completionHandler([.badge, .sound])
     }
     
     
