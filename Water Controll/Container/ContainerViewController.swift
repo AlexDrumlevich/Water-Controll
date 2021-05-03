@@ -95,7 +95,7 @@ class ContainerViewController: UIViewController {
     
     //real ID
     //let bannerViewId = "ca-app-pub-4369651523388674/6897336216"
-    //test
+    //test banner
     let bannerViewId = "ca-app-pub-3940256099942544/2934735716"
     var blurViewBehindBanner: UIView?
     var viewBehindAlertAnderBanner: UIView?

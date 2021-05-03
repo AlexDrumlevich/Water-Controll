@@ -95,6 +95,7 @@ extension ContainerViewController {
         if !isGoogleAdsStarted{
             GADMobileAds.sharedInstance().start(completionHandler: nil)
             isGoogleAdsStarted = true
+            print("ads was started")
         }
     }
     
@@ -108,9 +109,14 @@ extension ContainerViewController {
                 switch ATTrackingManager.trackingAuthorizationStatus {
                 case .authorized:
                     print("authorized")
+                    //start google ads
+                    self.startGoogleAds()
+                    //save consent
                     self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
                 case .restricted:
                     print("restricted")
+                    //start google ads
+                    self.startGoogleAds()
                     self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
                 case .denied:
                     print("denied")
@@ -124,6 +130,7 @@ extension ContainerViewController {
                 
                 
             } else {
+                self.startGoogleAds()
                 // Fallback on earlier versions
                 self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
                 
@@ -172,7 +179,7 @@ extension ContainerViewController {
         self.callSaveFunctionFromGetOneMoreBottle = callFromGetOneMoreBottle
         
         //for testing
-        //test
+        //test geography
         // Geography appears as in EEA for debug devices.
         
         // test
@@ -212,7 +219,8 @@ extension ContainerViewController {
                     case .nonPersonalized, .personalized:
                         
                         //start ads
-                        self.startGoogleAds()
+                        //move to prepare IDFA request
+                        //self.startGoogleAds()
                         
                         if changeAdConsent {
                             
@@ -259,7 +267,8 @@ extension ContainerViewController {
                     if let isAdConsentWasGotten = self.accessController?.isGotConsent {
                         if isAdConsentWasGotten {
                             //start ads
-                            self.startGoogleAds()
+                            //move to prepare request IDFA
+                           // self.startGoogleAds()
                             
                             if changeAdConsent {
                                 DispatchQueue.main.async {
@@ -340,7 +349,7 @@ extension ContainerViewController {
                        // self.becamePremiumAccaunt()
                     } else {
                         //start ads
-                        self.startGoogleAds()
+                       // self.startGoogleAds() - move to prepare IDFA
                         // Check the user's consent choice.
                         let status =
                             PACConsentInformation.sharedInstance.consentStatus
@@ -356,7 +365,8 @@ extension ContainerViewController {
                         self.needToSaveConsentInDataBase = true
                         
                         if status == .nonPersonalized {
-                            self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
+                            self.prepareToRequestIDFA()
+                            //self.saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: self.callSaveFunctionFromGetOneMoreBottle, needToSaveInDataBase: self.needToSaveConsentInDataBase)
                         } else {
                             self.prepareToRequestIDFA()
                         }

@@ -48,7 +48,7 @@ extension ContainerViewController: AlertControllerCustomActions {
             //ads
             case .getAdConsentNotForEEA:
                 //start ads
-                startGoogleAds()
+                //startGoogleAds()
                 
                 saveGotConsentAndChangeStatus(with: self.saveText, callFromGetOneMoreBottle: false, needToSaveInDataBase: true, needToSetTrueisAdsConsent: false)
                 DispatchQueue.main.async {

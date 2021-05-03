@@ -54,7 +54,7 @@ class MenuViewController: UIViewController {
     //real ID
 
     //let rewardedAdId = "ca-app-pub-4369651523388674/1611002908"
-    // test
+    //test reward
    let rewardedAdId = "ca-app-pub-3940256099942544/1712485313"
 
     
