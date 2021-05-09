@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         //new Day Begining Set Empty Bottles Control
-        containerViewController.newDayBeginingSetEmptyBottlesControl()
+        //containerViewController.newDayBeginingSetEmptyBottlesControl()
        
         // fill all misses got water dates
         containerViewController.gotWaterFill()
@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-      
+        //new Day Begining Set Empty Bottles Control
         containerViewController.newDayBeginingSetEmptyBottlesControl()
         
         // check new version

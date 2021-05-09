@@ -38,8 +38,8 @@ extension ContainerViewController {
                 user.isEmptyBottle = true
                 user.currentVolume = 0
                 
-                if gameViewController != nil {
-                    (gameViewController as? GameViewController)?.currentUser = currentUser
+                if user.currentUser == true {
+                    currentUser = user
                 }
             }
         
@@ -48,6 +48,12 @@ extension ContainerViewController {
             guard currentUser != nil else {
                 return
             }
+            
+            
+            if gameViewController != nil {
+                (gameViewController as? GameViewController)?.currentUser = currentUser
+            }
+            
             if currentUser.isAutoFillBottleType, gameViewController != nil, menuViewController != nil {
                 (gameViewController as? GameViewController)?.currentWaterLevel = currentUser.currentVolume
                 (gameViewController as! GameViewController).typeAnimationComplitionFromMenuViewController = .transferCurrentUserInMenuViewController
