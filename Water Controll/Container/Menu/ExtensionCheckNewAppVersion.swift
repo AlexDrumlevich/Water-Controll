@@ -19,29 +19,50 @@ extension MenuViewController {
     
     func checkNewAppVersionAndNotifyUserAboutNewVersion() {
         
-        guard let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String, accessController != nil, let containerVC = self.parent as? ContainerViewController else {
-            return
-        }
+        
+        // we have last version in store, current app version store (named in store), current app version  develop (named in xCode). if  CAVS and CAVD not equal so we had auto update and save new values else we notify user
+        
+        
+        guard accessController != nil, let containerVC = self.parent as? ContainerViewController else { return }
         
         // get last version from app store
         fetchAppVersionInAppStore { (lastVersion) in
             guard let lastVersionInAppStore = lastVersion else {
                 return
             }
+            //get current version from the app
             
-            // if we have last version
-            if lastVersionInAppStore == currentAppVersion {
-                if self.accessController!.userWasNotifiedAboutNewAppVersion {
-                    self.accessController?.userWasNotifiedAboutNewAppVersion = false
-                    containerVC.saveContextInLocalDataBase()
-                }
+            guard let currentAppVersionDevelop = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else { return }
+            
+            // if we have nil in data base we save current versions
+            guard var lastAppVersionInAppDataBase = self.accessController?.lastAppVerion,
+                  var currentAppVersionStoreDataBase = self.accessController?.currrentAppVersionStore,
+                  var currentAppVersionDevelopmentDataBase = self.accessController?.currentAppVersionDevelopment
+            else {
+                self.accessController?.lastAppVerion = lastVersionInAppStore
+                self.accessController?.currrentAppVersionStore = lastVersionInAppStore
+                self.accessController?.currentAppVersionDevelopment = currentAppVersionDevelop
+                containerVC.saveContextInLocalDataBase()
                 return
+            }
+            
+            print(lastVersionInAppStore, lastAppVersionInAppDataBase)
+            
+            // if we have last version (if both not equal so we have updated version)
+            if lastVersionInAppStore != currentAppVersionStoreDataBase && currentAppVersionDevelop != currentAppVersionDevelopmentDataBase {
+                currentAppVersionDevelopmentDataBase = currentAppVersionDevelop
+                currentAppVersionStoreDataBase = lastVersionInAppStore
+                lastAppVersionInAppDataBase = lastVersionInAppStore
+                containerVC.saveContextInLocalDataBase()
+                return
+            }  else if lastVersionInAppStore != currentAppVersionStoreDataBase && currentAppVersionDevelop == currentAppVersionDevelopmentDataBase {
                 
-                // we don`t have last version
-            } else {
-                if self.accessController!.userWasNotifiedAboutNewAppVersion {
-                    return
-                } else {
+                //develop
+                // button - new version available
+                
+                if lastVersionInAppStore != lastAppVersionInAppDataBase {
+                    lastAppVersionInAppDataBase = lastVersionInAppStore
+                    containerVC.saveContextInLocalDataBase()
                     DispatchQueue.main.async {
                         self.userNotifaingAboutNewAppVersion()
                     }
@@ -107,11 +128,13 @@ extension MenuViewController {
             
             
             
+            
+            
             guard let jsonDictionary = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
                 completion(nil)
                 return
             }
-            
+            print(jsonDictionary)
             
             
             guard let jsonDictionaryResults = jsonDictionary["results"] as? [[String: Any]] else {

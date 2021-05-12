@@ -71,6 +71,8 @@
 		806268902476386B0056BA8F /* Water_ControllUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8062688F2476386B0056BA8F /* Water_ControllUITests.swift */; };
 		807208B624CA928D00EEB68B /* PourWaterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807208B524CA928D00EEB68B /* PourWaterMenu.swift */; };
 		807208B824CAD48300EEB68B /* PourWaterMenuPickersDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807208B724CAD48300EEB68B /* PourWaterMenuPickersDelegate.swift */; };
+		807400FA264B863900B48B60 /* AccessController+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807400F8264B863900B48B60 /* AccessController+CoreDataClass.swift */; };
+		807400FB264B863900B48B60 /* AccessController+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 807400F9264B863900B48B60 /* AccessController+CoreDataProperties.swift */; };
 		8082B80025E4B19700B6538F /* ContainerViewControllerChangeConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8082B7FF25E4B19700B6538F /* ContainerViewControllerChangeConstraints.swift */; };
 		8082B81325E5F90700B6538F /* GameViewControllerSunAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8082B81225E5F90700B6538F /* GameViewControllerSunAction.swift */; };
 		808343BF25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 808343BE25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift */; };
@@ -92,8 +94,6 @@
 		80AAFE14247A916E003DD185 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AAFE13247A916E003DD185 /* SettingsViewController.swift */; };
 		80AB165925A57C1300896B6F /* GameViewControllerBublesAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB165825A57C1300896B6F /* GameViewControllerBublesAnimation.swift */; };
 		80AB165F25A8106100896B6F /* ExtensionCheckNewAppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB165E25A8106100896B6F /* ExtensionCheckNewAppVersion.swift */; };
-		80AB167825A8CBFB00896B6F /* AccessController+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB167725A8CBFB00896B6F /* AccessController+CoreDataProperties.swift */; };
-		80AB167D25A8CC0500896B6F /* AccessController+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB167C25A8CC0500896B6F /* AccessController+CoreDataClass.swift */; };
 		80AB168925A95F5300896B6F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80AB168B25A95F5300896B6F /* Localizable.strings */; };
 		80AB169525A9968300896B6F /* AppTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80AB169425A9968300896B6F /* AppTexts.swift */; };
 		80AB16A525B3F1CB00896B6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 80AB16A725B3F1CB00896B6F /* InfoPlist.strings */; };
@@ -198,6 +198,8 @@
 		806268912476386B0056BA8F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		807208B524CA928D00EEB68B /* PourWaterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PourWaterMenu.swift; sourceTree = "<group>"; };
 		807208B724CAD48300EEB68B /* PourWaterMenuPickersDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PourWaterMenuPickersDelegate.swift; sourceTree = "<group>"; };
+		807400F8264B863900B48B60 /* AccessController+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataClass.swift"; path = "../../AccessController+CoreDataClass.swift"; sourceTree = "<group>"; };
+		807400F9264B863900B48B60 /* AccessController+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataProperties.swift"; path = "/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		8082B7FF25E4B19700B6538F /* ContainerViewControllerChangeConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerChangeConstraints.swift; sourceTree = "<group>"; };
 		8082B81225E5F90700B6538F /* GameViewControllerSunAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerSunAction.swift; sourceTree = "<group>"; };
 		808343BE25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerGotWaterFill.swift; sourceTree = "<group>"; };
@@ -220,8 +222,6 @@
 		80AAFE13247A916E003DD185 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		80AB165825A57C1300896B6F /* GameViewControllerBublesAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerBublesAnimation.swift; sourceTree = "<group>"; };
 		80AB165E25A8106100896B6F /* ExtensionCheckNewAppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionCheckNewAppVersion.swift; sourceTree = "<group>"; };
-		80AB167725A8CBFB00896B6F /* AccessController+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataProperties.swift"; path = "/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
-		80AB167C25A8CC0500896B6F /* AccessController+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AccessController+CoreDataClass.swift"; path = "/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		80AB168A25A95F5300896B6F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80AB168F25A95F5500896B6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		80AB169425A9968300896B6F /* AppTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTexts.swift; sourceTree = "<group>"; };
@@ -408,6 +408,8 @@
 		8053FCB02483704200A4418A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				807400F8264B863900B48B60 /* AccessController+CoreDataClass.swift */,
+				807400F9264B863900B48B60 /* AccessController+CoreDataProperties.swift */,
 				8053FCB12483706E00A4418A /* GeneralModel.swift */,
 				8053FD362483B30400A4418A /* Water Controll.xcdatamodeld */,
 				808343C025434C3500858FEC /* GotWater+CoreDataClass.swift */,
@@ -421,7 +423,6 @@
 				80A7B6EA24B19A0B00649034 /* NotificationStructure.swift */,
 				80489D6B25657B9600CE26AA /* AdConsents+CoreDataClass.swift */,
 				80489D6C25657B9700CE26AA /* AdConsents+CoreDataProperties.swift */,
-				80AB167C25A8CC0500896B6F /* AccessController+CoreDataClass.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -633,7 +634,6 @@
 				8054EE8B2557050400BDCFA5 /* ContainerViewController GADBannerViewDelegate.swift */,
 				8055912524C883000053B892 /* ContainerViewControllerCoreData.swift */,
 				805514D32488ACBE008B9731 /* ContainerViewComplitionActions.swift */,
-				80AB167725A8CBFB00896B6F /* AccessController+CoreDataProperties.swift */,
 				80534A1A24FA0A500066D853 /* ContainerViewControllerNotificationUpdate.swift */,
 				803F64AE250F0DCE001DEE90 /* ContainerViewControllerEmptyBottleInDayBeginning.swift */,
 				808343BE25334FA800858FEC /* ContainerViewControllerGotWaterFill.swift */,
@@ -973,6 +973,7 @@
 				80A7B6EB24B19A0B00649034 /* NotificationStructure.swift in Sources */,
 				80534A1B24FA0A500066D853 /* ContainerViewControllerNotificationUpdate.swift in Sources */,
 				804F82E525130DF100B66292 /* ExtentionSettingsViewControllerAlertControllerCustomDelegate.swift in Sources */,
+				807400FA264B863900B48B60 /* AccessController+CoreDataClass.swift in Sources */,
 				8040E84B24F029D60015C8C2 /* AlertControllerCustom.swift in Sources */,
 				804EBD6224AEDC0B007D480C /* NotificationsTimeSubsettingsMenuCell.swift in Sources */,
 				80426408251AF3AF009B29F5 /* GraphCollectionViewDelegates.swift in Sources */,
@@ -983,7 +984,6 @@
 				8050D94C251C4A26005C143A /* MenuViewControllerExtentionGraph.swift in Sources */,
 				80489D6E25657B9700CE26AA /* AdConsents+CoreDataClass.swift in Sources */,
 				805033EE250B16EB002BA456 /* AlertIdentifires.swift in Sources */,
-				80AB167825A8CBFB00896B6F /* AccessController+CoreDataProperties.swift in Sources */,
 				80AB169525A9968300896B6F /* AppTexts.swift in Sources */,
 				8051F007250890F600E0EBFC /* MenuActions.swift in Sources */,
 				8052826B24A859A8000A8F11 /* NotificationsTime+CoreDataClass.swift in Sources */,
@@ -1004,12 +1004,12 @@
 				8055912624C883000053B892 /* ContainerViewControllerCoreData.swift in Sources */,
 				8042640225170908009B29F5 /* ExtentionSettingsViewControllerDeleteUser.swift in Sources */,
 				80AAFE0C2478CBD7003DD185 /* ContainerViewController.swift in Sources */,
+				807400FB264B863900B48B60 /* AccessController+CoreDataProperties.swift in Sources */,
 				80AAFE052478C0FB003DD185 /* BottomMenuCollectionViewCell.swift in Sources */,
 				80489DAB257BB81500CE26AA /* ContainerViewControllerActivityIndicator.swift in Sources */,
 				80AAFE14247A916E003DD185 /* SettingsViewController.swift in Sources */,
 				8093B42F25BB1CFF00F47726 /* PurchaseController.swift in Sources */,
 				8041AD872588B647007EB9AC /* GameViewControllerPupilsMovementAnimation.swift in Sources */,
-				80AB167D25A8CC0500896B6F /* AccessController+CoreDataClass.swift in Sources */,
 				8082B80025E4B19700B6538F /* ContainerViewControllerChangeConstraints.swift in Sources */,
 				80ED10BF25A2323300B3F915 /* ExtensionCallRateApp.swift in Sources */,
 				805498AA248E505A0043DC2B /* ExtentionSettingViewControllerTextField.swift in Sources */,

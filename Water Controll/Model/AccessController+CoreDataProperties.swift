@@ -2,7 +2,7 @@
 //  AccessController+CoreDataProperties.swift
 //  
 //
-//  Created by ALEXEY DRUMLEVICH on 08.01.2021.
+//  Created by ALEXEY DRUMLEVICH on 12.05.2021.
 //
 //
 
@@ -24,5 +24,8 @@ extension AccessController {
     @NSManaged public var needTimesPourWaterToCallRateTheApp: Int16
     @NSManaged public var premiumAccount: Bool
     @NSManaged public var userWasNotifiedAboutNewAppVersion: Bool
+    @NSManaged public var lastAppVerion: String?
+    @NSManaged public var currentAppVersionDevelopment: String?
+    @NSManaged public var currrentAppVersionStore: String?
 
 }

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AccessController" representedClassName="AccessController" syncable="YES">
         <attribute name="bottelsAvailable" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="boundelAppRated" optional="YES" attributeType="String"/>
+        <attribute name="currentAppVersionDevelopment" optional="YES" attributeType="String"/>
         <attribute name="currentDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="currrentAppVersionStore" optional="YES" attributeType="String"/>
         <attribute name="isGotConsent" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lastAppVerion" optional="YES" attributeType="String"/>
         <attribute name="lastWatchingRewardAdsTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="needTimesPourWaterToCallRateTheApp" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="premiumAccount" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -53,7 +56,7 @@
     </entity>
     <entity name="UserWaterGraph" representedClassName="UserWaterGraph" syncable="YES"/>
     <elements>
-        <element name="AccessController" positionX="-54" positionY="81" width="128" height="163"/>
+        <element name="AccessController" positionX="-54" positionY="81" width="128" height="208"/>
         <element name="AdConsents" positionX="-45" positionY="99" width="128" height="73"/>
         <element name="GotWater" positionX="-54" positionY="18" width="128" height="118"/>
         <element name="NotificationsTime" positionX="-45" positionY="54" width="128" height="73"/>

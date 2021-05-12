@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataClass.swift">
+      location = "group:AccessController+CoreDataClass.swift">
    </FileRef>
    <FileRef
       location = "group:/Users/alexeydrumlevich/Projects/WaterController/Water Controll/Water Controll/Model/AccessController+CoreDataProperties.swift">
