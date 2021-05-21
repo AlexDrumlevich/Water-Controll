@@ -82,6 +82,7 @@ extension SettingsViewController {
            
             
             // add first got water data with zero volume and curren data
+            //this method also calls if we save new settings and this method change current volume in bottle if the user changed volume type
             if let containerViewController = self.parent as? ContainerViewController {
                   containerViewController.addPourWaterData(wasPoured: 0, date: Date(), user: currentUser)
             }

@@ -60,8 +60,8 @@
         <element name="AdConsents" positionX="-45" positionY="99" width="128" height="73"/>
         <element name="GotWater" positionX="-54" positionY="18" width="128" height="118"/>
         <element name="NotificationsTime" positionX="-45" positionY="54" width="128" height="73"/>
-        <element name="Notificaton" positionX="-54" positionY="36" width="128" height="163"/>
-        <element name="User" positionX="-63" positionY="-18" width="128" height="253"/>
+        <element name="Notificaton" positionX="-54" positionY="36" width="128" height="149"/>
+        <element name="User" positionX="-63" positionY="-18" width="128" height="14"/>
         <element name="UserWaterGraph" positionX="-36" positionY="54" width="128" height="43"/>
     </elements>
 </model>

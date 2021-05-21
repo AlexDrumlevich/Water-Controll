@@ -46,7 +46,7 @@ extension ContainerViewController {
         }
     }
     
-    private func getCurrentAppVersion () -> String {
+    private func getCurrentAppVersion() -> String {
         let bundle = Bundle.main
         let bundleVersionKey = kCFBundleVersionKey as String
         return bundle.object(forInfoDictionaryKey: bundleVersionKey) as? String ?? ""
@@ -292,6 +292,9 @@ extension ContainerViewController {
     
     
     // add poure water data when user poured water and when we create new user and set volume data in method saveSettingsAndClouseSettingsViewControllerAndSubviews
+    
+    //Framework? - if user change volume framework's method will return new value for user current volume, otherways return nil, if we get not nil we set values in current user and call saveContext method!
+    
     func addPourWaterData(wasPoured volume: Float, date: Date?, user: User) {
         
         // get array got water of current user
